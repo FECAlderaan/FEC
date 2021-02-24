@@ -1,5 +1,7 @@
-// src/index.js
-
-const add = (a = 1, b = 2) => {
-  return a + b
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+console.log('helloworld')
+ReactDOM.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('root')
+);
