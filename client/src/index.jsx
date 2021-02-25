@@ -1,9 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-console.log('helloworld')
+
+const App = () => {
+  return (
+    <h1>APP</h1>
+    // Product Detail
+    // Writings and Reviews
+    // Questions and Answers
+    )
+}
+
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
+  <App />,
   document.getElementById('root')
 );
 
