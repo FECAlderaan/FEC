@@ -1,10 +1,10 @@
 // webpack.config.js
 
 const path = require('path')
-const webpack = require('webpack')
+// const webpack = require('webpack')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './client/src/index.js',
   mode: 'development',
   module: {
     rules: [
