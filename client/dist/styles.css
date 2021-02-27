@@ -1,3 +1,31 @@
 body {
   box-sizing: border-box;
 }
+
+/* Product Overview Styling */
+
+#productOverview * {
+  display: flex;
+  font-size: 15px;
+}
+
+.productOverview-rating {
+  width: 75px;
+  line-height: 15px;
+  position: relative;
+  margin-right: 5px;
+}
+
+.productOverview-rating-empty {
+  position: absolute;
+  z-index: -1;
+}
+
+.productOverview-rating-filled {
+  overflow: hidden;
+  top: 20px;
+}
+
+#productOverview a {
+  line-height: 15px;
+}
