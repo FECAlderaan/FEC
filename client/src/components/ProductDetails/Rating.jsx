@@ -36,17 +36,18 @@ class Rating extends React.Component {
     if (rating === 0) {
       return null;
     }
-    var ratingRoundedPercent = (Math.round(rating * 4) / 4) * 20;
+    var ratingRoundedPercent = (Math.round(3.5 * 4) / 4) * 15;
+    console.log(ratingRoundedPercent);
     return (
-    <div>
-      <div className='productOverview-rating'>
-        <div className='productOverview-rating-filled' style={{'width': ratingRoundedPercent}}>
-          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-        </div>
-        <div className='productOverview-rating-empty'>
+    <div className='rating'>
+      <span>
+        <span className='rating-empty'>
           <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-        </div>
-      </div>
+        </span>
+        <span className='rating-filled' style={{'width': ratingRoundedPercent}}>
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </span>
+      </span>
       {/* might have to change this link depending on the id given to the ratings & reviews section */}
       <a href='#reviews'>Read {this.state.ratings.length === 1 ? '1 review' : `all ${this.state.ratings.length} reviews`}</a>
     </div>

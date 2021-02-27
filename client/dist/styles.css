@@ -4,28 +4,61 @@ body {
 
 /* Product Overview Styling */
 
-#productOverview * {
-  display: flex;
+#productOverview {
   font-size: 15px;
+  border: 1px solid black;
 }
 
-.productOverview-rating {
-  width: 75px;
-  line-height: 15px;
+#productOverview .grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr 3fr 2fr;
+  grid-template-areas:
+    'carousel rating'
+    'carousel info'
+    'carousel styleselector'
+    'description description';
+  border: 1px solid black;
+}
+
+#productOverview .carousel {
+  grid-area: carousel;
+  border: 1px solid black;
+}
+
+#productOverview .rating {
+  grid-area: rating;
+  border: 1px solid black;
   position: relative;
-  margin-right: 5px;
 }
 
-.productOverview-rating-empty {
+#productOverview .rating-empty {
   position: absolute;
-  z-index: -1;
 }
 
-.productOverview-rating-filled {
+#productOverview .rating-filled {
   overflow: hidden;
-  top: 20px;
+  display: inline-block;
+  position: absolute;
 }
 
-#productOverview a {
+#productOverview .rating a {
   line-height: 15px;
+  position: absolute;
+  left: 90px;
+}
+
+#productOverview .info {
+  grid-area: info;
+  border: 1px solid black;
+}
+
+#productOverview .style-selector {
+  grid-area: styleselector;
+  border: 1px solid black;
+}
+
+#productOverview .description {
+  grid-area: description;
+  border: 1px solid black;
 }
