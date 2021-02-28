@@ -6,13 +6,13 @@ body {
 
 #productOverview {
   font-size: 15px;
-  border: 1px solid black;
 }
 
 #productOverview .grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 1fr 3fr 2fr;
+  grid-template-columns: 2fr minmax(264px, 1fr);
+  column-gap: 5px;
+  grid-template-rows: 35px 1fr 3fr 2fr;
   grid-template-areas:
     'carousel rating'
     'carousel info'
@@ -28,34 +28,105 @@ body {
 
 #productOverview .rating {
   grid-area: rating;
-  border: 1px solid black;
   position: relative;
+  height: 35px;
+  padding-top: 10px;
 }
 
 #productOverview .rating-empty {
   position: absolute;
+  line-height: 15px;
 }
 
 #productOverview .rating-filled {
   overflow: hidden;
   display: inline-block;
   position: absolute;
+  line-height: 15px;
 }
 
 #productOverview .rating a {
   line-height: 15px;
   position: absolute;
-  left: 90px;
+  left: 85px;
 }
 
 #productOverview .info {
   grid-area: info;
-  border: 1px solid black;
+  display: grid;
+  align-items: top;
+}
+
+#productOverview .info .category {
+  padding-left: 2px;
+  margin-top: 8px;
+  align-self: end;
+}
+
+#productOverview .info .name {
+  font-size: 36px;
 }
 
 #productOverview .style-selector {
   grid-area: styleselector;
+}
+
+#productOverview .price,
+#productOverview .style-name {
+  margin: 12px 0;
+}
+
+#productOverview .sale-price {
+  margin: 0 5px;
+  color: red;
+}
+
+#productOverview .original-price-strikethrough {
+  text-decoration: line-through;
+}
+
+#productOverview .style-name span:first-of-type {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+#productOverview .style-option {
+  position: relative;
+  display: inline-block;
+  height: 50px;
+}
+
+#productOverview .style-selector img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 5px;
+  border: 1px solid #ccc;
+  padding: 2px;
+}
+
+#productOverview .selected-thumbnail {
+  box-shadow: 0 0 10px black;
   border: 1px solid black;
+}
+
+#productOverview .style-selector .checkmark {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #fff;
+  text-align: center;
+  font-size: 8px;
+  position: absolute;
+  left: 43px;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  padding: 2px;
+  border: 1px solid black;
+}
+
+#productOverview .style-selector .add-to-cart {
+  margin-left: 5px;
 }
 
 #productOverview .description {

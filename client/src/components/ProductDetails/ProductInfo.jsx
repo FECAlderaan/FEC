@@ -31,7 +31,7 @@ class ProductInfo extends React.Component {
     return (
       <>
         <div className='info'>
-          <div className='category'>{this.state.productInfo.category}</div>
+          <div className='category'>{this.state.productInfo.category ? this.state.productInfo.category.toUpperCase() : ''}</div>
           <div className='name'>{this.state.productInfo.name}</div>
         </div>
         <div className='description'>{this.state.productInfo.description}</div>
