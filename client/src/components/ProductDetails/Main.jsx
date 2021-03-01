@@ -1,7 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Rating from './Rating.jsx';
+import ProductInfo from './ProductInfo.jsx';
+import StyleSelector from './StyleSelector.jsx';
 
-const ProductDetails = () => {
-  return <h1>Product Details!</h1>
+const ProductDetails = ({productId}) => {
+  return (
+    <div id='productOverview' className='grid'>
+        <div className='carousel'>Images Here</div>
+        <Rating productId={productId}/>
+        <ProductInfo productId={productId}/>
+        <StyleSelector productId={productId}/>
+    </div>
+  )
+};
+
+ProductDetails.propTypes = {
+  productId: PropTypes.number
 }
 
 export default ProductDetails;

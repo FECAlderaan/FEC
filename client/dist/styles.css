@@ -1,3 +1,157 @@
 body {
   box-sizing: border-box;
 }
+
+/* Product Overview Styling */
+
+#productOverview.grid {
+  font-size: 15px;
+  display: grid;
+  grid-template-columns: 2fr minmax(264px, 1fr);
+  column-gap: 10px;
+  grid-template-rows: 35px 1fr 3fr 80px;
+  grid-template-areas:
+    'carousel rating'
+    'carousel info'
+    'carousel styleselector'
+    'description description';
+  border: 1px solid black;
+}
+
+#productOverview .carousel {
+  grid-area: carousel;
+  border: 1px solid black;
+}
+
+#productOverview .rating {
+  grid-area: rating;
+  position: relative;
+  padding-top: 15px;
+}
+
+#productOverview .rating-empty,
+#productOverview .rating-filled,
+#productOverview .rating a {
+  position: absolute;
+  line-height: 15px;
+  overflow: hidden;
+}
+
+#productOverview .rating a {
+  left: 85px;
+}
+
+#productOverview .info {
+  grid-area: info;
+}
+
+#productOverview .info .category {
+  padding-left: 2px;
+  margin-top: 20px;
+}
+
+#productOverview .info .name {
+  font-size: 36px;
+}
+
+#productOverview .style-selector {
+  grid-area: styleselector;
+}
+
+#productOverview .price,
+#productOverview .style-name {
+  margin: 12px 5px;
+}
+
+#productOverview .sale-price {
+  color: red;
+}
+
+#productOverview .original-price-strikethrough {
+  text-decoration: line-through;
+}
+
+#productOverview .style-name span:first-of-type {
+  font-weight: bold;
+}
+
+#productOverview .style-option {
+  position: relative;
+  display: inline-block;
+  height: 50px;
+}
+
+#productOverview .style-selector img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 5px;
+  border: 1px solid #ccc;
+  padding: 2px;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+#productOverview .style-selector .selected-thumbnail {
+  box-shadow: 0 0 10px black;
+  border: 1px solid black;
+  opacity: 1;
+}
+
+#productOverview .style-selector .checkmark {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #fff;
+  text-align: center;
+  font-size: 8px;
+  position: absolute;
+  left: 43px;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  padding: 2px;
+  border: 1px solid black;
+}
+
+#productOverview .style-selector .add-to-cart {
+  margin-left: 5px;
+}
+
+#productOverview button {
+  cursor: pointer;
+}
+
+#productOverview button i {
+  margin-right: 5px;
+}
+
+.add-to-cart {
+  display: grid;
+  grid-template-columns: 110px 55px;
+  grid-template-rows: 25px 1fr;
+  grid-template-areas:
+    'size-dropdown quantity-dropdown'
+    'add-to-cart add-to-cart';
+}
+
+.size-selector {
+  grid-area: size-dropdown;
+}
+
+.quantity-selector {
+  grid-area: quantity-dropdown;
+}
+
+.add-to-cart button {
+  grid-area: add-to-cart;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+#productOverview .description {
+  grid-area: description;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+/* End of Product Overview Styling */
