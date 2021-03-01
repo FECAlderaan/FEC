@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -16,11 +17,7 @@ class AddToCart extends React.Component {
   }
 
   sizeSelectorOnChange(e) {
-    if (this.state.sizeSelected === 'none') {
-      this.setState({sizeSelected: e.target.value, quantitySelected: 1})
-    } else {
-      this.setState({sizeSelected: e.target.value})
-    }
+    this.state.sizeSelected === 'none' ? this.setState({sizeSelected: e.target.value, quantitySelected: 1}) : this.setState({sizeSelected: e.target.value});
   }
 
   quantitySelectorOnChange(e) {
@@ -31,6 +28,29 @@ class AddToCart extends React.Component {
     if (this.state.sizeSelected === 'none') {
       this.setState({noSizeSelectedMessageDisplay: 'block'})
       this.sizeSelector.current.focus();
+    } else {
+      console.log(this.props.selectedStyle.reduce((match, sku) => {
+        if (sku[1].size === this.state.sizeSelected) {
+          return sku[0];
+        }
+        return match;
+      }, 0));
+      var skuID = this.props.selectedStyle.reduce((match, sku) => {
+        if (sku[1].size === this.state.sizeSelected) {
+          return sku[0];
+        }
+        return match;
+      }, 0);
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:8080/atelier/cart',
+        data: JSON.stringify({sku_id: skuID}),
+        contentType: 'application/json',
+        success: () => {
+          console.log('added to cart!')
+        },
+        error: (err) => { console.log('err:', err) }
+      })
     }
   }
 
@@ -39,40 +59,33 @@ class AddToCart extends React.Component {
       <div className='add-to-cart'>
         <div className='size'>
           <div style={{'display': this.state.noSizeSelectedMessageDisplay, 'color': 'red'}}>Please select a size:</div>
-          <select ref={this.sizeSelector} value={this.state.sizeSelected} className='size-selector' onChange={this.sizeSelectorOnChange} disabled={!this.props.selectedStyle || !(Object.entries(this.props.selectedStyle.skus).reduce((count, sku) => {
-            return sku.quantity ? count + sku.quantity : count;
-          }, 0))}>
-            {(!this.props.selectedStyle || !(Object.entries(this.props.selectedStyle.skus).reduce((count, sku) => {
-              return sku.quantity ? count + sku.quantity : count;
-            }, 0))) ? <option value='none' disabled hidden>OUT OF STOCK</option> : <option value='none' disabled hidden>SELECT SIZE</option>}
-            {this.props.selectedStyle ?
-            Object.entries(this.props.selectedStyle.skus).map(sku => <option key={sku[0]} value={sku[1].size}>{sku[1].size}</option>)
-            : ''}
+          <select ref={this.sizeSelector} className='size-selector'
+          value={this.state.sizeSelected}
+          disabled={!(this.props.inStock)}
+          onChange={this.sizeSelectorOnChange}>
+            {!(this.props.inStock) ? <option value='none' disabled hidden>OUT OF STOCK</option> : <option value='none' disabled hidden>SELECT SIZE</option>}
+            {this.props.selectedStyle.map(sku => <option key={sku[0]} value={sku[1].size}>{sku[1].size}</option>)}
           </select>
         </div>
         <div className='quantity'>
-          <select disabled={this.state.sizeSelected === 'none' ? true : false} value={this.state.quantitySelected} className='quantity-selector' onChange={this.quantitySelectorOnChange}>
-            <option value='none' disabled hidden> - </option>
-            {this.props.selectedStyle ?
-              new Array(Math.min(Object.values(this.props.selectedStyle.skus).reduce((matchingQuantity, sku) => {
-                if (sku.size === this.state.sizeSelected) {
-                  return sku.quantity;
-                }
-                return matchingQuantity;
-              }, 0), 15)).fill(0).map((e, index) => <option key={index + 1} value={index + 1}>{index + 1}</option>)
-              : ''}
+          <select className='quantity-selector'
+          value={this.state.quantitySelected}
+          disabled={this.state.sizeSelected === 'none' ? true : false}
+          onChange={this.quantitySelectorOnChange}>
+            <option value='none' disabled hidden> Qty: - </option>
+            {new Array(Math.min(this.props.skus[this.state.sizeSelected] || 0, 15)).fill(0).map((e, index) => <option key={index + 1} value={index + 1}>{index + 1}</option>)}
           </select>
         </div>
-        <button onClick={this.onButtonClick}>ADD TO CART</button>
+        <button onClick={this.onButtonClick} hidden={!(this.props.inStock)}><i className='fas fa-shopping-cart'></i> ADD TO CART</button>
       </div>
     );
   }
 }
 
 AddToCart.propTypes = {
-  selectedStyle: PropTypes.object
+  selectedStyle: PropTypes.array,
+  inStock: PropTypes.number,
+  skus: PropTypes.object
 }
-
-
 
 export default AddToCart;

@@ -15,8 +15,14 @@ app.use('/atelier', createProxyMiddleware({
   pathRewrite: {
       [`^/atelier`]: '',
   },
-  onProxyReq: function onProxyReq(proxyReq) {
+  onProxyReq: function onProxyReq(proxyReq, req) {
     proxyReq.setHeader('Authorization', process.env.API_KEY);
+    if (req.body) {
+      var bodyData = JSON.stringify(req.body);
+      proxyReq.setHeader('Content-Type','application/json');
+      proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
+      proxyReq.write(bodyData);
+    }
   }
 }));
 

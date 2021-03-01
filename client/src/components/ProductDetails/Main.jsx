@@ -6,13 +6,11 @@ import StyleSelector from './StyleSelector.jsx';
 
 const ProductDetails = ({productId}) => {
   return (
-    <div id='productOverview'>
-      <div className='grid'>
+    <div id='productOverview' className='grid'>
         <div className='carousel'>Images Here</div>
         <Rating productId={productId}/>
         <ProductInfo productId={productId}/>
         <StyleSelector productId={productId}/>
-      </div>
     </div>
   )
 };

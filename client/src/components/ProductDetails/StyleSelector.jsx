@@ -42,7 +42,7 @@ class StyleSelector extends React.Component {
             <><span className='sale-price'>{'$' + this.state.styles[this.state.selected].sale_price}</span>
             <span className='original-price-strikethrough'>{'$' + this.state.styles[this.state.selected].original_price}</span></>
           :
-            <span className='original-price' style={{'marginLeft': '5px'}}>{this.state.styles[this.state.selected] ? '$' + this.state.styles[this.state.selected].original_price : ''}</span>}
+            <span className='original-price'>{this.state.styles[this.state.selected] ? '$' + this.state.styles[this.state.selected].original_price : ''}</span>}
         </div>
         <div className='style-name'>
           <span>STYLE: </span>
@@ -50,16 +50,22 @@ class StyleSelector extends React.Component {
         </div>
         {this.state.styles ? this.state.styles.map((style, index) => {
           return (
-            <>
-            <span className='style-option' key={style.style_id}>
+            <span key={style.style_id}>
+            <span className='style-option'>
               {index === Number(this.state.selected) ? <span className='checkmark'>✔️</span> : ''}
               <img className={index === Number(this.state.selected) ? 'selected-thumbnail' : ''} src={style.photos[0].thumbnail_url} name={index} onClick={this.onClick}></img>
             </span>
             {((index + 1) % 4) ? '' : <br/>}
-            </>
+            </span>
           )
         }) : ''}
-        <AddToCart selectedStyle={this.state.styles[this.state.selected]}/>
+        <AddToCart
+        selectedStyle={this.state.styles[this.state.selected] ? Object.entries(this.state.styles[this.state.selected].skus) : []}
+        inStock={this.state.styles[this.state.selected] ? Object.values(this.state.styles[this.state.selected].skus).reduce(((count, sku) => count + sku.quantity), 0) : 0}
+        skus={this.state.styles[this.state.selected] ? Object.values(this.state.styles[this.state.selected].skus).reduce((skuCount, sku) => {
+          skuCount[sku.size] = sku.quantity;
+          return skuCount;
+        }, {}) : {}} />
       </div>
     )
   }

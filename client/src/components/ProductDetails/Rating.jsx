@@ -32,17 +32,17 @@ class Rating extends React.Component {
   }
 
   render() {
-    var rating = this.state.ratings.reduce((aggRating, rating) => { return aggRating + rating }, 0) / (this.state.ratings.length || 1);
-    if (rating === 0) {
+    if (this.state.ratings.length === 0) {
       return null;
     }
-    var ratingRoundedPercent = (Math.round(rating * 4) / 4) * 15;
+    var rating = this.state.ratings.reduce((aggRating, rating) => (aggRating + rating), 0) / (this.state.ratings.length);
+    var roundedRatingOutOf75 = (Math.round(rating * 4) / 4) * 15;
     return (
     <div className='rating'>
       <span className='rating-empty'>
         <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
       </span>
-      <span className='rating-filled' style={{'width': ratingRoundedPercent}}>
+      <span className='rating-filled' style={{'width': roundedRatingOutOf75}}>
         <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
       </span>
       {/* might have to change this link depending on the id given to the ratings & reviews section */}
