@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import ProductDetails from './components/ProductDetails/Main.jsx'
-import QuestionAnswer from './components/Questions&Answers/QuestionAnswer'
+import QuestionAnswer from './components/Questions&Answers/Main.jsx'
 import RatingsReviews from './components/Ratings&Reviews/Main.jsx'
 
 const App = () => {
