@@ -155,3 +155,28 @@ body {
 }
 
 /* End of Product Overview Styling */
+
+
+/* Reviews & Ratings Styling */
+
+.reviews-ratings-section {
+  background-color: mediumorchid;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.review-tile {
+  background-color: moccasin;
+}
+
+.reviews-list {
+  background-color: mediumaquamarine;
+  padding: 0px 10px;
+
+}
+
+.reviews-breakdown-section {
+  background-color: mistyrose;
+}
+
+/* End of Reviews & Ratings Styling */
