@@ -168,6 +168,10 @@ body {
 
 .review-tile {
   background-color: moccasin;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  margin: 10px 0;
 }
 
 .reviews-list {
@@ -179,10 +183,13 @@ body {
 .rev-info {
   border: solid black 1px;
   margin: 10px 0;
+  grid-column-start: span 2;
 }
 
 .review-rating-bar {
-
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-start: span 2;
 }
 
 #review-stars {
