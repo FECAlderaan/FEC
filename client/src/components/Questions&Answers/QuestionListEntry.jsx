@@ -1,6 +1,6 @@
 import React from 'react';
 
-const QuestionList = () => {
+const QuestionListEntry = () => {
   return (
     <div className="question-list-entry">
       <div className="question">
@@ -34,4 +34,4 @@ const QuestionList = () => {
   )
 }
 
-export default QuestionList;
+export default QuestionListEntry;
