@@ -14,14 +14,14 @@ class QuestionAnswer extends React.Component {
     const route = 'http://localhost:8080/atelier/qa/questions';
     $.get(route, {product_id: this.props.productId})
       .done((result) => {
-        this.setState({product: result});
+        this.setState({product: {productId: result.product_id, questions: result.results}});
       })
       .fail((error) => {
         console.log(error);
         alert(error);
       })
-
   }
+
   render() {
     return (
       <div>
@@ -29,7 +29,7 @@ class QuestionAnswer extends React.Component {
         <form>
           <input type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." size="128" />
         </form>
-        <QuestionList  />
+        <QuestionList product={this.state.product}/>
         <button>More Answered Questions</button>
         <button>Ask A Question + </button>
       </div>

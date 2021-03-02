@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const QuestionListEntry = () => {
+const QuestionListEntry = ({question}) => {
   return (
     <div className="question-list-entry">
       <div className="question">
         <h3>Q: </h3>
-        <p>What is the deal with clothes?</p>
+        <p>{question.question_body}</p>
         <div className="question-data">
-          <p>Helpful? <a href="">Yes</a> [2]</p>
+          <p>Helpful? <a href="">Yes</a> ({question.question_helpfulness})</p>
           <a href="">Add Answer</a>
         </div>
       </div>
@@ -32,6 +33,10 @@ const QuestionListEntry = () => {
       </div>
     </div>
   )
+}
+
+QuestionListEntry.propTypes = {
+  question: PropTypes.object
 }
 
 export default QuestionListEntry;
