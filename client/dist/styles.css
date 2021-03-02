@@ -161,8 +161,8 @@ body {
 
 .reviews-ratings-main {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  margin: 0 30px;
+  grid-template-columns: 0.5fr 2fr;
+  margin: 0 250px;
 }
 
 .review-tile {
@@ -190,15 +190,19 @@ body {
   grid-column-start: span 2;
 }
 
-#review-stars {
-}
-
-#username {
-}
-
-.reviews-breakdown {
+.rating-breakdown {
   background-color: rgb(226, 226, 226);
   margin-bottom: 10px;
+}
+
+
+.rating-average {
+  display: flex;
+}
+
+#average-number {
+  margin: 0 10px 0 20px;
+  font-size: 4em;
 }
 
 /* End of Reviews & Ratings Styling */

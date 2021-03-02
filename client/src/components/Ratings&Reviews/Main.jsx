@@ -12,11 +12,13 @@ class Main extends React.Component {
     this.state = {
       productId: props.productId,
       productReviews: { results: [] },
+      ratingData: { ratings: [] },
     }
   }
 
   componentDidMount() {
     this.getReviews();
+    this.getMetaData();
   }
 
   getReviews() {
@@ -25,7 +27,6 @@ class Main extends React.Component {
       url: `http://localhost:8080/atelier/reviews?product_id=${this.state.productId}`,
       type: 'GET',
       success: (data) => {
-        console.log(data);
         this.setState({
           productReviews: data,
         })
@@ -36,12 +37,29 @@ class Main extends React.Component {
     });
   }
 
+  getMetaData() {
+    // GET request for reviews for the specific product
+    $.ajax({
+      url: `http://localhost:8080/atelier/reviews/meta?product_id=${this.state.productId}`,
+      type: 'GET',
+      success: (data) => {
+        console.log('data:', data);
+        this.setState({
+          ratingData: data,
+        })
+      },
+      error: function (error) {
+        console.error('Failed to get product review meta data:', error);
+      },
+    });
+  }
+
   render() {
     return (
       <div>
         <h2>RATINGS AND REVIEWS</h2>
         <div className="reviews-ratings-main">
-          <RatingBreakdown />
+          <RatingBreakdown ratingData={this.state.ratingData} />
           <ReviewsList productReviews={this.state.productReviews} productId={this.state.productId} />
         </div>
       </div>

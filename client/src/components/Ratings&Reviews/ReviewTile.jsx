@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ReviewTile = (props) => {
-  console.log('productReviews', props.productReviews.results)
   return (
     <div >
       {props.productReviews.results.map((review) => (
