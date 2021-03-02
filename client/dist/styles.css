@@ -159,10 +159,11 @@ body {
 
 /* Reviews & Ratings Styling */
 
-.reviews-ratings-section {
+.reviews-ratings-main {
   background-color: mediumorchid;
   display: grid;
   grid-template-columns: 1fr 2fr;
+  margin: 0 30px;
 }
 
 .review-tile {
@@ -175,7 +176,22 @@ body {
 
 }
 
-.reviews-breakdown-section {
+.rev-info {
+  border: solid black 1px;
+  margin: 10px 0;
+}
+
+.review-rating-bar {
+
+}
+
+#review-stars {
+}
+
+#username {
+}
+
+.reviews-breakdown {
   background-color: mistyrose;
 }
 

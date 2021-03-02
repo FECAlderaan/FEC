@@ -1,15 +1,20 @@
 import React from 'react';
-
 import ReviewTile from './ReviewTile.jsx';
+import PropTypes from 'prop-types';
 
-const ReviewList = () => {
+const ReviewsList = (props) => {
   return (
     <>
       <div className="reviews-list">
-       <ReviewTile />
+       <ReviewTile productReviews={props.productReviews} productId={props.productId}/>
       </div>
     </>
   )
 }
 
-export default ReviewList;
+ReviewsList.propTypes = {
+  productReviews: PropTypes.object,
+  productId: PropTypes.number
+}
+
+export default ReviewsList;
