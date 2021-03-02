@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 import QuestionList from './QuestionList.jsx'
 
 class QuestionAnswer extends React.Component {
@@ -7,13 +8,26 @@ class QuestionAnswer extends React.Component {
     super(props);
     this.state = {};
   }
+
+  componentDidMount() {
+    // Call Atelier API (through proxy server) and get relevant info for for productId
+    const route = 'http://localhost:8080/atelier/qa/questions';
+    $.get(route, {product_id: this.props.productId})
+      .done((result) => {
+        this.setState({product: result});
+      })
+      .fail((error) => {
+        console.log(error);
+        alert(error);
+      })
+
+  }
   render() {
     return (
       <div>
         <h2>Questions & Answers</h2>
         <form>
           <input type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." size="128" />
-          <input type="submit" value="Submit" />
         </form>
         <QuestionList  />
         <button>More Answered Questions</button>
