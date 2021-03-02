@@ -160,28 +160,26 @@ body {
 /* Reviews & Ratings Styling */
 
 .reviews-ratings-main {
-  background-color: mediumorchid;
   display: grid;
   grid-template-columns: 1fr 2fr;
   margin: 0 30px;
 }
 
 .review-tile {
-  background-color: moccasin;
+  background-color: rgb(226, 226, 226);
+  border: solid black 1px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
-  margin: 10px 0;
+  margin: 0 0 10px 0;
 }
 
 .reviews-list {
-  background-color: mediumaquamarine;
   padding: 0px 10px;
 
 }
 
 .rev-info {
-  border: solid black 1px;
   margin: 10px 0;
   grid-column-start: span 2;
 }
@@ -199,7 +197,8 @@ body {
 }
 
 .reviews-breakdown {
-  background-color: mistyrose;
+  background-color: rgb(226, 226, 226);
+  margin-bottom: 10px;
 }
 
 /* End of Reviews & Ratings Styling */
