@@ -33,6 +33,16 @@ var ratingAverage = function (object) {
   return (Math.round(average / count * 10) / 10).toString();
 }
 
+// Get percentage of reviews that recommend the product
+var getRecommended = function (recommended) {
+  if (!recommended.false) {
+    return 100;
+  } else if (!recommended.true) {
+    return 0;
+  } else {
+    return Math.round((recommended.false / recommended.true) * 100);
+  }
+}
 
 const RatingBreakdown = (props) => {
   return (
@@ -84,7 +94,8 @@ const RatingBreakdown = (props) => {
       </div>
 
       <div className="rating-percent">
-        100% of reviews recommend this product
+      {getRecommended(props.ratingData.recommended)}% of reviews recommend this product
+
       </div>
 
       <ProductBreakdown />
