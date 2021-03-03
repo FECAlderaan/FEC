@@ -245,11 +245,11 @@ body {
   height: 14px;
 }
 
-#five-star-bar { width: 0px }
-#four-star-bar { width: 0px }
-#three-star-bar { width: 0px }
-#two-star-bar { width: 0px }
-#one-star-bar { width: 0px }
+#five-star-bar { width: 0% }
+#four-star-bar { width: 0% }
+#three-star-bar { width: 0% }
+#two-star-bar { width: 0% }
+#one-star-bar { width: 0% }
 
 
 .individual-total-ratings {
