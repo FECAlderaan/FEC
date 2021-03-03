@@ -159,6 +159,7 @@ body {
 
 /* Reviews & Ratings Styling */
 
+/* review list sub-section */
 .reviews-ratings-main {
   display: grid;
   grid-template-columns: 0.5fr 2fr;
@@ -195,7 +196,7 @@ body {
   margin-bottom: 10px;
 }
 
-
+/* rating breakdown sub-section */
 .rating-average {
   display: flex;
 }
@@ -204,5 +205,40 @@ body {
   margin: 0 10px 0 20px;
   font-size: 4em;
 }
+
+.star-header {
+  margin: 0 10px;
+}
+
+.rating-bar-section {
+  display: flex;
+  align-items: center;
+  margin: 13px 0;
+}
+
+.rating-bar-outer {
+  width: 175px;
+  height: 14px;
+  border: 2px solid black;
+  background-color: grey;
+  border-radius: 5px;
+}
+
+.rating-bar-inner {
+  background-color: #7aec7a;
+  height: 14px;
+}
+
+#five-star-bar { width: 0px }
+#four-star-bar { width: 0px }
+#three-star-bar { width: 0px }
+#two-star-bar { width: 0px }
+#one-star-bar { width: 0px }
+
+
+.individual-total-ratings {
+  margin: 0 10px;
+}
+
 
 /* End of Reviews & Ratings Styling */
