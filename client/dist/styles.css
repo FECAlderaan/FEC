@@ -159,10 +159,11 @@ body {
 
 /* Reviews & Ratings Styling */
 
+/* review list sub-section */
 .reviews-ratings-main {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  margin: 0 30px;
+  grid-template-columns: 0.5fr 2fr;
+  margin: 0 250px;
 }
 
 .review-tile {
@@ -190,15 +191,69 @@ body {
   grid-column-start: span 2;
 }
 
-#review-stars {
-}
-
-#username {
-}
-
-.reviews-breakdown {
+.rating-breakdown {
   background-color: rgb(226, 226, 226);
   margin-bottom: 10px;
+}
+
+/* rating breakdown sub-section */
+.rating-average {
+  display: flex;
+}
+
+#average-number {
+  margin: 0 10px 0 20px;
+  font-size: 4em;
+}
+
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: 'FontAwesome';
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0px;
+  color: #f8ce0b;
+}
+
+.star-header {
+  margin: 0 10px;
+}
+
+.rating-bar-section {
+  display: flex;
+  align-items: center;
+  margin: 13px 0;
+}
+
+.rating-bar-outer {
+  width: 175px;
+  height: 14px;
+  border: 2px solid black;
+  /* background-color: grey; */
+  border-radius: 5px;
+}
+
+.rating-bar-inner {
+  background-color: #7aec7a;
+  height: 14px;
+}
+
+#five-star-bar { width: 0% }
+#four-star-bar { width: 0% }
+#three-star-bar { width: 0% }
+#two-star-bar { width: 0% }
+#one-star-bar { width: 0% }
+
+
+.individual-total-ratings {
+  margin: 0 10px;
 }
 
 /* End of Reviews & Ratings Styling */
