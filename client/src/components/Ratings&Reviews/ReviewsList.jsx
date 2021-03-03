@@ -1,20 +1,24 @@
 import React from 'react';
-import ReviewTile from './ReviewTile.jsx';
 import PropTypes from 'prop-types';
+import ReviewTile from './ReviewTile';
 
-const ReviewsList = (props) => {
+const ReviewsList = ({ productReviews, productId }) => {
+  const x = 0;
   return (
-    <>
-      <div className="reviews-list">
-       <ReviewTile productReviews={props.productReviews} productId={props.productId}/>
-      </div>
-    </>
-  )
-}
+    <div className="reviews-list">
+      <ReviewTile productReviews={productReviews} productId={productId} />
+    </div>
+  );
+};
 
 ReviewsList.propTypes = {
-  productReviews: PropTypes.object,
-  productId: PropTypes.number
-}
+  productReviews: PropTypes.shape(),
+  productId: PropTypes.number,
+};
+
+ReviewsList.defaultProps = {
+  productReviews: {},
+  productId: 0,
+};
 
 export default ReviewsList;

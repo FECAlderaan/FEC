@@ -1,21 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ReviewTile = (props) => {
+const ReviewTile = ({ productReviews }) => {
+  const x = 0;
   return (
-    <div >
-      {props.productReviews.results.map((review) => (
+    <div>
+      {productReviews.results.map((review) => (
         <div key={review.review_id} className="review-tile">
           <div className="rev-info review-rating-bar">
-            <p id="review-stars">{review.rating} ★★★★☆</p>
-            <p id="username">{review.reviewer_name} {review.date}</p>
+            <p id="review-stars">
+              {review.rating}
+              ★★★★☆
+            </p>
+            <p id="username">
+              {review.reviewer_name}
+              {review.date}
+            </p>
           </div>
 
-          <div className="rev-info review-summary">Review summary: {review.summary}</div>
-          <div className="rev-info review-body">Review body: {review.body}</div>
-          <div className="rev-info review-recommend">Recommend? {review.recommend}</div>
-          <div className="rev-info review-response">Review response: {review.response}</div>
-          <div className="rev-info review-helpfulness">Helpfulness: {review.helpfulness}</div>
+          <div className="rev-info review-summary">
+            Review summary:
+            {review.summary}
+          </div>
+          <div className="rev-info review-body">
+            Review body:
+            {review.body}
+          </div>
+          <div className="rev-info review-recommend">
+            Recommend?
+            {review.recommend}
+          </div>
+          <div className="rev-info review-response">
+            Review response:
+            {review.response}
+          </div>
+          <div className="rev-info review-helpfulness">
+            Helpfulness:
+            {review.helpfulness}
+          </div>
         </div>
       ))}
     </div>
@@ -23,7 +45,11 @@ const ReviewTile = (props) => {
 }
 
 ReviewTile.propTypes = {
-  productReviews: PropTypes.object,
-}
+  productReviews: PropTypes.shape(),
+};
+
+ReviewTile.defaultProps = {
+  productReviews: PropTypes.shape(),
+};
 
 export default ReviewTile;
