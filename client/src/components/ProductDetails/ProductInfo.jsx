@@ -6,8 +6,8 @@ class ProductInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productInfo: {}
-    }
+      productInfo: {},
+    };
   }
 
   componentDidMount() {
@@ -15,33 +15,32 @@ class ProductInfo extends React.Component {
   }
 
   getProductInfo() {
+    const { productId } = this.props;
     $.ajax({
       type: 'GET',
-      url: `http://localhost:8080/atelier/products/${this.props.productId}`,
+      url: `http://localhost:8080/atelier/products/${productId}`,
       success: (data) => {
-        this.setState({productInfo: data})
+        this.setState({ productInfo: data });
       },
-      error: (err) => {
-        console.log('error!', err);
-      }
-    })
+    });
   }
 
   render() {
+    const { productInfo } = this.state;
     return (
       <>
-        <div className='info'>
-          <div className='category'>{this.state.productInfo.category ? this.state.productInfo.category.toUpperCase() : ''}</div>
-          <div className='name'>{this.state.productInfo.name}</div>
+        <div className="info">
+          <div className="category">{productInfo.category ? productInfo.category.toUpperCase() : ''}</div>
+          <div className="name">{productInfo.name}</div>
         </div>
-        <div className='description'>{this.state.productInfo.description}</div>
+        <div className="description">{productInfo.description}</div>
       </>
-    )
+    );
   }
 }
 
 ProductInfo.propTypes = {
-  productId: PropTypes.number
-}
+  productId: PropTypes.number.isRequired,
+};
 
 export default ProductInfo;
