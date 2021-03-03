@@ -22,7 +22,7 @@ npm install
 
 ```bash
 #compiles and bundles files
-npm build
+npm run build
 
 #runs proxy server to render files
 npm start
