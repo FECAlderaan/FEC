@@ -1,7 +1,9 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import QuestionList from './QuestionList.jsx'
+import QuestionList from './QuestionList';
 
 class QuestionAnswer extends React.Component {
   constructor(props) {
@@ -11,34 +13,36 @@ class QuestionAnswer extends React.Component {
 
   componentDidMount() {
     // Call Atelier API (through proxy server) and get relevant info for for productId
+    const { productId } = this.props;
     const route = 'http://localhost:8080/atelier/qa/questions';
-    $.get(route, {product_id: this.props.productId})
+    $.get(route, { product_id: productId })
       .done((result) => {
-        this.setState({product: {productId: result.product_id, questions: result.results}});
+        this.setState({ product: { productId: result.product_id, questions: result.results } });
       })
       .fail((error) => {
-        console.log(error);
+        console.error(error);
         alert(error);
-      })
+      });
   }
 
   render() {
+    const { product } = this.state;
     return (
       <div>
         <h2>Questions & Answers</h2>
         <form>
           <input type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." size="128" />
         </form>
-        <QuestionList product={this.state.product}/>
-        <button>More Answered Questions</button>
-        <button>Ask A Question + </button>
+        <QuestionList product={product} />
+        <button type="button">More Answered Questions</button>
+        <button type="button">Ask A Question + </button>
       </div>
-    )
+    );
   }
 }
 
 QuestionAnswer.propTypes = {
-  productId : PropTypes.number
-}
+  productId: PropTypes.number
+};
 
-export default QuestionAnswer
+export default QuestionAnswer;
