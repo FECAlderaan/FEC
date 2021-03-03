@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 
 const app = express();
 const port = 8080;
-app.use(express.static('client/dist'));
 app.use(express.json());
 
 const API_SERVICE_URL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/';
@@ -25,8 +24,11 @@ app.use('/atelier', createProxyMiddleware({
       proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
       proxyReq.write(bodyData);
     }
-  }
+  },
 }));
+
+app.use(express.static('client/dist'));
+app.use('/*', express.static('client/dist'));
 
 app.listen(port, () => {
   console.log(`Catwalk is listening at http://localhost:${port}`);
