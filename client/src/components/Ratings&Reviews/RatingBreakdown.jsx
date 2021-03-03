@@ -5,11 +5,9 @@ import ProductBreakdown from './ProductBreakdown.jsx';
 
 var getRatings = function (object) {
   var array = [];
-
   for (const [key, value] of Object.entries(object)) {
     array.push(`${key}: ${value}`);
   }
-
   return array;
 }
 
@@ -44,14 +42,31 @@ var getRecommended = function (recommended) {
   }
 }
 
+// Finding width for how many stars need to be filled in
+// 1 star = 20%
+var averagePercent = Number((Math.round(3.8 * 4) / 4).toFixed(2)) * 20;
+
 const RatingBreakdown = (props) => {
   return (
     <div className="rating-breakdown">
       <h2>Rating Breakdown</h2>
       <div className="rating-average">
         <h1 id="average-number">{ratingAverage(props.ratingData.ratings)}</h1>
-        ★★★★☆
-      </div>
+        <div className="stars-outer">
+          <i className="far fa-star"></i>
+          <i className="far fa-star"></i>
+          <i className="far fa-star"></i>
+          <i className="far fa-star"></i>
+          <i className="far fa-star"></i>
+          <div className="stars-inner" style={{ width: `${averagePercent}%` }}>
+            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i>
+          </div>
+        </div>
+      </div >
 
       <div className="rating-stars">
 
@@ -94,12 +109,12 @@ const RatingBreakdown = (props) => {
       </div>
 
       <div className="rating-percent">
-      {getRecommended(props.ratingData.recommended)}% of reviews recommend this product
+        {getRecommended(props.ratingData.recommended)}% of reviews recommend this product
 
       </div>
 
       <ProductBreakdown />
-    </div>
+    </div >
   )
 }
 

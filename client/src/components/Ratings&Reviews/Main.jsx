@@ -43,7 +43,6 @@ class Main extends React.Component {
       url: `http://localhost:8080/atelier/reviews/meta?product_id=${this.state.productId}`,
       type: 'GET',
       success: (data) => {
-        console.log('data:', data);
         this.setState({
           ratingData: data,
         })

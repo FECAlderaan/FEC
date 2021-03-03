@@ -206,6 +206,22 @@ body {
   font-size: 4em;
 }
 
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: 'FontAwesome';
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0px;
+  color: #f8ce0b;
+}
+
 .star-header {
   margin: 0 10px;
 }
@@ -220,7 +236,7 @@ body {
   width: 175px;
   height: 14px;
   border: 2px solid black;
-  background-color: grey;
+  /* background-color: grey; */
   border-radius: 5px;
 }
 
@@ -239,6 +255,5 @@ body {
 .individual-total-ratings {
   margin: 0 10px;
 }
-
 
 /* End of Reviews & Ratings Styling */
