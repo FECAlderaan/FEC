@@ -11,7 +11,7 @@ class Main extends React.Component {
 
     this.state = {
       productId: props.productId,
-      productReviews: { results: [] },
+      productReviews: { results: [{ review_id: 0 }] },
       ratingData: { ratings: [], recommended: {} },
     };
   }
@@ -50,13 +50,13 @@ class Main extends React.Component {
   }
 
   render() {
-    const { productId, productReviews, ratingData } = this.state;
+    const { productReviews, ratingData } = this.state;
     return (
       <div>
         <h2>RATINGS AND REVIEWS</h2>
         <div className="reviews-ratings-main">
           <RatingBreakdown ratingData={ratingData} />
-          <ReviewsList productReviews={productReviews} productId={productId} />
+          <ReviewsList productReviews={productReviews} />
         </div>
       </div>
     );
