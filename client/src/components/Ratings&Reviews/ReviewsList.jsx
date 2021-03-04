@@ -8,40 +8,43 @@ class ReviewsList extends React.Component {
 
     this.moreReviews = this.moreReviews.bind(this);
     this.state = {
-      displayedReviews: [],
       displayedReviewsCount: 2,
     };
   }
 
   componentDidMount() {
-    const { productReviews } = this.props;
-    this.setState({
-      displayedReviews: productReviews,
-    });
   }
 
   moreReviews() {
+    const { productReviews } = this.props;
     const { displayedReviewsCount } = this.state;
-    this.setState({
-      displayedReviewsCount: displayedReviewsCount + 2,
-    });
-    console.log(displayedReviewsCount);
+    // if there are more reviews that can be shown, show them up until
+    // all are shown
+    if (displayedReviewsCount + 2 > productReviews.results.length) {
+      this.setState({
+        displayedReviewsCount: productReviews.results.length,
+      });
+    } else {
+      this.setState({
+        displayedReviewsCount: displayedReviewsCount + 2,
+      });
+    }
   }
 
   render() {
     const { productReviews } = this.props;
     const { displayedReviewsCount } = this.state;
-    const array = [];
+    const reviews = [];
     for (let i = 0; i < displayedReviewsCount; i += 1) {
-      array.push(productReviews.results[i]);
+      reviews.push(productReviews.results[i]);
     }
+    const reviewsCheck = productReviews.results.length === displayedReviewsCount;
     return (
       <div className="reviews-list">
-        {console.log(array)}
-        {array.map((review) => (
+        {reviews.map((review) => (
           <ReviewTile review={review} />
         ))}
-        <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button>
+        { reviewsCheck ? '' : <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button> }
         <button type="button">ADD A REVIEW +</button>
       </div>
     );

@@ -129,9 +129,9 @@ const RatingBreakdown = ({ ratingData }) => {
       </div>
 
       <ProductBreakdown />
-    </div >
-  )
-}
+    </div>
+  );
+};
 
 RatingBreakdown.propTypes = {
   ratingData: PropTypes.shape(),

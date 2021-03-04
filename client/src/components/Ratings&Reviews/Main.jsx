@@ -11,7 +11,7 @@ class Main extends React.Component {
 
     this.state = {
       productId: props.productId,
-      productReviews: { results: [{ review_id: 0 }] },
+      productReviews: { results: [] },
       ratingData: { ratings: [], recommended: {} },
     };
   }
