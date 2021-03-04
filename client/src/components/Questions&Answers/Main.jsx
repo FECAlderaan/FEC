@@ -42,7 +42,7 @@ class QuestionAnswer extends React.Component {
 }
 
 QuestionAnswer.propTypes = {
-  productId: PropTypes.number
+  productId: PropTypes.number.isRequired,
 };
 
 export default QuestionAnswer;

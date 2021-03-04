@@ -25,7 +25,10 @@ const QuestionList = ({ product }) => {
 };
 
 QuestionList.propTypes = {
-  product: PropTypes.object,
+  product: PropTypes.shape({
+    product_id: PropTypes.string,
+    questions: PropTypes.instanceOf(Array),
+  }).isRequired,
 };
 
 export default QuestionList;

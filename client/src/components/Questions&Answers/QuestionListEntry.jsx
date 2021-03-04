@@ -53,7 +53,7 @@ const QuestionListEntry = ({ question }) => {
 };
 
 QuestionListEntry.propTypes = {
-  question: PropTypes.object,
+  question: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default QuestionListEntry;
