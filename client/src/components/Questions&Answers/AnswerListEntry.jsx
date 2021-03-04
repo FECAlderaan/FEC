@@ -12,12 +12,24 @@ const AnswerListEntry = ({ answer }) => {
     const dateObj = new Date(dateString);
     return dateObj.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
   };
+
+  // If answer is from seller than render 'Seller' in bold
+  const checkIfSeller = (answerer) => {
+    if (answerer === 'Seller') {
+      return <b>{answerer}</b>;
+    }
+    return answerer;
+  };
+
   return (
     <div className="answer-entry">
       <p>{body}</p>
       <div className="answer-entry-data">
         <p>
-          {`by ${answererName}, ${formatDate(date)}`}
+          {'by '}
+          {checkIfSeller(answererName)}
+          {', '}
+          {formatDate(date)}
         </p>
         <p>
           Helpful?
