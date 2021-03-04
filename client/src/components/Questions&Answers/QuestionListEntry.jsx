@@ -4,13 +4,14 @@ import AnswerList from './AnswerList';
 
 const QuestionListEntry = ({ question }) => {
   // Destructure and rename question_helpfulness into camelCase
-  const { question_helpfulness: questionHelpfulness } = question;
+  const { question_helpfulness: questionHelpfulness, question_body: questionBody } = question;
+  const { answers } = question;
 
   return (
     <div className="question-list-entry">
       <div className="question">
         <h3>Q: </h3>
-        <p>{question.question_body}</p>
+        <p>{questionBody}</p>
         <div className="question-data">
           <p>
             Helpful?
@@ -22,7 +23,7 @@ const QuestionListEntry = ({ question }) => {
           <a href="/">Add Answer</a>
         </div>
       </div>
-      <AnswerList />
+      <AnswerList answers={answers} />
     </div>
   );
 };

@@ -1,41 +1,27 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import AnswerListEntry from './AnswerListEntry';
 
-const AnswerList = () => (
-  <div className="answer-list">
-    <h3>A: </h3>
-    <div className="answer-entry">
-      <p>They are pretty good.</p>
-      <div className="answer-entry-data">
-        <p>by User1231, March 01 2021</p>
-        <p>
-          Helpful?
-          <a href="/"> Yes </a>
-          [2]
-        </p>
-        <a href="/">Report</a>
-      </div>
+const AnswerList = ({ answers }) => {
+  const renderAnswers = () => {
+    let entries = [];
+    if (answers) {
+      entries = Object.entries(answers).map(
+        (answer) => <AnswerListEntry answer={answer[1]} key={answer[0]}/>,
+      );
+    }
+    return entries;
+  };
+  return (
+    <div className="answer-list">
+      <h3>A: </h3>
+      {renderAnswers()}
     </div>
-    <div className="answer-entry">
-      <p>They are pretty cool too.</p>
-      <div className="answer-entry-data">
-        <p>by Qunitillius42565 Seller, March 01 2021</p>
-        <p>
-          Helpful?
-          <a href="/"> Yes </a>
-          [2]
-        </p>
-        <a href="/">Report</a>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
-// AnswerList.propTypes = {
-//   product: PropTypes.shape({
-//     product_id: PropTypes.string,
-//     questions: PropTypes.instanceOf(Array),
-//   }).isRequired,
-// };
+AnswerList.propTypes = {
+  answers: PropTypes.instanceOf(Object).isRequired,
+};
 
 export default AnswerList;
