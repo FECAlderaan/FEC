@@ -2,29 +2,126 @@ body {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Product Overview Styling */
 
 #productOverview.grid {
   font-size: 15px;
   display: grid;
-  grid-template-columns: 2fr minmax(264px, 1fr);
-  column-gap: 10px;
-  grid-template-rows: 35px 1fr 3fr 80px;
+  grid-template-columns: 56px 1fr minmax(264px, auto);
+  grid-template-rows: 35px auto auto auto;
   grid-template-areas:
-    'carousel rating'
-    'carousel info'
-    'carousel styleselector'
-    'description description';
-  border: 1px solid black;
+    'thumbnails carousel rating'
+    'thumbnails carousel info'
+    'thumbnails carousel styleselector'
+    'description description features';
+  margin: 0 20px;
+  border: 2px solid #ccc;
 }
 
 #productOverview .carousel {
   grid-area: carousel;
-  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-content: center;
+  background-color: #ddd;
+  height: 100%;
+}
+
+#productOverview .carousel .changeImage {
+  display: block;
+  grid-area: image;
+  position: absolute;
+  top: calc(50% - 20px);
+  width: 40px;
+  height: 40px;
+  border-radius: 10%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 0;
+  padding: 0;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#productOverview .carousel .changeImage.previous {
+  left: 10px;
+}
+
+#productOverview .carousel .changeImage.next {
+  right: 10px;
+}
+
+#productOverview .carousel .in-focus {
+  max-width: calc(100% - 110px);
+  max-height: 400px;
+  display: block;
+  margin: auto;
+}
+
+#productOverview .thumbnails {
+  grid-area: thumbnails;
+  height: 100%;
+  background-color: #ddd;
+  text-align: center;
+  position: relative;
+}
+
+#productOverview .thumbnails .images {
+  position: absolute;
+  top: 20px;
+}
+
+#productOverview .thumbnail {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin: 6px 4px;
+  padding: 2px;
+  opacity: 0.5;
+  cursor: pointer;
+  border: 2px solid #ddd;
+}
+
+#productOverview .thumbnail.selected {
+  opacity: 1;
+  border-bottom: 2px solid #000;
+}
+
+#productOverview .changeThumbnails.previous,
+#productOverview .changeThumbnails.next {
+  display: block;
+  position: absolute;
+  left: calc(50% - 5px);
+  width: 10px;
+  height: 10px;
+  border-radius: 10%;
+  background-color: #ddd;
+  border: 0;
+  padding: 0;
+  text-align: center;
+  line-height: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+#productOverview .changeThumbnails.previous {
+  top: 10px;
+}
+
+#productOverview .changeThumbnails.next {
+  top: 295px;
 }
 
 #productOverview .rating {
   grid-area: rating;
+  margin-left: 10px;
   position: relative;
   padding-top: 15px;
 }
@@ -43,6 +140,7 @@ body {
 
 #productOverview .info {
   grid-area: info;
+  margin-left: 10px;
 }
 
 #productOverview .info .category {
@@ -52,10 +150,12 @@ body {
 
 #productOverview .info .name {
   font-size: 36px;
+  margin-bottom: 12px;
 }
 
 #productOverview .style-selector {
   grid-area: styleselector;
+  margin-left: 10px;
 }
 
 #productOverview .price,
@@ -65,6 +165,7 @@ body {
 
 #productOverview .sale-price {
   color: red;
+  margin-right: 5px;
 }
 
 #productOverview .original-price-strikethrough {
@@ -84,6 +185,7 @@ body {
 #productOverview .style-selector img {
   width: 50px;
   height: 50px;
+  object-fit: cover;
   border-radius: 50%;
   margin: 5px;
   border: 1px solid #ccc;
@@ -122,36 +224,55 @@ body {
 }
 
 #productOverview button i {
-  margin-right: 5px;
+  margin-right: 15px;
 }
 
 .add-to-cart {
   display: grid;
-  grid-template-columns: 110px 55px;
-  grid-template-rows: 25px 1fr;
+  grid-template-columns: 155px auto;
   grid-template-areas:
     'size-dropdown quantity-dropdown'
     'add-to-cart add-to-cart';
+  margin-bottom: 10px;
+}
+
+.size-selector,
+.quantity-selector,
+.add-to-cart button {
+  font-family: 'Times New Roman', Times, serif;
+  height: 40px;
+  line-height: 40px;
+  margin: 5px;
+  font-size: 15px;
 }
 
 .size-selector {
   grid-area: size-dropdown;
+  width: 150px;
+  padding: 10px;
 }
 
 .quantity-selector {
   grid-area: quantity-dropdown;
+  width: 90px;
+  padding: 10px;
 }
 
 .add-to-cart button {
   grid-area: add-to-cart;
-  margin-bottom: 10px;
-  width: 100%;
+  width: 245px;
+  padding: 0;
 }
 
 #productOverview .description {
   grid-area: description;
-  border: 1px solid black;
-  padding: 10px;
+  margin: 20px;
+  padding: 20px;
+}
+
+#productOverview .description .slogan{
+  font-weight: bold;
+  margin-bottom: 12px;
 }
 
 /* End of Product Overview Styling */

@@ -6,7 +6,6 @@ import StyleSelector from './StyleSelector';
 
 const ProductDetails = ({ productId }) => (
   <div id="productOverview" className="grid">
-    <div className="carousel">Images Here</div>
     <Rating productId={productId} />
     <ProductInfo productId={productId} />
     <StyleSelector productId={productId} />

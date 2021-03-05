@@ -33,7 +33,10 @@ class ProductInfo extends React.Component {
           <div className="category">{productInfo.category ? productInfo.category.toUpperCase() : ''}</div>
           <div className="name">{productInfo.name}</div>
         </div>
-        <div className="description">{productInfo.description}</div>
+        <div className="description">
+          <div className="slogan">{productInfo.slogan}</div>
+          <div className="more-info">{productInfo.description}</div>
+        </div>
       </>
     );
   }
