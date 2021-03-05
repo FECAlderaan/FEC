@@ -46,7 +46,7 @@ class AddToCart extends React.Component {
 
   sizeSelectorOnChange(e) {
     const { sizeSelected } = this.state;
-    this.setState({ sizeSelected: e.target.value });
+    this.setState({ sizeSelected: e.target.value, noSizeSelectedMessageDisplay: 'none' });
     if (sizeSelected === 'none') {
       this.setState({ quantitySelected: 1 });
     }
@@ -75,6 +75,7 @@ class AddToCart extends React.Component {
           </select>
         </div>
         <div className="quantity">
+          <div style={{ display: noSizeSelectedMessageDisplay, color: 'rgba(0,0,0,0)' }}>shift down</div>
           <select
             className="quantity-selector"
             value={quantitySelected}
