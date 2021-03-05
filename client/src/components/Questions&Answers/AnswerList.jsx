@@ -45,9 +45,21 @@ class AnswerList extends React.Component {
   // Convert entries in state into <AnswerListEntry />s to be rendered
   renderAnswers() {
     const { entries } = this.state;
-    return entries.map(
-      (answer) => <AnswerListEntry answer={answer} key={answer.id} />,
-    );
+    // subset of entries to be displayed
+    let display = [];
+    // Handle if there are only 2 answers
+    if (entries.length < 3) {
+      display = [...entries];
+    } else {
+      display = [entries[0], entries[1]];
+    }
+    // Only show 2 answers and a load more button
+    return [
+      display.map((answer) => <AnswerListEntry answer={answer} key={answer.id} />),
+      // only add button if there are more entries left to be displayed
+      (display.length < entries.length ? <button type="button">See more answer</button> : ''),
+    ];
+    // renders objects that aresupplied to it
   }
 
   render() {
