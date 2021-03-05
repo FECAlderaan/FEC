@@ -3,16 +3,33 @@ import PropTypes from 'prop-types';
 import _ from 'underscore';
 import AnswerListEntry from './AnswerListEntry';
 
-const AnswerList = ({ answers }) => {
-  const renderAnswers = () => {
-    let entries = [];
-    // Sort array of answer objects by their value for helpfulness property
-    const sortAnswers = (answerList) => {
-      const sortedAnswerList = _.sortBy(answerList, 'helpfulness');
-      // Reverse the order of the answers so the most helpful is first
-      entries.push(...sortedAnswerList.reverse());
+class AnswerList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      entries: [],
     };
+    this.sortAnswers = this.sortAnswers.bind(this);
+    this.arrangeAnswers = this.arrangeAnswers.bind(this);
+    this.renderAnswers = this.renderAnswers.bind(this);
+  }
 
+  componentDidMount() {
+    // update state with properly arranged answers
+    this.arrangeAnswers();
+  }
+
+  // Sort answers by most helpful and add them to state
+  sortAnswers(answerList) {
+    const sortedAnswerList = _.sortBy(answerList, 'helpfulness');
+    // Reverse the order of the answers so the most helpful is first
+    this.setState({ entries: [...sortedAnswerList.reverse()] });
+  }
+
+  // Take answers from props, arrange them so Seller's answers appear first then sort answers
+  arrangeAnswers() {
+    const { answers } = this.props;
+    // Sort array of answer objects by their value for helpfulness property
     if (answers) {
       // filter all answers authored by 'Seller' to seperate arrays
       const sellerAnswers = answers.filter((answer) => answer.answerer_name === 'Seller');
@@ -20,22 +37,28 @@ const AnswerList = ({ answers }) => {
 
       // sort both arrays
       // push Seller's answers first so they are at the front of the array
-      sortAnswers(sellerAnswers);
-      sortAnswers(buyerAnswers);
-
-      entries = entries.map(
-        (answer) => <AnswerListEntry answer={answer} key={answer.id} />,
-      );
+      this.sortAnswers(sellerAnswers);
+      this.sortAnswers(buyerAnswers);
     }
-    return entries;
-  };
-  return (
-    <div className="answer-list">
-      <h3>A: </h3>
-      {renderAnswers()}
-    </div>
-  );
-};
+  }
+
+  // Convert entries in state into <AnswerListEntry />s to be rendered
+  renderAnswers() {
+    const { entries } = this.state;
+    return entries.map(
+      (answer) => <AnswerListEntry answer={answer} key={answer.id} />,
+    );
+  }
+
+  render() {
+    return (
+      <div className="answer-list">
+        <h3>A: </h3>
+        {this.renderAnswers()}
+      </div>
+    );
+  }
+}
 
 AnswerList.propTypes = {
   answers: PropTypes.instanceOf(Array).isRequired,
