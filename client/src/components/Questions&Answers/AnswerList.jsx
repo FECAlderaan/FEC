@@ -6,12 +6,24 @@ import AnswerListEntry from './AnswerListEntry';
 const AnswerList = ({ answers }) => {
   const renderAnswers = () => {
     let entries = [];
-    if (answers) {
-      // Sort array of answer objects by their value for helpfulness property
-      const sortedAnswers = _.sortBy(answers, 'helpfulness');
+    // Sort array of answer objects by their value for helpfulness property
+    const sortAnswers = (answerList) => {
+      const sortedAnswerList = _.sortBy(answerList, 'helpfulness');
       // Reverse the order of the answers so the most helpful is first
-      sortedAnswers.reverse();
-      entries = sortedAnswers.map(
+      entries.push(...sortedAnswerList.reverse());
+    };
+
+    if (answers) {
+      // filter all answers authored by 'Seller' to seperate arrays
+      const sellerAnswers = answers.filter((answer) => answer.answerer_name === 'Seller');
+      const buyerAnswers = answers.filter((answer) => answer.answerer_name !== 'Seller');
+
+      // sort both arrays
+      // push Seller's answers first so they are at the front of the array
+      sortAnswers(sellerAnswers);
+      sortAnswers(buyerAnswers);
+
+      entries = entries.map(
         (answer) => <AnswerListEntry answer={answer} key={answer.id} />,
       );
     }
