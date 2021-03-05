@@ -6,8 +6,8 @@ const AnswerList = ({ answers }) => {
   const renderAnswers = () => {
     let entries = [];
     if (answers) {
-      entries = Object.entries(answers).map(
-        (answer) => <AnswerListEntry answer={answer[1]} key={answer[0]}/>,
+      entries = answers.map(
+        (answer) => <AnswerListEntry answer={answer} key={answer.id} />,
       );
     }
     return entries;

@@ -7,6 +7,15 @@ const QuestionListEntry = ({ question }) => {
   const { question_helpfulness: questionHelpfulness, question_body: questionBody } = question;
   const { answers } = question;
 
+  // Convert answers from an object to an array;
+  const parseAnswers = () => {
+    let answerList;
+    if (answers) {
+      answerList = Object.entries(answers).map((answer) => answer[[1]]);
+    }
+    return answerList;
+  };
+
   return (
     <div className="question-list-entry">
       <div className="question">
@@ -23,7 +32,7 @@ const QuestionListEntry = ({ question }) => {
           <a href="/">Add Answer</a>
         </div>
       </div>
-      <AnswerList answers={answers} />
+      <AnswerList answers={parseAnswers()} />
     </div>
   );
 };
