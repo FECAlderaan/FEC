@@ -40,13 +40,24 @@ class ReviewsList extends React.Component {
     }
     const reviewsCheck = productReviews.results.length === displayedReviewsCount;
     return (
-      <div className="reviews-list">
-        {reviews.map((review) => (
-          <ReviewTile review={review} />
-        ))}
-        { reviewsCheck ? '' : <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button> }
-        <button type="button">ADD A REVIEW +</button>
+      <div className="reviews-container">
+        {/* sorting */}
+        <div className="sorting-bar">
+          <h4>248 reviews, sorted by relevance</h4>
+        </div>
+        {/* reviews list */}
+        <div className="reviews-list">
+          {reviews.map((review) => (
+            <ReviewTile review={review} />
+          ))}
+        </div>
+        {/* buttons */}
+        <div className="reviews-buttons">
+          {reviewsCheck ? '' : <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button>}
+          <button type="button">ADD A REVIEW +</button>
+        </div>
       </div>
+
     );
   }
 }
