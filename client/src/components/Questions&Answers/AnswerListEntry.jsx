@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 
 const AnswerListEntry = ({ answer }) => {
   // Destructure and rename answerer_name into camelCase
   const { answerer_name: answererName } = answer;
-  const { body, date, helpfulness } = answer;
+  const { body, date, helpfulness, id } = answer;
 
   // Convert date string into Month DD, YYYY format
   const formatDate = (dateString) => {
@@ -21,6 +22,15 @@ const AnswerListEntry = ({ answer }) => {
     return answerer;
   };
 
+  const markHelpful = () => {
+    const route = `http://localhost:8080/atelier/qa/answers/${id}/helpful`;
+    $.ajax({
+      url: route,
+      method: 'PUT',
+    })
+      .fail((error) => console.log(error));
+  };
+
   return (
     <div className="answer-entry">
       <p>{body}</p>
@@ -33,7 +43,7 @@ const AnswerListEntry = ({ answer }) => {
         </p>
         <p>
           Helpful?
-          <a href="/"> Yes </a>
+          <button type="button" onClick={markHelpful}>Yes</button>
           (
           {helpfulness}
           )
