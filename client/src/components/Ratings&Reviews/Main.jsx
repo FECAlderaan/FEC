@@ -12,7 +12,7 @@ class Main extends React.Component {
     this.state = {
       productId: props.productId,
       productReviews: { results: [] },
-      ratingData: { ratings: [], recommended: {} },
+      ratingData: { ratings: [], recommended: {}, characteristics: {} },
     };
   }
 

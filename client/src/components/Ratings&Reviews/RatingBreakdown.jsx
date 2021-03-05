@@ -128,7 +128,7 @@ const RatingBreakdown = ({ ratingData }) => {
 
       </div>
 
-      <ProductBreakdown />
+      <ProductBreakdown ratingData={ratingData} />
     </div>
   );
 };
