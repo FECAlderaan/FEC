@@ -20,26 +20,30 @@ const checkIfSeller = (answerer) => {
 class AnswerListEntry extends React.Component {
   constructor(props) {
     super(props);
+    const { answer } = props;
     this.state = {
       markedHelpful: false,
       reported: false,
+      helpfulness: answer.helpfulness,
     };
     this.markHelpful = this.markHelpful.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
+    this.renderHelpfulButton = this.renderHelpfulButton.bind(this);
     this.renderReportButton = this.renderReportButton.bind(this);
   }
 
   // Increase an answer's helpfulness property
   markHelpful() {
     const { answer: { id } } = this.props;
-    const { markedHelpful } = this.state;
+    const { markedHelpful, helpfulness } = this.state;
     const route = `http://localhost:8080/atelier/qa/answers/${id}/helpful`;
     if (!markedHelpful) {
       $.ajax({
         url: route,
         method: 'PUT',
       })
-        .success((this.setState({ markedHelpful: true })))
+      // update state so render can reflect new value
+        .done(this.setState({ markedHelpful: true, helpfulness: helpfulness + 1 }))
         .fail((error) => console.log(error));
     }
   }
@@ -54,9 +58,19 @@ class AnswerListEntry extends React.Component {
         url: route,
         method: 'PUT',
       })
-        .then((this.setState({ reported: true })))
+        .done((this.setState({ reported: true })))
         .fail((error) => console.log(error));
     }
+  }
+
+  // Render a button that can only be clicked once for marking a helpful answer
+  renderHelpfulButton() {
+    const { markedHelpful } = this.state;
+    let helpfulButton = <button type="button" onClick={this.markHelpful}>Yes</button>;
+    if (markedHelpful) {
+      helpfulButton = <span>Yes</span>;
+    }
+    return helpfulButton;
   }
 
   // Render a button that can only be clicked once for reporting answers
@@ -70,10 +84,11 @@ class AnswerListEntry extends React.Component {
   }
 
   render() {
+    const { helpfulness } = this.state;
     const { answer } = this.props;
     // Destructure and rename answerer_name into camelCase
     const { answerer_name: answererName } = answer;
-    const { body, date, helpfulness } = answer;
+    const { body, date } = answer;
     return (
       <div className="answer-entry">
         <p>{body}</p>
@@ -86,7 +101,7 @@ class AnswerListEntry extends React.Component {
           </p>
           <p>
             Helpful?
-            <button type="button" onClick={this.markHelpful}>Yes</button>
+            {this.renderHelpfulButton()}
             (
             {helpfulness}
             )
