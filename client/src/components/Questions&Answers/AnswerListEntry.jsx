@@ -118,4 +118,4 @@ AnswerListEntry.propTypes = {
 };
 
 export default AnswerListEntry;
-export { checkIfSeller };
+export { formatDate, checkIfSeller };
