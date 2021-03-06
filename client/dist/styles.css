@@ -17,6 +17,7 @@ html {
     'thumbnails carousel rating'
     'thumbnails carousel info'
     'thumbnails carousel styleselector'
+    'thumbnails carousel share'
     'description description features';
   margin: 0 20px;
   border: 2px solid #ccc;
@@ -97,7 +98,11 @@ html {
 
 #productOverview .carousel .modal .image.zoom {
   transform: scale(2.5);
+  overflow: hidden;
   cursor: url(/minusSign.png), auto;
+  /* padding-top: 200px; */
+  /* transform: translate(100px, 200px); */
+  /* margin-top: 200px; */
 }
 
 #productOverview .carousel .close,
@@ -133,6 +138,27 @@ html {
 #productOverview .carousel .changeModalImage.next {
   right: 10px;
   top: calc(50% - 10px);
+}
+
+#productOverview .carousel .icons {
+  position: fixed;
+  bottom: 10px;
+}
+
+#productOverview .carousel .icons button {
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  margin: 2px;
+  border-radius: 50%;
+  background-color: #ccc;
+  border: 0;
+  padding: 5px;
+  border: 2px solid #fff;
+}
+
+#productOverview .carousel .icons button.selected {
+  background-color: #222;
 }
 
 #productOverview .thumbnails {
@@ -333,6 +359,20 @@ html {
   grid-area: add-to-cart;
   width: 245px;
   padding: 0;
+}
+
+#productOverview .share {
+  grid-area: share;
+  display: flex;
+  justify-content: space-around;
+  margin-left: 10px;
+  margin-top: 15px;
+}
+
+.fb-share-button,
+.twitter-share-button,
+.pinterest-share-button {
+  margin-right: 5px;
 }
 
 #productOverview .description {
