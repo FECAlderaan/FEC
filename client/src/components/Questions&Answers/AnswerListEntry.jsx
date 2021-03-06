@@ -24,6 +24,7 @@ class AnswerListEntry extends React.Component {
       markedHelpful: false,
     };
     this.markHelpful = this.markHelpful.bind(this);
+    this.reportAnswer = this.reportAnswer.bind(this);
   }
 
   markHelpful() {
@@ -38,6 +39,17 @@ class AnswerListEntry extends React.Component {
         .success((this.setState({ markedHelpful: true })))
         .fail((error) => console.log(error));
     }
+  }
+
+  reportAnswer() {
+    const { answer: { id } } = this.props;
+    const route = `http://localhost:8080/atelier/qa/answers/${id}/report`;
+    $.ajax({
+      url: route,
+      method: 'PUT',
+    })
+      .then(console.log('Answer Reported!'))
+      .fail((error) => console.log(error));
   }
 
   render() {
@@ -62,7 +74,7 @@ class AnswerListEntry extends React.Component {
             {helpfulness}
             )
           </p>
-          <a href="/">Report</a>
+          <button type="button" onClick={this.reportAnswer}>Report</button>
         </div>
       </div>
     );
