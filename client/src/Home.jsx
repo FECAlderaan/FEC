@@ -28,12 +28,16 @@ class Home extends React.Component {
     const { products } = this.state;
     return (
       <div>
-        <h1>Home</h1>
-        {products.map((product) => (
-          <div key={product.id}>
-            <Link to={`/products/${product.id}`}>{product.name}</Link>
-          </div>
-        ))}
+        <div id="header">
+          <span>Catwalk</span>
+        </div>
+        <div className="products">
+          {products.map((product) => (
+            <div key={product.id}>
+              <Link to={`/products/${product.id}`}>{product.name}</Link>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
