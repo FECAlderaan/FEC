@@ -42,7 +42,7 @@ class AnswerListEntry extends React.Component {
         url: route,
         method: 'PUT',
       })
-      // update state so render can reflect new value
+        // update state so render can reflect new value
         .done(this.setState({ markedHelpful: true, helpfulness: helpfulness + 1 }))
         .fail((error) => console.log(error));
     }
@@ -118,3 +118,4 @@ AnswerListEntry.propTypes = {
 };
 
 export default AnswerListEntry;
+export { checkIfSeller };
