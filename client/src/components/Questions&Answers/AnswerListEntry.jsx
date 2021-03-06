@@ -22,11 +22,14 @@ class AnswerListEntry extends React.Component {
     super(props);
     this.state = {
       markedHelpful: false,
+      reported: false,
     };
     this.markHelpful = this.markHelpful.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
+    this.renderReportButton = this.renderReportButton.bind(this);
   }
 
+  // Increase an answer's helpfulness property
   markHelpful() {
     const { answer: { id } } = this.props;
     const { markedHelpful } = this.state;
@@ -41,15 +44,29 @@ class AnswerListEntry extends React.Component {
     }
   }
 
+  // Remove answer and send its id to Atelier API for review
   reportAnswer() {
     const { answer: { id } } = this.props;
+    const { reported } = this.state;
     const route = `http://localhost:8080/atelier/qa/answers/${id}/report`;
-    $.ajax({
-      url: route,
-      method: 'PUT',
-    })
-      .then(console.log('Answer Reported!'))
-      .fail((error) => console.log(error));
+    if (!reported) {
+      $.ajax({
+        url: route,
+        method: 'PUT',
+      })
+        .then((this.setState({ reported: true })))
+        .fail((error) => console.log(error));
+    }
+  }
+
+  // Render a button that can only be clicked once for reporting answers
+  renderReportButton() {
+    const { reported } = this.state;
+    let reportButton = <button type="button" onClick={this.reportAnswer}>Report</button>;
+    if (reported) {
+      reportButton = <span>Reported!</span>;
+    }
+    return reportButton;
   }
 
   render() {
@@ -74,7 +91,7 @@ class AnswerListEntry extends React.Component {
             {helpfulness}
             )
           </p>
-          <button type="button" onClick={this.reportAnswer}>Report</button>
+          {this.renderReportButton()}
         </div>
       </div>
     );
