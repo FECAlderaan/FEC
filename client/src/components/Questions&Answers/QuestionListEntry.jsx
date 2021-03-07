@@ -6,16 +6,35 @@ import AnswerModal from './AnswerModal';
 class QuestionListEntry extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showAnswerModal: false,
+    };
+
+    this.parseAnswers = this.parseAnswers.bind(this);
+    this.toggleAnswerModal = this.toggleAnswerModal.bind(this);
+    this.renderAnswerModal = this.renderAnswerModal.bind(this);
   }
 
   // Convert answers from an object to an array;
   parseAnswers() {
-    const { question: {answers} } = this.props;
+    const { question: { answers } } = this.props;
     let answerList;
     if (answers) {
       answerList = Object.entries(answers).map((answer) => answer[[1]]);
     }
     return answerList;
+  }
+
+  toggleAnswerModal() {
+    const { showAnswerModal } = this.state;
+    this.setState({ showAnswerModal: !showAnswerModal });
+  }
+
+  renderAnswerModal() {
+    const { showAnswerModal } = this.state;
+    if (showAnswerModal) {
+      return <AnswerModal />;
+    }
   }
 
   render() {
@@ -35,13 +54,13 @@ class QuestionListEntry extends React.Component {
               {questionHelpfulness}
               )
             </p>
-            <button type="button">Add Answer</button>
+            <button type="button" onClick={this.toggleAnswerModal}>Add Answer</button>
           </div>
-          <AnswerModal />
+          {this.renderAnswerModal()}
         </div>
         <AnswerList answers={this.parseAnswers()} />
       </div>
-    )
+    );
   }
 }
 
