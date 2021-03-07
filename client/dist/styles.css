@@ -30,7 +30,8 @@ html {
   margin-top: 10px;
 }
 
-#header #home {
+#header #home,
+#header #cart {
   position: fixed;
   right: 5%;
   font-size: 30px;
@@ -38,10 +39,29 @@ html {
   border: 0;
   cursor: pointer;
   margin-top: 10px;
+  color: #fff;
 }
 
-#header #home:hover {
-  color: #ccc;
+#header #home {
+  right: calc(5% + 60px);
+}
+
+#header #cart {
+  right: 5%;
+}
+
+#header #cart .count {
+  position: fixed;
+  font-size: 12px;
+  right: calc(5% + 14px);
+  top: 14px;
+  color: rgb(56, 82, 110);
+  font-weight: bold;
+}
+
+#header #cart .cart-dropdown {
+  position: fixed;
+
 }
 
 /* End of Header Styling */
@@ -120,7 +140,6 @@ html {
 #productOverview .carousel .modal {
   position: fixed;
   z-index: 1;
-  /* padding: 10px; */
   margin: 0;
   left: 0;
   right: 0;
@@ -133,23 +152,27 @@ html {
   align-items: center;
 }
 
+#productOverview .carousel .container {
+  height: 80vh;
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
 #productOverview .carousel .modal .image {
   z-index: 1;
-  max-width: calc(100% - 80px);
-  max-height: calc(100% - 80px);
-  left: 0px;
-  top: 10px;
+  max-height: 100%;
+  max-width: 100%;
   cursor: url(/plusSign.png), auto;
   transition: transform 0.5s;
+  position: relative;
 }
 
 #productOverview .carousel .modal .image.zoom {
   transform: scale(2.5);
-  overflow: hidden;
   cursor: url(/minusSign.png), auto;
-  /* padding-top: 200px; */
-  /* transform: translate(100px, 200px); */
-  /* margin-top: 200px; */
 }
 
 #productOverview .carousel .close,

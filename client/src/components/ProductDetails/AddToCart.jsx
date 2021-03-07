@@ -14,14 +14,14 @@ class AddToCart extends React.Component {
     };
     this.sizeSelectorOnChange = this.sizeSelectorOnChange.bind(this);
     this.quantitySelectorOnChange = this.quantitySelectorOnChange.bind(this);
-    this.onButtonClick = this.onButtonClick.bind(this);
+    this.addToCartOnClick = this.addToCartOnClick.bind(this);
     this.sizeSelector = React.createRef();
   }
 
-  onButtonClick() {
+  addToCartOnClick() {
     const { sizeSelected } = this.state;
     let { quantitySelected } = this.state;
-    const { selectedStyle } = this.props;
+    const { selectedStyle, getCart } = this.props;
     if (sizeSelected === 'none') {
       this.setState({ noSizeSelectedMessageDisplay: 'block' });
       this.sizeSelector.current.focus();
@@ -33,11 +33,18 @@ class AddToCart extends React.Component {
         return match;
       }, 0);
       while (quantitySelected > 0) {
+        let successCB;
+        if (quantitySelected === 1) {
+          successCB = getCart;
+        } else {
+          successCB = () => {};
+        }
         $.ajax({
           type: 'POST',
           url: 'http://localhost:8080/atelier/cart',
           data: JSON.stringify({ sku_id: skuID }),
           contentType: 'application/json',
+          success: successCB,
         });
         quantitySelected -= 1;
       }
@@ -86,7 +93,7 @@ class AddToCart extends React.Component {
             {new Array(Math.min(skus[sizeSelected] || 0, 15)).fill(0).map((e, index) => <option key={index + 1} value={index + 1}>{index + 1}</option>)}
           </select>
         </div>
-        <button type="button" onClick={this.onButtonClick} hidden={!(inStock)}>
+        <button type="button" onClick={this.addToCartOnClick} hidden={!(inStock)}>
           <i className="fas fa-shopping-cart" />
           <span>ADD TO CART</span>
         </button>
@@ -99,6 +106,7 @@ AddToCart.propTypes = {
   selectedStyle: PropTypes.instanceOf(Array).isRequired,
   inStock: PropTypes.number.isRequired,
   skus: PropTypes.instanceOf(Object).isRequired,
+  getCart: PropTypes.func.isRequired,
 };
 
 export default AddToCart;

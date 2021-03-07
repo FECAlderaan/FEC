@@ -11,9 +11,8 @@ class Carousel extends React.Component {
       firstThumbnailIndexShown: 0,
       modalDisplay: 'none',
       modalZoom: false,
-      modalStyle: null,
-      // backgroundPositionX: 0,
-      // backgroundPositionY: 0
+      top: 'auto',
+      left: 'auto',
     };
     this.imageOnClick = this.imageOnClick.bind(this);
     this.modalClose = this.modalClose.bind(this);
@@ -37,15 +36,22 @@ class Carousel extends React.Component {
 
   modalImageOnClick() {
     const { modalZoom } = this.state;
-    this.setState({ modalZoom: !modalZoom });
+    if (modalZoom) {
+      this.setState({ modalZoom: !modalZoom, top: 'auto', left: 'auto' });
+    } else {
+      this.setState({ modalZoom: !modalZoom });
+    }
   }
 
   modalOnMouseMove(e) {
     const { modalZoom } = this.state;
     if (modalZoom) {
-      // console.log(`(${e.clientX}px, ${e.clientY}px)`);
-      this.setState({ modalStyle: `translate(-${e.clientX}px, -${e.clientY}px)` });
-      // console.log(this.state.modalStyle);
+      if ((e.target.width * 2.5) > window.innerWidth) {
+        this.setState({ left: `calc(${((e.target.width * 2.5) - window.innerWidth) / 2}px - ${((e.target.width * 2.5) - window.innerWidth) * (e.pageX / window.innerWidth)}px` });
+      }
+      if ((e.target.height * 2.5) > window.innerHeight) {
+        this.setState({ top: `calc(${((e.target.height * 2.5) - window.innerHeight) / 2}px - ${((e.target.height * 2.5) - window.innerHeight) * (e.pageY / window.innerHeight)}px` });
+      }
     }
   }
 
@@ -86,7 +92,7 @@ class Carousel extends React.Component {
   render() {
     const { images } = this.props;
     const {
-      imageIndexInFocus, firstThumbnailIndexShown, modalDisplay, modalZoom, modalStyle,
+      imageIndexInFocus, firstThumbnailIndexShown, modalDisplay, modalZoom, top, left,
     } = this.state;
     return (
       <>
@@ -104,17 +110,17 @@ class Carousel extends React.Component {
               {images.map((image, index) => <button aria-label="Change Modal Image" key={index} type="button" name={index} className={index === imageIndexInFocus ? 'selected' : ''} style={modalZoom ? { display: 'none' } : {}} onClick={this.iconOnClick} onKeyDown={this.iconOnClick} />)}
             </div>
             <button type="button" className="changeModalImage next" style={imageIndexInFocus === images.length - 1 || modalZoom ? { display: 'none' } : {}} onClick={this.nextImage} onKeyDown={this.nextImage}>{'>'}</button>
-
-            <img
-              className={modalZoom ? 'image zoom' : 'image'}
-              alt=""
-              onClick={this.modalImageOnClick}
-              onKeyDown={this.modalImageOnClick}
-              onMouseMove={this.modalOnMouseMove}
-              src={images[imageIndexInFocus] ? images[imageIndexInFocus].url : ''}
-              style={modalZoom ? { transform: modalStyle } : {}}
-            />
-
+            <div className="container">
+              <img
+                className={modalZoom ? 'image zoom' : 'image'}
+                alt=""
+                onClick={this.modalImageOnClick}
+                onKeyDown={this.modalImageOnClick}
+                src={images[imageIndexInFocus] ? images[imageIndexInFocus].url : ''}
+                style={{ top, left }}
+                onMouseMove={this.modalOnMouseMove}
+              />
+            </div>
           </div>
         </div>
         <div className="thumbnails">

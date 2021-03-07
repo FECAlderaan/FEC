@@ -35,6 +35,7 @@ class StyleSelector extends React.Component {
   }
 
   render() {
+    const { getCart } = this.props;
     const { styles, selected } = this.state;
     const selectedStyle = styles[selected];
     const photos = selectedStyle ? selectedStyle.photos : [];
@@ -63,6 +64,7 @@ class StyleSelector extends React.Component {
             </span>
           )) : ''}
           <AddToCart
+            getCart={getCart}
             selectedStyle={selectedStyle ? Object.entries(selectedStyle.skus) : []}
             inStock={selectedStyle
               ? Object.values(selectedStyle.skus).reduce(((count, sku) => count + sku.quantity), 0)
@@ -82,6 +84,7 @@ class StyleSelector extends React.Component {
 
 StyleSelector.propTypes = {
   productId: PropTypes.number.isRequired,
+  getCart: PropTypes.func.isRequired,
 };
 
 export default StyleSelector;

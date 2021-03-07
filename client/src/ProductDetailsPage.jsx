@@ -1,29 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import $ from 'jquery';
 
+import Header from './Header';
 import ProductDetails from './components/ProductDetails/Main';
 import QuestionAnswer from './components/Questions&Answers/Main';
 import RatingsReviews from './components/Ratings&Reviews/Main';
 
-const App = ({ match }) => {
-  const productId = Number(match.params.id);
-  return (
-    <>
-      <div id="header">
-        <span>Catwalk</span>
-        <button id="home" type="button">
-          <Link to="/" style={{ color: '#fff' }}>
-            <i className="fas fa-home" />
-          </Link>
-        </button>
-      </div>
-      <ProductDetails productId={productId} />
-      <QuestionAnswer productId={productId} />
-      <RatingsReviews productId={productId} />
-    </>
-  );
-};
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cart: [],
+    };
+    this.getCart = this.getCart.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCart();
+  }
+
+  getCart() {
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/atelier/cart',
+      success: (data) => {
+        this.setState({ cart: data });
+      },
+    });
+  }
+
+  render() {
+    const { match } = this.props;
+    const productId = Number(match.params.id);
+    const { cart } = this.state;
+    return (
+      <>
+        <Header cart={cart} />
+        <ProductDetails productId={productId} getCart={this.getCart} />
+        <QuestionAnswer productId={productId} />
+        <RatingsReviews productId={productId} />
+      </>
+    );
+  }
+}
 
 App.propTypes = {
   match: PropTypes.instanceOf(Object).isRequired,
