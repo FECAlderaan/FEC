@@ -33,7 +33,7 @@ class QuestionListEntry extends React.Component {
   renderAnswerModal() {
     const { showAnswerModal } = this.state;
     if (showAnswerModal) {
-      return <AnswerModal />;
+      return <AnswerModal toggleAnswerModal={this.toggleAnswerModal}/>;
     }
   }
 
