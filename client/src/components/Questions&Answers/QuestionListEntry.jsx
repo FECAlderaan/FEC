@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AnswerList from './AnswerList';
+import AnswerModal from './AnswerModal';
 
 const QuestionListEntry = ({ question }) => {
   // Destructure and rename question_helpfulness into camelCase
@@ -29,8 +30,9 @@ const QuestionListEntry = ({ question }) => {
             {questionHelpfulness}
             )
           </p>
-          <a href="/">Add Answer</a>
+          <button type="button">Add Answer</button>
         </div>
+        <AnswerModal />
       </div>
       <AnswerList answers={parseAnswers()} />
     </div>
