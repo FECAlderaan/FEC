@@ -8,6 +8,7 @@ class Header extends React.Component {
     this.state = {
       cartDisplay: 'none',
     };
+    this.cartOnClick = this.cartOnClick.bind(this);
   }
 
   cartOnClick() {

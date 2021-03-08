@@ -97,19 +97,27 @@ class Carousel extends React.Component {
     return (
       <>
         <div className="carousel">
+          {/* button to see previous image in default view */}
           <button type="button" className="changeImage previous" style={imageIndexInFocus ? {} : { display: 'none' }} onClick={this.previousImage} onKeyDown={this.previousImage}>{'<'}</button>
+          {/* button to see next image in default view */}
           <button type="button" className="changeImage next" style={imageIndexInFocus === images.length - 1 ? { display: 'none' } : {}} onClick={this.nextImage} onKeyDown={this.nextImage}>{'>'}</button>
+          {/* image in focus for default view */}
           {images.map((photo, index) => (
             index === imageIndexInFocus ? <img key={photo.url} alt="" className="in-focus" src={photo.url} onClick={this.imageOnClick} onKeyDown={this.imageOnClick} /> : null
           ))}
+          {/* modal for expanded view */}
           <div className="modal" style={{ display: modalDisplay }}>
+            {/* button to close expanded view */}
             <button type="button" style={modalZoom ? { display: 'none' } : {}} className="close" onClick={this.modalClose}>X</button>
+            {/* button to see previous image in expanded view */}
             <button type="button" className="changeModalImage previous" style={imageIndexInFocus && !modalZoom ? {} : { display: 'none' }} onClick={this.previousImage} onKeyDown={this.previousImage}>{'<'}</button>
+            {/* button to see next image in expanded view */}
             <button type="button" className="changeModalImage next" style={imageIndexInFocus === images.length - 1 || modalZoom ? { display: 'none' } : {}} onClick={this.nextImage} onKeyDown={this.nextImage}>{'>'}</button>
+            {/* icons for expanded view */}
             <div className="icons">
               {images.map((image, index) => <button aria-label="Change Modal Image" key={index} type="button" name={index} className={index === imageIndexInFocus ? 'selected' : ''} style={modalZoom ? { display: 'none' } : {}} onClick={this.iconOnClick} onKeyDown={this.iconOnClick} />)}
             </div>
-            <button type="button" className="changeModalImage next" style={imageIndexInFocus === images.length - 1 || modalZoom ? { display: 'none' } : {}} onClick={this.nextImage} onKeyDown={this.nextImage}>{'>'}</button>
+            {/* image in focus for expanded view */}
             <div className="container">
               <img
                 className={modalZoom ? 'image zoom' : 'image'}
@@ -123,14 +131,18 @@ class Carousel extends React.Component {
             </div>
           </div>
         </div>
+        {/* thumbnails for default view - have to be outside of "carousel" div for styling */}
         <div className="thumbnails">
+          {/* button to see previous thumbnail */}
           <button type="button" className="changeThumbnails previous" style={firstThumbnailIndexShown ? {} : { display: 'none' }} onClick={this.previousThumbnail} onKeyDown={this.previousThumbnail}>˄</button>
+          {/* button to see next thumbnail */}
+          <button type="button" className="changeThumbnails next" style={firstThumbnailIndexShown >= images.length - 5 ? { display: 'none' } : {}} onClick={this.nextThumbnail} onKeyDown={this.nextThumbnail}>˅</button>
+          {/* thumbnails */}
           <div className="images">
             {images.map((photo, index) => (
               (index >= firstThumbnailIndexShown && index <= firstThumbnailIndexShown + 4) ? <img alt="" key={photo.url} name={index} className={index === imageIndexInFocus ? 'thumbnail selected' : 'thumbnail'} onClick={this.thumbnailOnClick} onKeyDown={this.thumbnailOnClick} src={photo.thumbnail_url} /> : null
             ))}
           </div>
-          <button type="button" className="changeThumbnails next" style={firstThumbnailIndexShown >= images.length - 5 ? { display: 'none' } : {}} onClick={this.nextThumbnail} onKeyDown={this.nextThumbnail}>˅</button>
         </div>
       </>
     );
