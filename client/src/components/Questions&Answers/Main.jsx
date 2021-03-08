@@ -3,7 +3,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
-import QASearch from './QASearch';
 import QuestionList from './QuestionList';
 
 class QuestionAnswer extends React.Component {
@@ -31,7 +30,6 @@ class QuestionAnswer extends React.Component {
     return (
       <div>
         <h2>Questions & Answers</h2>
-        <QASearch />
         <QuestionList product={product} />
         <button type="button">More Answered Questions</button>
         <button type="button">Ask A Question + </button>

@@ -6,12 +6,25 @@ class QASearch extends React.Component {
     this.state = {
       searchTerm: '',
     };
+    this.changeState = this.changeState.bind(this);
+  }
+
+  changeState(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
+    const { searchTerm } = this.state;
     return (
       <form>
-        <input type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." size="128" />
+        <input
+          value={searchTerm}
+          onChange={this.changeState}
+          name="searchTerm"
+          type="text"
+          placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+          size="128"
+        />
       </form>
     );
   }

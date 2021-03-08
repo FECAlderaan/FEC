@@ -2,9 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'underscore';
 import QuestionListEntry from './QuestionListEntry';
+import QASearch from './QASearch';
 
-const QuestionList = ({ product }) => {
-  const renderQuestions = () => {
+class QuestionList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+    this.renderQuestions = this.renderQuestions.bind(this);
+  }
+
+  renderQuestions() {
+    const { product } = this.props;
     let entries = [];
     if (product) {
       // Sort array of question objects by their value for question_helpfulness property
@@ -16,13 +25,19 @@ const QuestionList = ({ product }) => {
       );
     }
     return entries;
-  };
-  return (
-    <ul className="question-list">
-      {renderQuestions()}
-    </ul>
-  );
-};
+  }
+
+  render() {
+    return (
+      <div>
+        <QASearch />
+        <ul className="question-list">
+          {this.renderQuestions()}
+        </ul>
+      </div>
+    );
+  }
+}
 
 QuestionList.propTypes = {
   product: PropTypes.shape({
