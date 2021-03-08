@@ -11,7 +11,7 @@ const QuestionList = ({ product }) => {
       const sortedQuestions = _.sortBy(product.questions, 'question_helpfulness');
       // Reverse the order of the questions so the most helpful is first
       sortedQuestions.reverse();
-      entries = product.questions.map(
+      entries = sortedQuestions.map(
         (question) => <QuestionListEntry question={question} key={question.question_id} />,
       );
     }
@@ -25,7 +25,10 @@ const QuestionList = ({ product }) => {
 };
 
 QuestionList.propTypes = {
-  product: PropTypes.object,
+  product: PropTypes.shape({
+    product_id: PropTypes.string,
+    questions: PropTypes.instanceOf(Array),
+  }).isRequired,
 };
 
 export default QuestionList;

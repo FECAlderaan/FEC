@@ -17,7 +17,7 @@ class Home extends React.Component {
   getProducts() {
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:8080/atelier/products',
+      url: 'http://localhost:8080/atelier/products?count=1000',
       success: (data) => {
         this.setState({ products: data });
       },
@@ -28,12 +28,16 @@ class Home extends React.Component {
     const { products } = this.state;
     return (
       <div>
-        <h1>Home</h1>
-        {products.map((product) => (
-          <div key={product.id}>
-            <Link to={`/products/${product.id}`}>{product.name}</Link>
-          </div>
-        ))}
+        <div id="header">
+          <span>Catwalk</span>
+        </div>
+        <div className="products">
+          {products.map((product) => (
+            <div key={product.id}>
+              <Link to={`/products/${product.id}`}>{product.name}</Link>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

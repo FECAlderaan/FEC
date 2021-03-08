@@ -1,32 +1,302 @@
 body {
   box-sizing: border-box;
+  margin: 0;
+  /* overflow: scroll; */
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Header Styling */
+
+#header {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 60px;
+  font-size: 40px;
+  background-color: rgb(56, 82, 110);
+  color: #fff;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  border-bottom: 5px solid #bbb;
+}
+
+#header span {
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+#header #home,
+#header #cart {
+  position: fixed;
+  right: 5%;
+  font-size: 30px;
+  background-color: rgb(56, 82, 110);
+  border: 0;
+  cursor: pointer;
+  margin-top: 10px;
+  color: #fff;
+}
+
+#header #home {
+  right: calc(5% + 60px);
+}
+
+#header #cart {
+  right: 5%;
+}
+
+#header #cart .count {
+  position: fixed;
+  font-size: 12px;
+  right: calc(5% + 14px);
+  top: 14px;
+  color: rgb(56, 82, 110);
+  font-weight: bold;
+}
+
+#header #cart .cart-dropdown {
+  position: fixed;
+
+}
+
+/* End of Header Styling */
+
+/* Home Page Styling */
+
+.products {
+  margin: 80px 10px;
+}
+
+/* End of Home Page Styling */
 
 /* Product Overview Styling */
 
 #productOverview.grid {
   font-size: 15px;
   display: grid;
-  grid-template-columns: 2fr minmax(264px, 1fr);
-  column-gap: 10px;
-  grid-template-rows: 35px 1fr 3fr 80px;
+  grid-template-columns: 56px 2fr minmax(274px, 1fr);
+  grid-template-rows: 35px auto auto auto;
   grid-template-areas:
-    'carousel rating'
-    'carousel info'
-    'carousel styleselector'
-    'description description';
-  border: 1px solid black;
+    'thumbnails carousel rating'
+    'thumbnails carousel info'
+    'thumbnails carousel styleselector'
+    'thumbnails carousel share'
+    'description description features';
+  margin: 90px 20px 50px 20px;
 }
 
 #productOverview .carousel {
   grid-area: carousel;
-  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-content: center;
+  background-color: #ddd;
+  height: 100%;
+}
+
+#productOverview .carousel .changeImage {
+  display: block;
+  grid-area: image;
+  position: absolute;
+  top: calc(50% - 20px);
+  width: 40px;
+  height: 40px;
+  border-radius: 10%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 0;
+  padding: 0;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#productOverview .carousel .changeImage.previous {
+  left: 10px;
+}
+
+#productOverview .carousel .changeImage.next {
+  right: 10px;
+}
+
+#productOverview .carousel .expandImage {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+#productOverview .changeImage:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+#productOverview .carousel .in-focus {
+  max-width: calc(100% - 110px);
+  max-height: 380px;
+  display: block;
+  margin: auto;
+  cursor: zoom-in;
+}
+
+#productOverview .carousel .modal {
+  position: fixed;
+  z-index: 1;
+  margin: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+#productOverview .carousel .container {
+  height: 80vh;
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#productOverview .carousel .modal .image {
+  z-index: 1;
+  max-height: 100%;
+  max-width: 100%;
+  cursor: url(/plusSign.png), auto;
+  transition: transform 0.5s;
+  position: relative;
+}
+
+#productOverview .carousel .modal .image.zoom {
+  transform: scale(2.5);
+  cursor: url(/minusSign.png), auto;
+}
+
+#productOverview .carousel .close,
+#productOverview .carousel .changeModalImage {
+  position: fixed;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  border-radius: 10%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 0;
+  padding: 0;
+  text-align: center;
+  line-height: 10px;
+  font-size: 15px;
+}
+
+#productOverview .carousel .close {
+  right: 10px;
+  top: 10px;
+}
+
+#productOverview .carousel .close:hover,
+#productOverview .carousel .changeModalImage:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+#productOverview .carousel .changeModalImage.previous {
+  left: 10px;
+  top: calc(50% - 10px);
+}
+
+#productOverview .carousel .changeModalImage.next {
+  right: 10px;
+  top: calc(50% - 10px);
+}
+
+#productOverview .carousel .icons {
+  position: fixed;
+  bottom: 10px;
+}
+
+#productOverview .carousel .icons button {
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  margin: 2px;
+  border-radius: 50%;
+  background-color: #ccc;
+  border: 0;
+  padding: 5px;
+  border: 2px solid #fff;
+}
+
+#productOverview .carousel .icons button.selected {
+  background-color: #222;
+}
+
+#productOverview .thumbnails {
+  grid-area: thumbnails;
+  height: 100%;
+  background-color: #ddd;
+  text-align: center;
+  position: relative;
+}
+
+#productOverview .thumbnails .images {
+  position: absolute;
+  top: 20px;
+}
+
+#productOverview .thumbnail {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin: 6px 4px;
+  padding: 2px;
+  opacity: 0.5;
+  cursor: pointer;
+  border: 2px solid #ddd;
+}
+
+#productOverview .thumbnail.selected {
+  opacity: 1;
+  border-bottom: 2px solid #000;
+}
+
+#productOverview .changeThumbnails.previous,
+#productOverview .changeThumbnails.next {
+  display: block;
+  position: absolute;
+  left: calc(50% - 5px);
+  width: 10px;
+  height: 10px;
+  border-radius: 10%;
+  background-color: #ddd;
+  border: 0;
+  padding: 0;
+  text-align: center;
+  line-height: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+#productOverview .changeThumbnails.previous {
+  top: 10px;
+}
+
+#productOverview .changeThumbnails.next {
+  top: 295px;
 }
 
 #productOverview .rating {
   grid-area: rating;
   position: relative;
   padding-top: 15px;
+  margin-left: calc(50% - 132px);
 }
 
 #productOverview .rating-empty,
@@ -43,6 +313,7 @@ body {
 
 #productOverview .info {
   grid-area: info;
+  margin-left: calc(50% - 132px);
 }
 
 #productOverview .info .category {
@@ -52,10 +323,12 @@ body {
 
 #productOverview .info .name {
   font-size: 36px;
+  margin-bottom: 12px;
 }
 
 #productOverview .style-selector {
   grid-area: styleselector;
+  margin: auto;
 }
 
 #productOverview .price,
@@ -65,6 +338,7 @@ body {
 
 #productOverview .sale-price {
   color: red;
+  margin-right: 5px;
 }
 
 #productOverview .original-price-strikethrough {
@@ -84,6 +358,7 @@ body {
 #productOverview .style-selector img {
   width: 50px;
   height: 50px;
+  object-fit: cover;
   border-radius: 50%;
   margin: 5px;
   border: 1px solid #ccc;
@@ -122,36 +397,75 @@ body {
 }
 
 #productOverview button i {
-  margin-right: 5px;
+  margin-right: 15px;
 }
 
 .add-to-cart {
   display: grid;
-  grid-template-columns: 110px 55px;
-  grid-template-rows: 25px 1fr;
+  grid-template-columns: 155px auto;
   grid-template-areas:
     'size-dropdown quantity-dropdown'
     'add-to-cart add-to-cart';
+  margin-bottom: 10px;
+}
+
+.size-selector,
+.quantity-selector,
+.add-to-cart button {
+  font-family: 'Times New Roman', Times, serif;
+  height: 40px;
+  line-height: 40px;
+  margin: 5px;
+  font-size: 15px;
 }
 
 .size-selector {
   grid-area: size-dropdown;
+  width: 150px;
+  padding: 10px;
 }
 
 .quantity-selector {
   grid-area: quantity-dropdown;
+  width: 90px;
+  padding: 10px;
 }
 
 .add-to-cart button {
   grid-area: add-to-cart;
-  margin-bottom: 10px;
-  width: 100%;
+  width: 245px;
+  padding: 0;
+}
+
+#productOverview .share {
+  grid-area: share;
+  display: flex;
+  margin: auto;
+}
+
+.fb-share-button,
+.twitter-share-button,
+.pinterest-share-button {
+  margin-right: 5px;
 }
 
 #productOverview .description {
   grid-area: description;
-  border: 1px solid black;
-  padding: 10px;
+  margin: 20px;
+  padding: 20px;
+}
+
+#productOverview .description .slogan{
+  font-weight: bold;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+#productOverview .features {
+  grid-area: features;
+  margin: 20px;
+  padding: 20px;
+  border-left: 2px solid #000;
 }
 
 /* End of Product Overview Styling */
