@@ -125,13 +125,19 @@ html {
   right: 10px;
 }
 
+#productOverview .carousel .expandImage {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
 #productOverview .changeImage:hover {
   background-color: rgba(255, 255, 255, 0.7);
 }
 
 #productOverview .carousel .in-focus {
   max-width: calc(100% - 110px);
-  max-height: 400px;
+  max-height: 380px;
   display: block;
   margin: auto;
   cursor: zoom-in;
