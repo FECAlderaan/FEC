@@ -101,7 +101,7 @@ class Main extends React.Component {
     return (
       <div>
         <h2>RATINGS AND REVIEWS</h2>
-        <div className="reviews-ratings-main">
+        <div className="reviews-ratings-main" id="reviews-ratings-main">
           <RatingBreakdown ratingData={ratingData} filterReviews={this.filterReviews} />
           <ReviewsList productReviews={productReviews} ratingFilters={ratingFilters} />
         </div>
