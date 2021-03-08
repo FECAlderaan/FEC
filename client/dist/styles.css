@@ -128,7 +128,7 @@ html {
 #productOverview .carousel .expandImage {
   position: absolute;
   top: 15px;
-  right: 25px;
+  right: 15px;
 }
 
 #productOverview .changeImage:hover {
