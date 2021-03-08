@@ -85,10 +85,7 @@ class AnswerListEntry extends React.Component {
 
   render() {
     const { helpfulness } = this.state;
-    const { answer } = this.props;
-    // Destructure and rename answerer_name into camelCase
-    const { answerer_name: answererName } = answer;
-    const { body, date } = answer;
+    const { answer: { body, date, answerer_name: answererName } } = this.props;
     return (
       <div className="answer-entry">
         <p>{body}</p>
