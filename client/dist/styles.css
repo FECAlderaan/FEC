@@ -494,6 +494,18 @@ html {
   padding: 0px 10px;
 }
 
+.sorting-bar {
+  display: flex;
+  align-items: center;
+}
+
+#sorting-dropdown {
+  height: 20px;
+  border: none;
+  background-color: transparent;
+  font-size: 1em;
+}
+
 .rev-info {
   margin: 10px 0;
   grid-column-start: span 2;

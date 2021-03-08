@@ -12,29 +12,13 @@ class Main extends React.Component {
     this.filterReviews = this.filterReviews.bind(this);
     this.state = {
       productId: props.productId,
-      productReviews: { results: [{rating: 0}] },
       ratingData: { ratings: [], recommended: {}, characteristics: {} },
       ratingFilters: [],
     };
   }
 
   componentDidMount() {
-    this.getReviews();
     this.getMetaData();
-  }
-
-  getReviews() {
-    const { productId } = this.state;
-    // GET request for reviews for the specific product
-    $.ajax({
-      url: `http://localhost:8080/atelier/reviews?product_id=${productId}`,
-      type: 'GET',
-      success: (data) => {
-        this.setState({
-          productReviews: data,
-        });
-      },
-    });
   }
 
   getMetaData() {
@@ -97,13 +81,17 @@ class Main extends React.Component {
   }
 
   render() {
-    const { productReviews, ratingData, ratingFilters } = this.state;
+    const { ratingData, ratingFilters } = this.state;
+    const { productId } = this.props;
     return (
       <div>
         <h2>RATINGS AND REVIEWS</h2>
         <div className="reviews-ratings-main" id="reviews-ratings-main">
           <RatingBreakdown ratingData={ratingData} filterReviews={this.filterReviews} />
-          <ReviewsList productReviews={productReviews} ratingFilters={ratingFilters} />
+          <ReviewsList
+            ratingFilters={ratingFilters}
+            productId={productId}
+          />
         </div>
       </div>
     );

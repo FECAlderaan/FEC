@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 import PropTypes from 'prop-types';
 import ReviewTile from './ReviewTile';
 
@@ -7,20 +8,76 @@ class ReviewsList extends React.Component {
     super(props);
 
     this.moreReviews = this.moreReviews.bind(this);
-    const { productReviews } = this.props;
+    this.getFilteredReviews = this.getFilteredReviews.bind(this);
     this.state = {
-      displayedReviews: productReviews,
+      productReviews: {},
       displayedReviewsCount: 2,
     };
   }
 
   componentDidMount() {
+    this.getRelevantReviews();
+  }
 
+  // GET filtered reviews based on dropdown menu
+  getFilteredReviews(e) {
+    const { selectedIndex } = e.target.options;
+    const selectedOption = e.target.options[selectedIndex].innerHTML;
+    if (selectedOption === 'Relevant') {
+      console.log('Relevant clicked!');
+      this.getRelevantReviews();
+    }
+    if (selectedOption === 'Newest') {
+      console.log('Newest clicked!');
+      this.getNewestReviews();
+    }
+    if (selectedOption === 'Helpful') {
+      console.log('Helpful clicked!');
+      this.getHelpfulReviews();
+    }
+  }
+
+  getRelevantReviews() {
+    const { productId } = this.props;
+    $.ajax({
+      url: `http://localhost:8080/atelier/reviews?product_id=${productId}&count=100&sort=relevant`,
+      type: 'GET',
+      success: (data) => {
+        this.setState({
+          productReviews: data,
+        });
+      },
+    });
+  }
+
+  getNewestReviews() {
+    const { productId } = this.props;
+    $.ajax({
+      url: `http://localhost:8080/atelier/reviews?product_id=${productId}&count=100&sort=newest`,
+      type: 'GET',
+      success: (data) => {
+        this.setState({
+          productReviews: data,
+        });
+      },
+    });
+  }
+
+  getHelpfulReviews() {
+    const { productId } = this.props;
+    $.ajax({
+      url: `http://localhost:8080/atelier/reviews?product_id=${productId}&count=100&sort=helpful`,
+      type: 'GET',
+      success: (data) => {
+        this.setState({
+          productReviews: data,
+        });
+      },
+    });
   }
 
   moreReviews() {
-    const { productReviews } = this.props;
-    const { displayedReviewsCount } = this.state;
+    const { productReviews, displayedReviewsCount } = this.state;
     // if there are more reviews that can be shown, show them up until
     // all are shown
     if (displayedReviewsCount + 2 > productReviews.results.length) {
@@ -37,8 +94,8 @@ class ReviewsList extends React.Component {
   // Update state of displayedReviews to show only the specific
   // filtered reviews
   filterReviews() {
-    const { productReviews, ratingFilters } = this.props;
-    const { displayedReviewsCount } = this.state;
+    const { ratingFilters } = this.props;
+    const { productReviews, displayedReviewsCount } = this.state;
     const reviews = [];
     for (let i = 0; i < displayedReviewsCount; i += 1) {
       if (ratingFilters.includes(productReviews.results[i].rating)) {
@@ -49,28 +106,31 @@ class ReviewsList extends React.Component {
   }
 
   render() {
-    const { productReviews } = this.props;
-    const { displayedReviews, displayedReviewsCount } = this.state;
-    const reviewsCheck = productReviews.results.length === displayedReviewsCount;
-    const reviews = [];
-    for (let i = 0; i < displayedReviewsCount; i += 1) {
-      reviews.push(productReviews.results[i]);
-    }
+    const { productReviews } = this.state;
     return (
       <div className="reviews-container">
         {/* sorting */}
         <div className="sorting-bar">
-          <h4>248 reviews, sorted by relevance</h4>
+          <h4>
+            {productReviews.results ? `${productReviews.results.length}
+            reviews, sorted by` : ''}
+          </h4>
+          <select id="sorting-dropdown" onChange={this.getFilteredReviews}>
+            <option>Relevant</option>
+            <option>Newest</option>
+            <option>Helpful</option>
+          </select>
         </div>
         {/* reviews list */}
         <div className="reviews-list">
-          {reviews.map((review) => (
-            <ReviewTile review={review} />
-          ))}
+          {productReviews.results
+            ? productReviews.results.map((review) => (
+              <ReviewTile key={review.review_id} review={review} />
+            )) : ''}
         </div>
         {/* buttons */}
         <div className="reviews-buttons">
-          {reviewsCheck ? '' : <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button>}
+          {true ? '' : <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button>}
           <button type="button">ADD A REVIEW +</button>
         </div>
       </div>
@@ -80,15 +140,13 @@ class ReviewsList extends React.Component {
 }
 
 ReviewsList.propTypes = {
-  productReviews: PropTypes.shape(),
-  ratingFilters: PropTypes.array,
-  displayedReviews: PropTypes.shape(),
+  ratingFilters: PropTypes.instanceOf(Array).isRequired,
+  productReviews: PropTypes.shape({}),
+  productId: PropTypes.number.isRequired,
 };
 
 ReviewsList.defaultProps = {
   productReviews: {},
-  ratingFilters: [],
-  displayedReviews: {},
 };
 
 export default ReviewsList;
