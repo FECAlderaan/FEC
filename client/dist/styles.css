@@ -125,13 +125,19 @@ html {
   right: 10px;
 }
 
+#productOverview .carousel .expandImage {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
 #productOverview .changeImage:hover {
   background-color: rgba(255, 255, 255, 0.7);
 }
 
 #productOverview .carousel .in-focus {
   max-width: calc(100% - 110px);
-  max-height: 400px;
+  max-height: 380px;
   display: block;
   margin: auto;
   cursor: zoom-in;
@@ -475,17 +481,17 @@ html {
 }
 
 .review-tile {
-  background-color: rgb(226, 226, 226);
-  border: solid black 1px;
+  background-color: rgb(248 248 248);
+  border: solid #d4d4d4 1px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   margin: 0 0 10px 0;
+  padding: 5px 20px;
 }
 
-.reviews-list {
+.sorting-bar, .reviews-list, .reviews-buttons {
   padding: 0px 10px;
-
 }
 
 .rev-info {
@@ -497,14 +503,35 @@ html {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-start: span 2;
+  margin: 5px, 0;
 }
 
-.rating-breakdown {
-  background-color: rgb(226, 226, 226);
-  margin-bottom: 10px;
+.review-summary {
+  font-weight: 900;
+}
+
+.review-recommend {
+
+}
+
+.review-response {
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #e0e0e0;
+}
+
+#username {
+  text-align: right;
 }
 
 /* rating breakdown sub-section */
+.rating-breakdown {
+  background-color: rgb(248 248 248);
+  border: solid #d4d4d4 1px;
+  margin-bottom: 10px;
+}
+
 .rating-average {
   display: flex;
 }
@@ -539,6 +566,9 @@ html {
   align-items: center;
   margin: 13px 0;
 }
+.rating-bar-section:hover {
+  box-shadow: inset 0 0 3px 1px black;
+}
 
 .rating-bar-outer {
   width: 175px;
@@ -562,6 +592,49 @@ html {
 
 .individual-total-ratings {
   margin: 0 10px;
+}
+
+/* product breakdown sub section */
+
+.characteristic-bar {
+  margin: 5px 15px;
+}
+
+.product-breakdown-bar {
+  width: 100%;
+  height: 14px;
+  background-color: rgb(224 224 224);
+}
+
+.labels {
+  display: flex;
+  position: relative;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+#one-label {
+  position: absolute;
+  left: 0px;
+  font-size: .95em;
+}
+
+#five-label {
+  position: absolute;
+  right: 0px;
+  font-size: .95em;
+}
+
+.icon-container {
+  position: relative;
+}
+
+#marker-icon {
+  font-size: 2.8em;
+  position: absolute;
+  bottom: 2px;
+  line-height: 0 !important;
 }
 
 /* End of Reviews & Ratings Styling */

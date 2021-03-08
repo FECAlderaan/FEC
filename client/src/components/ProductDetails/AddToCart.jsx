@@ -69,7 +69,7 @@ class AddToCart extends React.Component {
     return (
       <div className="add-to-cart">
         <div className="size">
-          <div style={{ display: noSizeSelectedMessageDisplay, color: 'red' }}>Please select a size:</div>
+          <div style={{ display: noSizeSelectedMessageDisplay, color: 'red', marginLeft: '5px' }}>Please select a size:</div>
           <select
             ref={this.sizeSelector}
             className="size-selector"
