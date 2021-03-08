@@ -7,12 +7,15 @@ class ReviewsList extends React.Component {
     super(props);
 
     this.moreReviews = this.moreReviews.bind(this);
+    const { productReviews } = this.props;
     this.state = {
+      displayedReviews: productReviews,
       displayedReviewsCount: 2,
     };
   }
 
   componentDidMount() {
+
   }
 
   moreReviews() {
@@ -31,14 +34,28 @@ class ReviewsList extends React.Component {
     }
   }
 
+  // Update state of displayedReviews to show only the specific
+  // filtered reviews
+  filterReviews() {
+    const { productReviews, ratingFilters } = this.props;
+    const { displayedReviewsCount } = this.state;
+    const reviews = [];
+    for (let i = 0; i < displayedReviewsCount; i += 1) {
+      if (ratingFilters.includes(productReviews.results[i].rating)) {
+        reviews.push(productReviews.results[i]);
+      }
+    }
+    return reviews;
+  }
+
   render() {
     const { productReviews } = this.props;
-    const { displayedReviewsCount } = this.state;
+    const { displayedReviews, displayedReviewsCount } = this.state;
+    const reviewsCheck = productReviews.results.length === displayedReviewsCount;
     const reviews = [];
     for (let i = 0; i < displayedReviewsCount; i += 1) {
       reviews.push(productReviews.results[i]);
     }
-    const reviewsCheck = productReviews.results.length === displayedReviewsCount;
     return (
       <div className="reviews-container">
         {/* sorting */}
@@ -64,10 +81,14 @@ class ReviewsList extends React.Component {
 
 ReviewsList.propTypes = {
   productReviews: PropTypes.shape(),
+  ratingFilters: PropTypes.array,
+  displayedReviews: PropTypes.shape(),
 };
 
 ReviewsList.defaultProps = {
   productReviews: {},
+  ratingFilters: [],
+  displayedReviews: {},
 };
 
 export default ReviewsList;

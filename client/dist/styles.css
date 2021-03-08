@@ -231,6 +231,9 @@ body {
   align-items: center;
   margin: 13px 0;
 }
+.rating-bar-section:hover {
+  box-shadow: inset 0 0 3px 1px black;
+}
 
 .rating-bar-outer {
   width: 175px;
@@ -257,9 +260,6 @@ body {
 }
 
 /* product breakdown sub section */
-.product-breakdown-main {
-  /* text-align: center; */
-}
 
 .characteristic-bar {
   margin: 5px 15px;
