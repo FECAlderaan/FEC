@@ -1,59 +1,76 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AnswerList from './AnswerList';
+import AnswerModal from './AnswerModal';
 
-const QuestionListEntry = ({ question }) => {
-  // Destructure and rename question_helpfulness into camelCase
-  const { question_helpfulness: questionHelpfulness } = question;
+class QuestionListEntry extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAnswerModal: false,
+    };
 
-  return (
-    <div className="question-list-entry">
-      <div className="question">
-        <h3>Q: </h3>
-        <p>{question.question_body}</p>
-        <div className="question-data">
-          <p>
-            Helpful?
-            <a href="/"> Yes </a>
-            (
-            {questionHelpfulness}
-            )
-          </p>
-          <a href="/">Add Answer</a>
-        </div>
-      </div>
-      <div className="answer-list">
-        <h3>A: </h3>
-        <div className="answer-entry">
-          <p>They are pretty good.</p>
-          <div className="answer-entry-data">
-            <p>by User1231, March 01 2021</p>
+    this.parseAnswers = this.parseAnswers.bind(this);
+    this.toggleAnswerModal = this.toggleAnswerModal.bind(this);
+    this.renderAnswerModal = this.renderAnswerModal.bind(this);
+  }
+
+  // Convert answers from an object to an array;
+  parseAnswers() {
+    const { question: { answers } } = this.props;
+    let answerList;
+    if (answers) {
+      answerList = Object.entries(answers).map((answer) => answer[[1]]);
+    }
+    return answerList;
+  }
+
+  toggleAnswerModal() {
+    const { showAnswerModal } = this.state;
+    this.setState({ showAnswerModal: !showAnswerModal });
+  }
+
+  renderAnswerModal() {
+    const { showAnswerModal } = this.state;
+    const { question: { question_id: questionId } } = this.props;
+    let modal;
+    if (showAnswerModal) {
+      modal = <AnswerModal toggleAnswerModal={this.toggleAnswerModal} questionId={questionId} />;
+    }
+    return modal;
+  }
+
+  render() {
+    const question = this.props;
+    // Destructure and rename question_helpfulness into camelCase
+    const { question_helpfulness: questionHelpfulness, question_body: questionBody } = question;
+    return (
+      <div className="question-list-entry">
+        <div className="question">
+          <h3>Q: </h3>
+          <p>{questionBody}</p>
+          <div className="question-data">
             <p>
               Helpful?
               <a href="/"> Yes </a>
-              [2]
+              (
+              {questionHelpfulness}
+              )
             </p>
-            <a href="/">Report</a>
+            <button type="button" onClick={this.toggleAnswerModal}>Add Answer</button>
           </div>
+          {this.renderAnswerModal()}
         </div>
-        <div className="answer-entry">
-          <p>They are pretty cool too.</p>
-          <div className="answer-entry-data">
-            <p>by Qunitillius42565 Seller, March 01 2021</p>
-            <p>
-              Helpful?
-              <a href="/"> Yes </a>
-              [2]
-            </p>
-            <a href="/">Report</a>
-          </div>
-        </div>
+        <AnswerList answers={this.parseAnswers()} />
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 QuestionListEntry.propTypes = {
-  question: PropTypes.object,
+  question: PropTypes.instanceOf(Object).isRequired,
+  question_helpfulness: PropTypes.number.isRequired,
+  question_body: PropTypes.string.isRequired,
 };
 
 export default QuestionListEntry;
