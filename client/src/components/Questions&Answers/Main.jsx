@@ -30,9 +30,6 @@ class QuestionAnswer extends React.Component {
     return (
       <div>
         <h2>Questions & Answers</h2>
-        <form>
-          <input type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." size="128" />
-        </form>
         <QuestionList product={product} />
         <button type="button">More Answered Questions</button>
         <button type="button">Ask A Question + </button>
