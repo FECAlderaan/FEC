@@ -102,8 +102,6 @@ class QuestionListEntry extends React.Component {
 
 QuestionListEntry.propTypes = {
   question: PropTypes.instanceOf(Object).isRequired,
-  question_helpfulness: PropTypes.number.isRequired,
-  question_body: PropTypes.string.isRequired,
 };
 
 export default QuestionListEntry;
