@@ -99,7 +99,7 @@ class QuestionList extends React.Component {
   render() {
     const { searchTerm } = this.state;
     return (
-      <div>
+      <>
         <form>
           <input
             value={searchTerm}
@@ -113,7 +113,7 @@ class QuestionList extends React.Component {
         <ul className="question-list">
           {this.renderQuestions()}
         </ul>
-      </div>
+      </>
     );
   }
 }
