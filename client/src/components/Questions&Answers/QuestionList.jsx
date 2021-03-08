@@ -8,6 +8,7 @@ class QuestionList extends React.Component {
     super(props);
     this.state = {
       searchTerm: '',
+      showAll: false,
     };
     this.renderQuestions = this.renderQuestions.bind(this);
     this.filterQuestions = this.filterQuestions.bind(this);
@@ -40,7 +41,11 @@ class QuestionList extends React.Component {
   // Filter, Sort, and render question objects
   renderQuestions() {
     const { product } = this.props;
+    const { showAll } = this.state;
     let entries = [];
+    // subset of entries to be displayed
+    let display = [];
+
     if (product) {
       // Only render questions that pass the filter
       const filteredQuestions = this.filterQuestions();
@@ -51,8 +56,20 @@ class QuestionList extends React.Component {
       entries = sortedQuestions.map(
         (question) => <QuestionListEntry question={question} key={question.question_id} />,
       );
+
+      // Handle if there are only 2 answers
+      if (entries.length < 3) {
+        display = [...entries];
+      // Only show the first two answers unless the specificies to shows the rest
+      } else if (!showAll) {
+        display = [entries[0], entries[1]];
+      // Show all questions
+      } else {
+        display = [...entries];
+      }
     }
-    return entries;
+    // Only show 2 answers and a load more button
+    return display;
   }
 
   render() {
