@@ -10,6 +10,7 @@ class QuestionList extends React.Component {
       searchTerm: '',
     };
     this.renderQuestions = this.renderQuestions.bind(this);
+    this.filterQuestions = this.filterQuestions.bind(this);
     this.changeState = this.changeState.bind(this);
   }
 
@@ -17,12 +18,34 @@ class QuestionList extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  // Filter questions to only match what the user has typed in the searchbar
+  filterQuestions() {
+    const { product: { questions } } = this.props;
+    const { searchTerm } = this.state;
+    let filteredQuestions = questions;
+    // Only filter results if user has typed over 3 letters in searchbar
+    if (searchTerm.length >= 3) {
+      filteredQuestions = questions.filter((question) => {
+        let match = false;
+        // Check if the question body contains the search terrm at all
+        if (question.question_body.includes(searchTerm)) {
+          match = true;
+        }
+        return match;
+      });
+    }
+    return filteredQuestions;
+  }
+
+  // Filter, Sort, and render question objects
   renderQuestions() {
     const { product } = this.props;
     let entries = [];
     if (product) {
+      // Only render questions that pass the filter
+      const filteredQuestions = this.filterQuestions();
       // Sort array of question objects by their value for question_helpfulness property
-      const sortedQuestions = _.sortBy(product.questions, 'question_helpfulness');
+      const sortedQuestions = _.sortBy(filteredQuestions, 'question_helpfulness');
       // Reverse the order of the questions so the most helpful is first
       sortedQuestions.reverse();
       entries = sortedQuestions.map(
@@ -41,12 +64,11 @@ class QuestionList extends React.Component {
             value={searchTerm}
             onChange={this.changeState}
             name="searchTerm"
-            type="text"
+            type="search"
             placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
             size="128"
           />
         </form>
-        {/* <QASearch searchTerm={searchTerm} changeState={this.changeState} /> */}
         <ul className="question-list">
           {this.renderQuestions()}
         </ul>
