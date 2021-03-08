@@ -101,6 +101,8 @@ class Carousel extends React.Component {
           <button type="button" className="changeImage previous" style={imageIndexInFocus ? {} : { display: 'none' }} onClick={this.previousImage} onKeyDown={this.previousImage}>{'<'}</button>
           {/* button to see next image in default view */}
           <button type="button" className="changeImage next" style={imageIndexInFocus === images.length - 1 ? { display: 'none' } : {}} onClick={this.nextImage} onKeyDown={this.nextImage}>{'>'}</button>
+          {/* button to expand view */}
+          <i className="fas fa-expand-arrows-alt expandImage" role="button" onClick={this.imageOnClick} onKeyDown={this.imageOnClick} tabIndex={0} aria-label="Expand Image" />
           {/* image in focus for default view */}
           {images.map((photo, index) => (
             index === imageIndexInFocus ? <img key={photo.url} alt="" className="in-focus" src={photo.url} onClick={this.imageOnClick} onKeyDown={this.imageOnClick} /> : null

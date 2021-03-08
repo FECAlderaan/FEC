@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
@@ -38,8 +39,8 @@ class ProductInfo extends React.Component {
           <div className="more-info">{productInfo.description}</div>
         </div>
         <div className="features">
-          {productInfo.features ? productInfo.features.map((feature) => (
-            <div key={feature.feature}>
+          {productInfo.features ? productInfo.features.map((feature, index) => (
+            <div key={index}>
               {`✔️ ${feature.feature}: ${feature.value}`}
             </div>
           )) : null}
