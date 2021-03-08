@@ -2,14 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'underscore';
 import QuestionListEntry from './QuestionListEntry';
-import QASearch from './QASearch';
 
 class QuestionList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      searchTerm: '',
     };
     this.renderQuestions = this.renderQuestions.bind(this);
+    this.changeState = this.changeState.bind(this);
+  }
+
+  changeState(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   renderQuestions() {
@@ -28,9 +33,20 @@ class QuestionList extends React.Component {
   }
 
   render() {
+    const { searchTerm } = this.state;
     return (
       <div>
-        <QASearch />
+        <form>
+          <input
+            value={searchTerm}
+            onChange={this.changeState}
+            name="searchTerm"
+            type="text"
+            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+            size="128"
+          />
+        </form>
+        {/* <QASearch searchTerm={searchTerm} changeState={this.changeState} /> */}
         <ul className="question-list">
           {this.renderQuestions()}
         </ul>
