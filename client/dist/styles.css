@@ -173,6 +173,7 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
   margin: 0 0 10px 0;
+  padding: 5px 20px;
 }
 
 .sorting-bar, .reviews-list, .reviews-buttons {
@@ -188,6 +189,26 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-start: span 2;
+  margin: 5px, 0;
+}
+
+.review-summary {
+  font-weight: 900;
+}
+
+.review-recommend {
+
+}
+
+.review-response {
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #e0e0e0;
+}
+
+#username {
+  text-align: right;
 }
 
 /* rating breakdown sub-section */
