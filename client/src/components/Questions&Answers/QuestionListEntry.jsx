@@ -32,9 +32,12 @@ class QuestionListEntry extends React.Component {
 
   renderAnswerModal() {
     const { showAnswerModal } = this.state;
+    const { question: { question_id: questionId } } = this.props;
+    let modal;
     if (showAnswerModal) {
-      return <AnswerModal toggleAnswerModal={this.toggleAnswerModal}/>;
+      modal = <AnswerModal toggleAnswerModal={this.toggleAnswerModal} questionId={questionId} />;
     }
+    return modal;
   }
 
   render() {
@@ -66,6 +69,8 @@ class QuestionListEntry extends React.Component {
 
 QuestionListEntry.propTypes = {
   question: PropTypes.instanceOf(Object).isRequired,
+  question_helpfulness: PropTypes.number.isRequired,
+  question_body: PropTypes.string.isRequired,
 };
 
 export default QuestionListEntry;
