@@ -470,6 +470,14 @@ html {
 
 /* End of Product Overview Styling */
 
+/* Questions & Answer Styling */
+.question-list {
+  overflow-y: auto;
+  height: 500px;
+}
+
+/* End of Questions & Answer Styling */
+
 
 /* Reviews & Ratings Styling */
 

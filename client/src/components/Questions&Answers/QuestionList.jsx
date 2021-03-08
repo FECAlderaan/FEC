@@ -10,13 +10,20 @@ class QuestionList extends React.Component {
       searchTerm: '',
       showAll: false,
     };
-    this.renderQuestions = this.renderQuestions.bind(this);
-    this.filterQuestions = this.filterQuestions.bind(this);
     this.changeState = this.changeState.bind(this);
+    this.toggleShowAll = this.toggleShowAll.bind(this);
+    this.filterQuestions = this.filterQuestions.bind(this);
+    this.renderQuestions = this.renderQuestions.bind(this);
+    this.renderDisplayButton = this.renderDisplayButton.bind(this);
   }
 
   changeState(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  toggleShowAll() {
+    const { showAll } = this.state;
+    this.setState({ showAll: !showAll });
   }
 
   // Filter questions to only match what the user has typed in the searchbar
@@ -36,6 +43,24 @@ class QuestionList extends React.Component {
       });
     }
     return filteredQuestions;
+  }
+
+  // Render a button to toggle to load or collapse answers depending what is already rendered
+  renderDisplayButton(displayed) {
+    let displayButton;
+    const { product } = this.props;
+    if (product) {
+      const total = product.questions.length;
+      // compare length of visible answers to length of total answers to determine button to render
+      if (displayed === total && total > 2) {
+        // only allow users to collapse questions if total length is greater than 2
+        displayButton = <button type="button" onClick={this.toggleShowAll}>Collapse questions</button>;
+      } else if (displayed < total) {
+        // only allow users to load question if there are unloaded questions
+        displayButton = <button type="button" onClick={this.toggleShowAll}>See more questions</button>;
+      }
+    }
+    return displayButton;
   }
 
   // Filter, Sort, and render question objects
@@ -60,22 +85,21 @@ class QuestionList extends React.Component {
       // Handle if there are only 2 answers
       if (entries.length < 3) {
         display = [...entries];
-      // Only show the first two answers unless the specificies to shows the rest
+        // Only show 2 answers and a load more button
       } else if (!showAll) {
         display = [entries[0], entries[1]];
-      // Show all questions
+        // Show all questions
       } else {
         display = [...entries];
       }
     }
-    // Only show 2 answers and a load more button
-    return display;
+    return [display, this.renderDisplayButton(display.length)];
   }
 
   render() {
     const { searchTerm } = this.state;
     return (
-      <div>
+      <>
         <form>
           <input
             value={searchTerm}
@@ -89,7 +113,7 @@ class QuestionList extends React.Component {
         <ul className="question-list">
           {this.renderQuestions()}
         </ul>
-      </div>
+      </>
     );
   }
 }

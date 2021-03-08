@@ -28,10 +28,9 @@ class QuestionAnswer extends React.Component {
   render() {
     const { product } = this.state;
     return (
-      <div>
+      <div className="questions-answers">
         <h2>Questions & Answers</h2>
         <QuestionList product={product} />
-        <button type="button">More Answered Questions</button>
         <button type="button">Ask A Question + </button>
       </div>
     );
