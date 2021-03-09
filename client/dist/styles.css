@@ -687,6 +687,28 @@ html {
 .characteristic-modal {
   display: grid;
   grid-template-rows: 1fr 1fr;
+  margin: 10px 0 20px 0;
+}
+
+#char-title {
+  margin: 0;
+}
+
+#single-radio {
+  margin: 0 10px 0 0;
+}
+
+#summary-textbox {
+  width: 50%;
+  height: 50px;
+  font-size: 1.1em;
+}
+
+#body-textbox {
+  width: 99%;
+  max-width: 99%;
+  height: 60px;
+  font-size: 1.1em;
 }
 
 /* End of Reviews & Ratings Styling */

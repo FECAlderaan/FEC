@@ -9,10 +9,13 @@ class AddReview extends React.Component {
     this.addReviewModal = this.addReviewModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.chooseStarRating = this.chooseStarRating.bind(this);
+    this.trackWordCount = this.trackWordCount.bind(this);
     this.state = {
       modalShowing: true,
       overallStarChosen: 0,
       newReview: {},
+      bodyWordCount: 0,
+      bodyWordCountCheck: false,
     };
   }
 
@@ -60,9 +63,27 @@ class AddReview extends React.Component {
     console.log('radio button was pressed');
   }
 
+  trackWordCount(e) {
+    const { bodyWordCount } = this.state;
+    const newWordCount = e.target.value.length;
+    this.setState({
+      bodyWordCount: newWordCount,
+    });
+    if (bodyWordCount >= 50) {
+      this.setState({
+        bodyWordCountCheck: true,
+      });
+    }
+    if (bodyWordCount < 50) {
+      this.setState({
+        bodyWordCountCheck: false,
+      });
+    }
+  }
+
   render() {
     const {
-      modalShowing, closeModal, overallStarChosen, chooseStarRating, recommendRadio,
+      modalShowing, closeModal, overallStarChosen, chooseStarRating, bodyWordCount, bodyWordCountCheck, recommendRadio, trackWordCount,
     } = this.state;
     const { ratingData } = this.props;
     const modalToggle = modalShowing ? 'block' : 'none';
@@ -136,12 +157,12 @@ class AddReview extends React.Component {
                   const productCharacteristics = characteristicsArray[charIndex];
                   return (
                     <div key={value.id} className="characteristic-modal">
-                      <div>{key}</div>
+                      <h4 id="char-title">{key}</h4>
                       <div className="titles">
                         {productCharacteristics.map((description) => {
                           const x = 0;
                           return (
-                            <label key={description} htmlFor={description}>
+                            <label key={description} htmlFor={description} id="single-radio">
                               <input type="radio" value={description} name={value.id} />
                               {description}
                             </label>
@@ -151,6 +172,21 @@ class AddReview extends React.Component {
                     </div>
                   );
                 })}
+              </div>
+              {/* Review Summary */}
+              <div className="review-summary-modal">
+                <label htmlFor="summary">
+                  <p>Review Summary</p>
+                  <input type="text" id="summary-textbox" name="summary" maxLength="60" placeholder="Example: Best purchase ever!" />
+                </label>
+              </div>
+              {/* Review Body */}
+              <div className="review-body-modal">
+                <label htmlFor="body">
+                  <p>Review Summary</p>
+                  <textarea type="text" onChange={(e) => this.trackWordCount(e)} id="body-textbox" name="body" maxLength="1000" placeholder="Why did you like the product or not?" />
+                </label>
+                <span>{bodyWordCountCheck ? 'Minimum reached' : `Minimum required characters left: ${(50 - bodyWordCount)}`} </span>
               </div>
             </div>
           </form>
