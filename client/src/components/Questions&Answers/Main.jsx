@@ -9,7 +9,11 @@ import QuestionModal from './QuestionModal';
 class QuestionAnswer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showQuestionModal: false,
+    };
+    this.toggleQuestionModal = this.toggleQuestionModal.bind(this);
+    this.renderQuestionModal = this.renderQuestionModal.bind(this);
   }
 
   componentDidMount() {
@@ -26,14 +30,29 @@ class QuestionAnswer extends React.Component {
       });
   }
 
+  toggleQuestionModal() {
+    const { showQuestionModal } = this.state;
+    this.setState({ showQuestionModal: !showQuestionModal });
+  }
+
+  // Render a modal for submitting a question
+  renderQuestionModal() {
+    const { showQuestionModal } = this.state;
+    let modal;
+    if (showQuestionModal) {
+      modal = <QuestionModal toggleQuestionModal={this.toggleQuestionModal} />;
+    }
+    return modal;
+  }
+
   render() {
     const { product } = this.state;
     return (
       <div className="questions-answers">
         <h2>Questions & Answers</h2>
         <QuestionList product={product} />
-        <button type="button">Ask A Question + </button>
-        <QuestionModal />
+        <button type="button" onClick={this.toggleQuestionModal}>Ask A Question + </button>
+        {this.renderQuestionModal()}
       </div>
     );
   }

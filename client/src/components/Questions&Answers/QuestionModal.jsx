@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class AnswerModal extends React.Component {
+class QuestionModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,11 +10,16 @@ class AnswerModal extends React.Component {
       questionName: '',
       questionEmail: '',
     };
+    this.changeAnswerInfo = this.changeAnswerInfo.bind(this);
+  }
+
+  changeAnswerInfo(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
     const { questionText, questionName, questionEmail } = this.state;
-    // const { toggleAnswerModal } = this.props;
+    const { toggleQuestionModal } = this.props;
     return (
       <div>
         <h3>Ask a Question</h3>
@@ -21,7 +27,7 @@ class AnswerModal extends React.Component {
           <div>
             <label htmlFor="questionName">
               Nickname:
-              <input type="text" name="answerName" value={questionName} onChange={this.changeAnswerInfo} placeholder="Example: jackson11!" />
+              <input type="text" name="questionName" value={questionName} onChange={this.changeAnswerInfo} placeholder="Example: jackson11!" />
               <p>For privacy reasons, do not use your full name or email address</p>
             </label>
           </div>
@@ -37,7 +43,7 @@ class AnswerModal extends React.Component {
               <input type="text" name="questionText" value={questionText} onChange={this.changeAnswerInfo} />
             </label>
           </div>
-          <button type="button">Cancel</button>
+          <button type="button" onClick={toggleQuestionModal}>Cancel</button>
           <button type="button" onClick={this.submitAnswer}>Submit</button>
         </form>
       </div>
@@ -45,4 +51,8 @@ class AnswerModal extends React.Component {
   }
 }
 
-export default AnswerModal;
+QuestionModal.propTypes = {
+  toggleQuestionModal: PropTypes.func.isRequired,
+};
+
+export default QuestionModal;
