@@ -118,10 +118,9 @@ class ReviewsList extends React.Component {
     return reviews;
   }
 
-
-
   render() {
-    const { productReviews, modalShowing } = this.state;
+    const { productReviews } = this.state;
+    const { ratingData } = this.props;
     return (
       <div className="reviews-container">
         {/* sorting */}
@@ -144,7 +143,7 @@ class ReviewsList extends React.Component {
             )) : ''}
         </div>
         {/* buttons */}
-        <MainButtons />
+        <MainButtons ratingData={ratingData} />
       </div>
     );
   }
@@ -152,12 +151,14 @@ class ReviewsList extends React.Component {
 
 ReviewsList.propTypes = {
   ratingFilters: PropTypes.instanceOf(Array).isRequired,
+  ratingData: PropTypes.shape({}),
   productReviews: PropTypes.shape({}),
   productId: PropTypes.number.isRequired,
 };
 
 ReviewsList.defaultProps = {
   productReviews: {},
+  ratingData: {},
 };
 
 export default ReviewsList;

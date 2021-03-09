@@ -92,6 +92,7 @@ class Main extends React.Component {
             filterReviews={this.filterReviews}
           />
           <ReviewsList
+            ratingData={ratingData}
             ratingFilters={ratingFilters}
             productId={productId}
           />

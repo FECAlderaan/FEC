@@ -11,13 +11,14 @@ class MainButtons extends React.Component {
   }
 
   render() {
+    const { ratingData } = this.props;
     return (
       <div className="reviews-buttons">
-          {false ? '' : <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button>}
-          <button type="button" onClick={this.addReviewModal}>ADD A REVIEW +</button>
+        {false ? '' : <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button>}
+        <button type="button" onClick={this.addReviewModal}>ADD A REVIEW +</button>
 
-          <AddReview />
-        </div>
+        <AddReview ratingData={ratingData} />
+      </div>
     );
   }
 }
