@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
 import ReviewTile from './ReviewTile';
+import MainButtons from './MainButtons';
 
 class ReviewsList extends React.Component {
   constructor(props) {
@@ -9,9 +10,12 @@ class ReviewsList extends React.Component {
 
     this.moreReviews = this.moreReviews.bind(this);
     this.getFilteredReviews = this.getFilteredReviews.bind(this);
+
+    const { ratingFilters } = this.props;
     this.state = {
       productReviews: {},
       displayedReviewsCount: 2,
+      starFilters: ratingFilters,
     };
   }
 
@@ -24,15 +28,12 @@ class ReviewsList extends React.Component {
     const { selectedIndex } = e.target.options;
     const selectedOption = e.target.options[selectedIndex].innerHTML;
     if (selectedOption === 'Relevant') {
-      console.log('Relevant clicked!');
       this.getRelevantReviews();
     }
     if (selectedOption === 'Newest') {
-      console.log('Newest clicked!');
       this.getNewestReviews();
     }
     if (selectedOption === 'Helpful') {
-      console.log('Helpful clicked!');
       this.getHelpfulReviews();
     }
   }
@@ -94,6 +95,7 @@ class ReviewsList extends React.Component {
   // Update state of displayedReviews to show only the specific
   // filtered reviews
   filterReviews() {
+    console.log('lkajdsfl');
     const { ratingFilters } = this.props;
     const { productReviews, displayedReviewsCount } = this.state;
     const reviews = [];
@@ -102,11 +104,24 @@ class ReviewsList extends React.Component {
         reviews.push(productReviews.results[i]);
       }
     }
+    this.setState({
+      productReviews: reviews,
+    });
+  }
+
+  showTwoReviews() {
+    const { productReviews, displayedReviewsCount } = this.state;
+    const reviews = [];
+    for (let i = 0; i < displayedReviewsCount; i += 1) {
+      reviews.push(productReviews.results[i]);
+    }
     return reviews;
   }
 
+
+
   render() {
-    const { productReviews } = this.state;
+    const { productReviews, modalShowing } = this.state;
     return (
       <div className="reviews-container">
         {/* sorting */}
@@ -129,12 +144,8 @@ class ReviewsList extends React.Component {
             )) : ''}
         </div>
         {/* buttons */}
-        <div className="reviews-buttons">
-          {true ? '' : <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button>}
-          <button type="button">ADD A REVIEW +</button>
-        </div>
+        <MainButtons />
       </div>
-
     );
   }
 }

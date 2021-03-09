@@ -3,14 +3,6 @@ import PropTypes from 'prop-types';
 
 import ProductBreakdown from './ProductBreakdown';
 
-const getRatings = function (object) {
-  const array = [];
-  for (const [key, value] of Object.entries(object)) {
-    array.push(`${key}: ${value}`);
-  }
-  return array;
-};
-
 // Get overall average of ratings
 const ratingAverage = function (object) {
   const ratingsCount = Object.values(object);
@@ -85,10 +77,22 @@ const RatingBreakdown = ({ ratingData, filterReviews }) => {
 
       <div className="rating-stars">
 
-        <div className="rating-bar-section" onClick={(e) => { filterReviews(e); }} onKeyDown={filterReviews} role="option" tabIndex="-1" aria-selected="false" index="5">
+        <div
+          className="rating-bar-section"
+          onClick={(e) => { filterReviews(e); }}
+          onKeyDown={filterReviews}
+          role="option"
+          tabIndex="-1"
+          aria-selected="false"
+          index="5"
+        >
           <h4 className="star-header">5 stars</h4>
           <div className="rating-bar-outer" index="5">
-            <div className="rating-bar-inner" id="five-star-bar" style={{ width: `${starBars(ratingData.ratings[5], ratingData.ratings)}%` }} />
+            <div
+              className="rating-bar-inner"
+              id="five-star-bar"
+              style={{ width: `${starBars(ratingData.ratings[5], ratingData.ratings)}%` }}
+            />
           </div>
           <h4 className="individual-total-ratings">{ratingData.ratings[5] ? ratingData.ratings[5] : 0}</h4>
         </div>

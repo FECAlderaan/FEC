@@ -586,7 +586,6 @@ html {
   width: 175px;
   height: 14px;
   border: 2px solid black;
-  /* background-color: grey; */
   border-radius: 5px;
 }
 
@@ -647,6 +646,46 @@ html {
   position: absolute;
   bottom: 2px;
   line-height: 0 !important;
+}
+
+/* modal sub section */
+.add-review-modal-main {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.add-review-modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close-modal {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-star:hover {
+  color: yellow;
 }
 
 /* End of Reviews & Ratings Styling */
