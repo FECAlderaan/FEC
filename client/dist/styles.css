@@ -711,4 +711,8 @@ html {
   font-size: 1.1em;
 }
 
+.user-photo-modal {
+  width: 350px;
+}
+
 /* End of Reviews & Ratings Styling */

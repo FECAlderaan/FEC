@@ -6,34 +6,16 @@ class AddReview extends React.Component {
   constructor(props) {
     super(props);
 
-    this.addReviewModal = this.addReviewModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
     this.chooseStarRating = this.chooseStarRating.bind(this);
     this.trackWordCount = this.trackWordCount.bind(this);
+    this.showPhotos = this.showPhotos.bind(this);
     this.state = {
-      modalShowing: true,
       overallStarChosen: 0,
       newReview: {},
       bodyWordCount: 0,
       bodyWordCountCheck: false,
+      photos: [],
     };
-  }
-
-  // Modal popup to add a review
-  addReviewModal() {
-    const { modalShowing } = this.state;
-    this.setState({
-      modalShowing: !modalShowing,
-    });
-  }
-
-  closeModal() {
-    const { modalShowing } = this.state;
-    const modalMain = $('.add-review-modal-main');
-    modalMain.css('display', 'none');
-    this.setState({
-      modalShowing: !modalShowing,
-    });
   }
 
   // Functionality of choosing overall star rating in modal
@@ -81,11 +63,21 @@ class AddReview extends React.Component {
     }
   }
 
+  // Adding photos in 'Add Review' modal
+  showPhotos() {
+    const { photos } = this.state;
+    const userPhotos = $('#photos-modal')[0].files;
+    const newPhotos = photos.concat(URL.createObjectURL(userPhotos[0]));
+    this.setState({
+      photos: newPhotos,
+    });
+  }
+
   render() {
     const {
-      modalShowing, closeModal, overallStarChosen, chooseStarRating, bodyWordCount, bodyWordCountCheck, recommendRadio, trackWordCount,
+      overallStarChosen, chooseStarRating, bodyWordCount, bodyWordCountCheck, recommendRadio, trackWordCount, photos,
     } = this.state;
-    const { ratingData } = this.props;
+    const { ratingData, closeModal, modalShowing } = this.props;
     const modalToggle = modalShowing ? 'block' : 'none';
     const scores = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
     // [index, characteristic]
@@ -101,7 +93,7 @@ class AddReview extends React.Component {
     return (
       <div className="add-review-modal-main" style={{ display: modalToggle }}>
         <div className="add-review-modal-content">
-          <span className="close-modal" onClick={() => { this.closeModal(); }} onKeyDown={closeModal} role="button" tabIndex="-1">&times;</span>
+          <span className="close-modal" onClick={closeModal} onKeyDown={closeModal} role="button" tabIndex="-1">&times;</span>
           <form>
             <div className="add-review-form-container">
               {/* Overall Rating */}
@@ -183,10 +175,25 @@ class AddReview extends React.Component {
               {/* Review Body */}
               <div className="review-body-modal">
                 <label htmlFor="body">
-                  <p>Review Summary</p>
+                  <p>Review Body</p>
                   <textarea type="text" onChange={(e) => this.trackWordCount(e)} id="body-textbox" name="body" maxLength="1000" placeholder="Why did you like the product or not?" />
                 </label>
-                <span>{bodyWordCountCheck ? 'Minimum reached' : `Minimum required characters left: ${(50 - bodyWordCount)}`} </span>
+                <span>
+                  {bodyWordCountCheck ? 'Minimum reached' : `Minimum required characters left: ${(50 - bodyWordCount)}`}
+                </span>
+              </div>
+              {/* Upload Photos */}
+              <div className="upload-photos-modal">
+                <h3>Select photos to upload</h3>
+                <input type="file" id="photos-modal" onChange={this.showPhotos} multiple />
+                {photos.length > 0 ? (
+                  <div className="photos-container-modal">
+                    {photos.map((photo) => (
+                      <img className="user-photo-modal" src={photo} alt="User Product" key={photo} />
+                    ))}
+                  </div>
+                ) : ''}
+
               </div>
             </div>
           </form>
@@ -198,10 +205,14 @@ class AddReview extends React.Component {
 
 AddReview.propTypes = {
   ratingData: PropTypes.shape({}),
+  closeModal: PropTypes.func,
+  modalShowing: PropTypes.bool,
 };
 
 AddReview.defaultProps = {
   ratingData: {},
+  modalShowing: false,
+  closeModal: (() => { }),
 };
 
 export default AddReview;
