@@ -17,7 +17,7 @@ class Home extends React.Component {
   getProducts() {
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:8080/atelier/products?count=1000',
+      url: '/atelier/products?count=1000',
       success: (data) => {
         this.setState({ products: data });
       },

@@ -19,7 +19,7 @@ class ProductInfo extends React.Component {
     const { productId } = this.props;
     $.ajax({
       type: 'GET',
-      url: `http://localhost:8080/atelier/products/${productId}`,
+      url: `/atelier/products/${productId}`,
       success: (data) => {
         this.setState({ productInfo: data });
       },

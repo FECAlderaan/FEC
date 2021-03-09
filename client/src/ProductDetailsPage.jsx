@@ -23,7 +23,7 @@ class App extends React.Component {
   getCart() {
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:8080/atelier/cart',
+      url: '/atelier/cart',
       success: (data) => {
         this.setState({ cart: data });
       },
