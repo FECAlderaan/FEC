@@ -117,7 +117,7 @@ class Carousel extends React.Component {
             <button type="button" className="changeModalImage next" style={imageIndexInFocus === images.length - 1 || modalZoom ? { display: 'none' } : {}} onClick={this.nextImage} onKeyDown={this.nextImage}>{'>'}</button>
             {/* icons for expanded view */}
             <div className="icons">
-              {images.map((image, index) => <button aria-label="Change Modal Image" key={index} type="button" name={index} className={index === imageIndexInFocus ? 'selected' : ''} style={modalZoom ? { display: 'none' } : {}} onClick={this.iconOnClick} onKeyDown={this.iconOnClick} />)}
+              {images.map((image, index) => <button aria-label="Change Modal Image" key={index} type="button" name={index} className={index === imageIndexInFocus ? 'icon selected' : 'icon'} style={modalZoom ? { display: 'none' } : {}} onClick={this.iconOnClick} onKeyDown={this.iconOnClick} />)}
             </div>
             {/* image in focus for expanded view */}
             <div className="container">

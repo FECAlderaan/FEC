@@ -14,10 +14,30 @@ class App extends React.Component {
       cart: [],
     };
     this.getCart = this.getCart.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
     this.getCart();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  onClick(e) {
+    const time = String(new Date());
+    const element = `#${e.currentTarget.id} ${String(e.target.tagName).toLowerCase()}${Array.from(e.target.classList).reduce((classList, className) => `${classList}.${className}`, '')}`;
+    const widget = String(e.currentTarget.id);
+    $.ajax({
+      type: 'POST',
+      url: '/atelier/interactions',
+      data: JSON.stringify({ time, element, widget }),
+      contentType: 'application/json',
+      success: () => {
+        console.log('success!');
+      },
+      error: (err) => {
+        console.log('error:', err);
+      },
+    });
   }
 
   getCart() {
@@ -37,9 +57,9 @@ class App extends React.Component {
     return (
       <>
         <Header cart={cart} />
-        <ProductDetails productId={productId} getCart={this.getCart} />
-        <QuestionAnswer productId={productId} />
-        <RatingsReviews productId={productId} />
+        <ProductDetails productId={productId} getCart={this.getCart} onClick={this.onClick} />
+        <QuestionAnswer productId={productId} onClick={this.onClick} />
+        <RatingsReviews productId={productId} onClick={this.onClick} />
       </>
     );
   }
