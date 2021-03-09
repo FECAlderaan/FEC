@@ -35,7 +35,6 @@ class QuestionModal extends React.Component {
       type: 'POST',
       url: route,
       data: JSON.stringify(questionInfo),
-      // dataType: dataType
       contentType: 'application/json; charset=utf-8',
     })
       .then(() => console.log('success'))

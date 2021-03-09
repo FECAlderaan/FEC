@@ -30,7 +30,12 @@ class AnswerModal extends React.Component {
       email: answerEmail,
     };
 
-    $.post(route, answerInfo)
+    $.ajax({
+      type: 'POST',
+      url: route,
+      data: JSON.stringify(answerInfo),
+      contentType: 'application/json; charset=utf-8',
+    })
       .then(() => console.log('success'))
       .then(toggleAnswerModal())
       .catch((error) => console.log(error));
