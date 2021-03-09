@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 import QuestionList from './QuestionList';
+import QuestionModal from './QuestionModal';
 
 class QuestionAnswer extends React.Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class QuestionAnswer extends React.Component {
         <h2>Questions & Answers</h2>
         <QuestionList product={product} />
         <button type="button">Ask A Question + </button>
+        <QuestionModal />
       </div>
     );
   }
