@@ -38,9 +38,15 @@ class QuestionAnswer extends React.Component {
   // Render a modal for submitting a question
   renderQuestionModal() {
     const { showQuestionModal } = this.state;
+    const { productId } = this.props;
     let modal;
     if (showQuestionModal) {
-      modal = <QuestionModal toggleQuestionModal={this.toggleQuestionModal} />;
+      modal = (
+        <QuestionModal
+          toggleQuestionModal={this.toggleQuestionModal}
+          productId={productId}
+        />
+      );
     }
     return modal;
   }
