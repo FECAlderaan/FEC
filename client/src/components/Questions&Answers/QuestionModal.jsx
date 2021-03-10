@@ -106,14 +106,15 @@ class QuestionModal extends React.Component {
     const { questionText, questionName, questionEmail } = this.state;
     const { toggleQuestionModal } = this.props;
     return (
-      <div>
-        <h3>Ask a Question</h3>
-        <form>
-          <div>
-            <label htmlFor="questionName">
-              What is your nickname
-              <span className="mandatory-field">*</span>
-              :
+      <div className="modal">
+        <div className="modal-content">
+          <h3>Ask a Question</h3>
+          <form>
+            <div>
+              <h4>
+                Your nickname
+                <span className="mandatory-field">*</span>
+              </h4>
               <input
                 type="text"
                 name="questionName"
@@ -124,13 +125,12 @@ class QuestionModal extends React.Component {
                 placeholder="Example: jackson11!"
               />
               <p>For privacy reasons, do not use your full name or email address</p>
-            </label>
-          </div>
-          <div>
-            <label htmlFor="questionEmail">
-              Your email
-              <span className="mandatory-field">*</span>
-              :
+            </div>
+            <div>
+              <h4>
+                Your email
+                <span className="mandatory-field">*</span>
+              </h4>
               <input
                 type="text"
                 name="questionEmail"
@@ -140,26 +140,29 @@ class QuestionModal extends React.Component {
                 onChange={this.changeQuestionInfo}
               />
               <p>For authentication reasons you will be emailed</p>
-            </label>
-          </div>
-          <div>
-            <label htmlFor="questionText">
-              Your Question
-              <span className="mandatory-field">*</span>
-              :
-              <input
-                type="text"
+
+            </div>
+            <div>
+              <h4>
+                Your Question
+                <span className="mandatory-field">*</span>
+              </h4>
+              <textarea
                 name="questionText"
+                cols="60"
+                rows="5"
+                required
+                maxLength="1000"
                 value={questionText}
                 onChange={this.changeQuestionInfo}
                 placeholder="Why did you like the product or not?"
               />
-            </label>
-          </div>
-          {this.renderErrors()}
-          <button type="button" onClick={toggleQuestionModal}>Cancel</button>
-          <button type="button" onClick={this.submitQuestion}>Submit</button>
-        </form>
+            </div>
+            {this.renderErrors()}
+            <button type="button" onClick={toggleQuestionModal}>Cancel</button>
+            <button type="button" onClick={this.submitQuestion}>Submit</button>
+          </form>
+        </div>
       </div>
     );
   }
