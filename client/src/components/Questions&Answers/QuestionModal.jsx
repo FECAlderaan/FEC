@@ -10,31 +10,27 @@ class QuestionModal extends React.Component {
       questionText: '',
       questionName: '',
       questionEmail: '',
+      error: false,
     };
     this.changeQuestionInfo = this.changeQuestionInfo.bind(this);
     this.verifyQuestion = this.verifyQuestion.bind(this);
     this.submitQuestion = this.submitQuestion.bind(this);
+    this.renderErrors = this.renderErrors.bind(this);
   }
 
   changeQuestionInfo(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  // if any mandatory fields are incorect, mark flag for renderErrors to display necessary message
   verifyQuestion() {
     const { questionText, questionName, questionEmail } = this.state;
-    let verified = false;
-    // verify mandatory fields aren't blank
-    if (questionText || questionName || questionEmail) {
-      // verify email is formatted
-      if (questionEmail.includes('@')) {
-        verified = true;
-      } else {
-        alert('The email address provided is not in correct email format');
-      }
-    } else {
-      alert('You must enter the following:');
+    if (!questionText || !questionName || !questionEmail || !questionEmail.includes('@')) {
+      this.setState({ error: true });
+      return false;
     }
-    return verified;
+    this.setState({ error: false });
+    return true;
   }
 
   submitQuestion() {
@@ -48,7 +44,9 @@ class QuestionModal extends React.Component {
       email: questionEmail,
       product_id: productId,
     };
-
+    // check if there are any errors
+    this.verifyQuestion();
+    // only submit if there are no errors
     if (this.verifyQuestion()) {
       $.ajax({
         type: 'POST',
@@ -62,6 +60,40 @@ class QuestionModal extends React.Component {
     }
   }
 
+  // Render a list of mandatory fields that are not filled out correctly
+  renderErrors() {
+    const {
+      questionText,
+      questionName,
+      questionEmail,
+      error,
+    } = this.state;
+    const errors = [];
+    let errorMessage;
+    if (!questionText) {
+      errors.push('Your Question');
+    }
+    if (!questionName) {
+      errors.push('Your Nickname');
+    }
+    if (!questionEmail.includes('@')) {
+      errors.push('Your Email');
+    }
+    if (error) {
+      errorMessage = (
+        <div className="error-message">
+          <h5>
+            You must enter:
+            <ul>
+              {errors.map((errorEntry) => <li className="mandatory-field">{errorEntry}</li>)}
+            </ul>
+          </h5>
+        </div>
+      );
+    }
+    return errorMessage;
+  }
+
   render() {
     const { questionText, questionName, questionEmail } = this.state;
     const { toggleQuestionModal } = this.props;
@@ -71,7 +103,7 @@ class QuestionModal extends React.Component {
         <form>
           <div>
             <label htmlFor="questionName">
-              Nickname
+              What is your nickname
               <span className="mandatory-field">*</span>
               :
               <input
@@ -88,7 +120,7 @@ class QuestionModal extends React.Component {
           </div>
           <div>
             <label htmlFor="questionEmail">
-              Email
+              Your email
               <span className="mandatory-field">*</span>
               :
               <input
@@ -104,7 +136,7 @@ class QuestionModal extends React.Component {
           </div>
           <div>
             <label htmlFor="questionText">
-              Question
+              Your Question
               <span className="mandatory-field">*</span>
               :
               <input
@@ -116,6 +148,7 @@ class QuestionModal extends React.Component {
               />
             </label>
           </div>
+          {this.renderErrors()}
           <button type="button" onClick={toggleQuestionModal}>Cancel</button>
           <button type="button" onClick={this.submitQuestion}>Submit</button>
         </form>

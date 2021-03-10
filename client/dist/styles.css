@@ -475,6 +475,9 @@ html {
   overflow-y: auto;
   height: 500px;
 }
+.mandatory-field {
+  color: red;
+}
 
 /* End of Questions & Answer Styling */
 
