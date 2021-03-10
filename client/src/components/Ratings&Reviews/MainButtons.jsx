@@ -34,7 +34,7 @@ class MainButtons extends React.Component {
 
   render() {
     const { modalShowing } = this.state;
-    const { ratingData } = this.props;
+    const { ratingData, productId } = this.props;
     return (
       <div className="reviews-buttons">
         {false ? '' : <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button>}
@@ -43,6 +43,7 @@ class MainButtons extends React.Component {
           ratingData={ratingData}
           modalShowing={modalShowing}
           closeModal={this.closeModal}
+          productId={productId}
         />
       </div>
     );
@@ -51,10 +52,12 @@ class MainButtons extends React.Component {
 
 MainButtons.propTypes = {
   ratingData: PropTypes.shape({}),
+  productId: PropTypes.number,
 };
 
 MainButtons.defaultProps = {
   ratingData: {},
+  productId: 0,
 };
 
 export default MainButtons;

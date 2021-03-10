@@ -9,23 +9,56 @@ class AddReview extends React.Component {
     this.chooseStarRating = this.chooseStarRating.bind(this);
     this.trackWordCount = this.trackWordCount.bind(this);
     this.showPhotos = this.showPhotos.bind(this);
+    this.getProductName = this.getProductName.bind(this);
+    this.submitReview = this.submitReview.bind(this);
+    this.chooseCharacteristics = this.chooseCharacteristics.bind(this);
+    const { productId } = this.props;
     this.state = {
       overallStarChosen: 0,
-      newReview: {},
+      newReview: {
+        product_id: productId, rating: 0, summary: '', recommend: false, name: '', email: '', photos: [], characteristics: {},
+      },
       bodyWordCount: 0,
       bodyWordCountCheck: false,
       photos: [],
+      productName: '',
     };
   }
 
+  componentDidMount() {
+    this.getProductName();
+  }
+
+  // GET product name
+  getProductName() {
+    const { productId } = this.props;
+    $.ajax({
+      url: `http://localhost:8080/atelier/products/${productId}`,
+      type: 'GET',
+      success: (data) => {
+        this.setState({
+          productName: data.name,
+        });
+      },
+    });
+  }
+
+  // Modal State Updates
   // Functionality of choosing overall star rating in modal
   chooseStarRating(e) {
+    const { newReview } = this.state;
     const overallStar = e.target.id;
     let num = Number(overallStar[overallStar.length - 1]);
     let resetStars = 5;
 
     this.setState({
       overallStarChosen: Number(overallStar[overallStar.length - 1]),
+    });
+    this.setState({
+      newReview: {
+        ...newReview,
+        rating: num,
+      },
     });
     // reset star colors
     while (resetStars > 0) {
@@ -41,8 +74,40 @@ class AddReview extends React.Component {
     }
   }
 
-  recommendRadio() {
-    console.log('radio button was pressed');
+  recommendRadio(e) {
+    const { newReview } = this.state;
+    // if yes, true
+    if (e.target.value === 'yes') {
+      this.setState({
+        newReview: {
+          ...newReview,
+          recommend: true,
+        },
+      });
+    }
+    // if no, false
+    if (e.target.value === 'no') {
+      this.setState({
+        newReview: {
+          ...newReview,
+          recommend: false,
+        },
+      });
+    }
+  }
+
+  chooseCharacteristics(e, id) {
+    const { newReview } = this.state;
+    const currentId = id.toString();
+    this.setState({
+      newReview: {
+        ...newReview,
+        characteristics: {
+          ...newReview.characteristics,
+          [currentId]: Number(e.target.value),
+        },
+      },
+    });
   }
 
   trackWordCount(e) {
@@ -73,9 +138,21 @@ class AddReview extends React.Component {
     });
   }
 
+  submitReview(e) {
+    e.preventDefault();
+    console.log('we\'ll submit the review now');
+  }
+
   render() {
     const {
-      overallStarChosen, chooseStarRating, bodyWordCount, bodyWordCountCheck, recommendRadio, trackWordCount, photos,
+      overallStarChosen,
+      chooseStarRating,
+      bodyWordCount,
+      bodyWordCountCheck,
+      recommendRadio,
+      trackWordCount,
+      photos,
+      productName,
     } = this.state;
     const { ratingData, closeModal, modalShowing } = this.props;
     const modalToggle = modalShowing ? 'block' : 'none';
@@ -94,6 +171,11 @@ class AddReview extends React.Component {
       <div className="add-review-modal-main" style={{ display: modalToggle }}>
         <div className="add-review-modal-content">
           <span className="close-modal" onClick={closeModal} onKeyDown={closeModal} role="button" tabIndex="-1">&times;</span>
+          <h2>Write Your Review</h2>
+          <h3>
+            About the
+            {productName}
+          </h3>
           <form>
             <div className="add-review-form-container">
               {/* Overall Rating */}
@@ -112,11 +194,11 @@ class AddReview extends React.Component {
               <div className="recommend-radio-modal">
                 <h3>Do you recommend this product?</h3>
                 <label>
-                  <input type="radio" value="yes" name="recommend" onChange={this.recommendRadio} />
+                  <input type="radio" value="yes" name="recommend" onChange={(e) => { this.recommendRadio(e); }} />
                   Yes
                 </label>
                 <label>
-                  <input type="radio" value="yes" name="recommend" onChange={this.recommendRadio} />
+                  <input type="radio" value="no" name="recommend" onChange={(e) => { this.recommendRadio(e); }} />
                   No
                 </label>
               </div>
@@ -147,15 +229,16 @@ class AddReview extends React.Component {
                       charIndex = '';
                   }
                   const productCharacteristics = characteristicsArray[charIndex];
+                  let counter = 0;
                   return (
                     <div key={value.id} className="characteristic-modal">
                       <h4 id="char-title">{key}</h4>
                       <div className="titles">
                         {productCharacteristics.map((description) => {
-                          const x = 0;
+                          counter += 1;
                           return (
-                            <label key={description} htmlFor={description} id="single-radio">
-                              <input type="radio" value={description} name={value.id} />
+                            <label key={description} htmlFor={description} className="single-radio">
+                              <input type="radio" value={counter} name={value.id} onChange={(e) => { this.chooseCharacteristics(e, value.id); }} />
                               {description}
                             </label>
                           );
@@ -168,14 +251,14 @@ class AddReview extends React.Component {
               {/* Review Summary */}
               <div className="review-summary-modal">
                 <label htmlFor="summary">
-                  <p>Review Summary</p>
-                  <input type="text" id="summary-textbox" name="summary" maxLength="60" placeholder="Example: Best purchase ever!" />
+                  <h3>Review Summary</h3>
+                  <input type="text" className="textbox summary-textbox" name="summary" maxLength="60" placeholder="Example: Best purchase ever!" />
                 </label>
               </div>
               {/* Review Body */}
               <div className="review-body-modal">
                 <label htmlFor="body">
-                  <p>Review Body</p>
+                  <h3>Review Body</h3>
                   <textarea type="text" onChange={(e) => this.trackWordCount(e)} id="body-textbox" name="body" maxLength="1000" placeholder="Why did you like the product or not?" />
                 </label>
                 <span>
@@ -185,7 +268,7 @@ class AddReview extends React.Component {
               {/* Upload Photos */}
               <div className="upload-photos-modal">
                 <h3>Select photos to upload</h3>
-                <input type="file" id="photos-modal" onChange={this.showPhotos} multiple />
+                {photos.length >= 5 ? '' : <input type="file" id="photos-modal" onChange={this.showPhotos} multiple />}
                 {photos.length > 0 ? (
                   <div className="photos-container-modal">
                     {photos.map((photo) => (
@@ -195,7 +278,24 @@ class AddReview extends React.Component {
                 ) : ''}
 
               </div>
+              {/* What's your nickname? */}
+              <div className="nickname-modal">
+                <label htmlFor="nickname">
+                  <h3>Your nickname</h3>
+                  <input type="text" className="textbox nickname-textbox" name="nickname" maxLength="60" placeholder="Example: jackson11!" />
+                </label>
+                <p><i>For privacy reasons, do not use your full name or email address</i></p>
+              </div>
+              {/* Your email */}
+              <div className="email-modal">
+                <label htmlFor="email">
+                  <h3>Your email</h3>
+                  <input type="text" className="textbox email-textbox" name="email" maxLength="60" placeholder="Example: jackson11@email.com" />
+                </label>
+                <p><i>For authentication reasons, you will not be emailed</i></p>
+              </div>
             </div>
+            <button onClick={(e) => { this.submitReview(e); }} type="submit">Submit</button>
           </form>
         </div>
       </div>
@@ -207,12 +307,14 @@ AddReview.propTypes = {
   ratingData: PropTypes.shape({}),
   closeModal: PropTypes.func,
   modalShowing: PropTypes.bool,
+  productId: PropTypes.number,
 };
 
 AddReview.defaultProps = {
   ratingData: {},
   modalShowing: false,
   closeModal: (() => { }),
+  productId: 0,
 };
 
 export default AddReview;

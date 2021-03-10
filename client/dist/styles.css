@@ -694,11 +694,11 @@ html {
   margin: 0;
 }
 
-#single-radio {
+.single-radio {
   margin: 0 10px 0 0;
 }
 
-#summary-textbox {
+.summary-textbox, .nickname-textbox, .email-textbox {
   width: 50%;
   height: 50px;
   font-size: 1.1em;
@@ -713,6 +713,13 @@ html {
 
 .user-photo-modal {
   width: 350px;
+  margin: auto;
+}
+
+.photos-container-modal {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 32%);
+  grid-gap: 10px;
 }
 
 /* End of Reviews & Ratings Styling */

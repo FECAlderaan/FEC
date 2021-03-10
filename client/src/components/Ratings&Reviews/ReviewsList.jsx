@@ -120,7 +120,7 @@ class ReviewsList extends React.Component {
 
   render() {
     const { productReviews } = this.state;
-    const { ratingData } = this.props;
+    const { ratingData, productId } = this.props;
     return (
       <div className="reviews-container">
         {/* sorting */}
@@ -143,7 +143,7 @@ class ReviewsList extends React.Component {
             )) : ''}
         </div>
         {/* buttons */}
-        <MainButtons ratingData={ratingData} />
+        <MainButtons ratingData={ratingData} productId={productId} />
       </div>
     );
   }
