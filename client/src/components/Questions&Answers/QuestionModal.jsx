@@ -109,6 +109,7 @@ class QuestionModal extends React.Component {
       <div className="modal">
         <div className="modal-content">
           <h3>Ask a Question</h3>
+          <p>About the Product</p>
           <form>
             <div>
               <h4>
@@ -138,8 +139,9 @@ class QuestionModal extends React.Component {
                 maxLength="60"
                 value={questionEmail}
                 onChange={this.changeQuestionInfo}
+                placeholder="Example: jack@email.com"
               />
-              <p>For authentication reasons you will be emailed</p>
+              <p>For authentication reasons. You will be emailed</p>
 
             </div>
             <div>

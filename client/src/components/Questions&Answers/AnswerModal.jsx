@@ -45,31 +45,63 @@ class AnswerModal extends React.Component {
     const { answerText, answerName, answerEmail } = this.state;
     const { toggleAnswerModal } = this.props;
     return (
-      <div>
-        <h3>Add an Answer</h3>
-        <form>
-          <div>
-            <label htmlFor="answerName">
-              Name:
-              <input type="text" name="answerName" value={answerName} onChange={this.changeAnswerInfo} />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="answerEmail">
-              Email:
-              <input type="text" name="answerEmail" value={answerEmail} onChange={this.changeAnswerInfo} />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="answerText">
-              Answer:
-              {/* <textarea value={answerText} onChange={this.changeAnswerInfo} /> */}
-              <input type="text" name="answerText" value={answerText} onChange={this.changeAnswerInfo} />
-            </label>
-          </div>
-          <button type="button" onClick={toggleAnswerModal}>Cancel</button>
-          <button type="button" onClick={this.submitAnswer}>Submit</button>
-        </form>
+      <div className="modal">
+        <div className="modal-content">
+          <h3>Submit your Answer</h3>
+          <p>Product: Question</p>
+          <form>
+            <div className="submission-field">
+              <h4>
+                Your Name
+                <span className="mandatory-field">*</span>
+              </h4>
+              <input
+                type="text"
+                name="answerName"
+                size="60"
+                maxLength="60"
+                value={answerName}
+                onChange={this.changeAnswerInfo}
+                placeholder="Example: jack543!"
+              />
+              <p>For privacy reasons, do not use your full name or email address</p>
+            </div>
+            <div className="submission-field">
+              <h4>
+                Your Email
+                <span className="mandatory-field">*</span>
+              </h4>
+              <input
+                type="text"
+                name="answerEmail"
+                size="60"
+                maxLength="60"
+                value={answerEmail}
+                onChange={this.changeAnswerInfo}
+                placeholder="Example: jack@email.com"
+              />
+              <p>For authentication reasons. You will be emailed</p>
+            </div>
+            <div className="submission-field">
+              <h4>
+                Your Answer
+                <span className="mandatory-field">*</span>
+              </h4>
+              <textarea
+                type="text"
+                name="answerText"
+                cols="60"
+                rows="5"
+                required
+                maxLength="1000"
+                value={answerText}
+                onChange={this.changeAnswerInfo}
+              />
+            </div>
+            <button type="button" onClick={toggleAnswerModal}>Cancel</button>
+            <button type="button" onClick={this.submitAnswer}>Submit</button>
+          </form>
+        </div>
       </div>
     );
   }
