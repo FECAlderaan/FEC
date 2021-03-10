@@ -104,12 +104,12 @@ class AnswerModal extends React.Component {
 
   render() {
     const { answerText, answerName, answerEmail } = this.state;
-    const { toggleAnswerModal } = this.props;
+    const { toggleAnswerModal, questionBody, productName } = this.props;
     return (
       <div className="modal">
         <div className="modal-content">
           <h3>Submit your Answer</h3>
-          <p>Product: Question</p>
+          <p>{`${productName}: ${questionBody}`}</p>
           <form>
             <div className="submission-field">
               <h4>
@@ -172,6 +172,8 @@ class AnswerModal extends React.Component {
 AnswerModal.propTypes = {
   questionId: PropTypes.number.isRequired,
   toggleAnswerModal: PropTypes.func.isRequired,
+  productName: PropTypes.string.isRequired,
+  questionBody: PropTypes.string.isRequired,
 };
 
 export default AnswerModal;

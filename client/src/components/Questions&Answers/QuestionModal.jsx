@@ -104,12 +104,16 @@ class QuestionModal extends React.Component {
 
   render() {
     const { questionText, questionName, questionEmail } = this.state;
-    const { toggleQuestionModal } = this.props;
+    const { toggleQuestionModal, productName } = this.props;
     return (
       <div className="modal">
         <div className="modal-content">
           <h3>Ask a Question</h3>
-          <p>About the Product</p>
+          <p>
+            About the
+            {' '}
+            {productName}
+          </p>
           <form>
             <div>
               <h4>
@@ -172,6 +176,7 @@ class QuestionModal extends React.Component {
 
 QuestionModal.propTypes = {
   productId: PropTypes.number.isRequired,
+  productName: PropTypes.string.isRequired,
   toggleQuestionModal: PropTypes.func.isRequired,
 };
 

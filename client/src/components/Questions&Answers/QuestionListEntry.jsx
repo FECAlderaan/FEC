@@ -65,10 +65,18 @@ class QuestionListEntry extends React.Component {
   // Render a modal for submitting an answer
   renderAnswerModal() {
     const { showAnswerModal } = this.state;
-    const { question: { question_id: questionId } } = this.props;
+    const { question: { question_id: questionId, question_body: questionBody } } = this.props;
+    const { productName } = this.props;
     let modal;
     if (showAnswerModal) {
-      modal = <AnswerModal toggleAnswerModal={this.toggleAnswerModal} questionId={questionId} />;
+      modal = (
+        <AnswerModal
+          toggleAnswerModal={this.toggleAnswerModal}
+          questionId={questionId}
+          questionBody={questionBody}
+          productName={productName}
+        />
+      );
     }
     return modal;
   }
@@ -102,6 +110,7 @@ class QuestionListEntry extends React.Component {
 
 QuestionListEntry.propTypes = {
   question: PropTypes.instanceOf(Object).isRequired,
+  productName: PropTypes.string.isRequired,
 };
 
 export default QuestionListEntry;
