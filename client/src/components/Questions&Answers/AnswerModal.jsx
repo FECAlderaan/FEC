@@ -10,13 +10,40 @@ class AnswerModal extends React.Component {
       answerText: '',
       answerName: '',
       answerEmail: '',
+      error: false,
     };
     this.changeAnswerInfo = this.changeAnswerInfo.bind(this);
+    this.verifyEmail = this.verifyEmail.bind(this);
+    this.verifyAnswer = this.verifyAnswer.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
+    this.renderErrors = this.renderErrors.bind(this);
   }
 
   changeAnswerInfo(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  // make sure email is in correct format
+  verifyEmail() {
+    const { answerEmail: email } = this.state;
+    let formatted = false;
+    const asterisk = email.indexOf('@');
+    const period = email.lastIndexOf('.');
+    if (email[asterisk - 1] && email[asterisk + 1] !== '.' && asterisk < period && email[period + 1]) {
+      formatted = true;
+    }
+    return formatted;
+  }
+
+  // if any mandatory fields are incorect, mark flag for renderErrors to display necessary message
+  verifyAnswer() {
+    const { answerText, answerName } = this.state;
+    if (!answerText || !answerName || !this.verifyEmail()) {
+      this.setState({ error: true });
+      return false;
+    }
+    this.setState({ error: false });
+    return true;
   }
 
   submitAnswer() {
@@ -30,15 +57,49 @@ class AnswerModal extends React.Component {
       email: answerEmail,
     };
 
-    $.ajax({
-      type: 'POST',
-      url: route,
-      data: JSON.stringify(answerInfo),
-      contentType: 'application/json; charset=utf-8',
-    })
-      .then(() => console.log('success'))
-      .then(toggleAnswerModal())
-      .catch((error) => console.log(error));
+    // check if there are any errors
+    this.verifyAnswer();
+    // only submit if there are no errors
+    if (this.verifyAnswer()) {
+      $.ajax({
+        type: 'POST',
+        url: route,
+        data: JSON.stringify(answerInfo),
+        contentType: 'application/json; charset=utf-8',
+      })
+        .then(() => console.log('success'))
+        .then(toggleAnswerModal())
+        .catch((error) => console.log(error));
+    }
+  }
+
+  // Render a list of mandatory fields that are not filled out correctly
+  renderErrors() {
+    const { answerText, answerName, error } = this.state;
+    const errors = [];
+    let errorMessage;
+    if (!answerText) {
+      errors.push('Your Answer');
+    }
+    if (!answerName) {
+      errors.push('Your Nickname');
+    }
+    if (!this.verifyEmail()) {
+      errors.push('Your Email');
+    }
+    if (error) {
+      errorMessage = (
+        <div className="error-message">
+          <h5>
+            You must enter:
+            <ul>
+              {errors.map((errorEntry) => <li className="mandatory-field">{errorEntry}</li>)}
+            </ul>
+          </h5>
+        </div>
+      );
+    }
+    return errorMessage;
   }
 
   render() {
@@ -98,6 +159,7 @@ class AnswerModal extends React.Component {
                 onChange={this.changeAnswerInfo}
               />
             </div>
+            {this.renderErrors()}
             <button type="button" onClick={toggleAnswerModal}>Cancel</button>
             <button type="button" onClick={this.submitAnswer}>Submit</button>
           </form>
