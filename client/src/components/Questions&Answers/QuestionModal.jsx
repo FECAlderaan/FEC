@@ -13,6 +13,7 @@ class QuestionModal extends React.Component {
       error: false,
     };
     this.changeQuestionInfo = this.changeQuestionInfo.bind(this);
+    this.verifyEmail = this.verifyEmail.bind(this);
     this.verifyQuestion = this.verifyQuestion.bind(this);
     this.submitQuestion = this.submitQuestion.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
@@ -22,10 +23,22 @@ class QuestionModal extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  // make sure email is in correct format
+  verifyEmail() {
+    const { questionEmail: email } = this.state;
+    let formatted = false;
+    const asterisk = email.indexOf('@');
+    const period = email.lastIndexOf('.');
+    if (email[asterisk - 1] && email[asterisk + 1] !== '.' && asterisk < period && email[period + 1]) {
+      formatted = true;
+    }
+    return formatted;
+  }
+
   // if any mandatory fields are incorect, mark flag for renderErrors to display necessary message
   verifyQuestion() {
-    const { questionText, questionName, questionEmail } = this.state;
-    if (!questionText || !questionName || !questionEmail || !questionEmail.includes('@')) {
+    const { questionText, questionName } = this.state;
+    if (!questionText || !questionName || !this.verifyEmail()) {
       this.setState({ error: true });
       return false;
     }
@@ -62,12 +75,7 @@ class QuestionModal extends React.Component {
 
   // Render a list of mandatory fields that are not filled out correctly
   renderErrors() {
-    const {
-      questionText,
-      questionName,
-      questionEmail,
-      error,
-    } = this.state;
+    const { questionText, questionName, error } = this.state;
     const errors = [];
     let errorMessage;
     if (!questionText) {
@@ -76,7 +84,7 @@ class QuestionModal extends React.Component {
     if (!questionName) {
       errors.push('Your Nickname');
     }
-    if (!questionEmail.includes('@')) {
+    if (!this.verifyEmail()) {
       errors.push('Your Email');
     }
     if (error) {
