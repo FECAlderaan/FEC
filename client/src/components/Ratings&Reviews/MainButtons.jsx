@@ -10,8 +10,7 @@ class MainButtons extends React.Component {
     this.addReviewModal = this.addReviewModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.state = {
-      // modalShowing: false,
-      modalShowing: true,
+      modalShowing: false,
     };
   }
 

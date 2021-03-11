@@ -12,16 +12,28 @@ class AddReview extends React.Component {
     this.getProductName = this.getProductName.bind(this);
     this.submitReview = this.submitReview.bind(this);
     this.chooseCharacteristics = this.chooseCharacteristics.bind(this);
+    this.modalSummary = this.modalSummary.bind(this);
+    this.modalBody = this.modalBody.bind(this);
+    this.modalNickname = this.modalNickname.bind(this);
+    this.modalEmail = this.modalEmail.bind(this);
     const { productId } = this.props;
     this.state = {
       overallStarChosen: 0,
       newReview: {
-        product_id: productId, rating: 0, summary: '', recommend: false, name: '', email: '', photos: [], characteristics: {},
+        product_id: productId, rating: 0, summary: '', body: '', recommend: '', name: '', email: '', photos: [], characteristics: {},
       },
       bodyWordCount: 0,
       bodyWordCountCheck: false,
       photos: [],
+      urlPhotos: [],
       productName: '',
+      // error checking
+      ratingError: false,
+      recommendError: false,
+      characteristicsError: false,
+      bodyError: false,
+      nicknameError: false,
+      emailError: false,
     };
   }
 
@@ -110,6 +122,29 @@ class AddReview extends React.Component {
     });
   }
 
+  modalSummary(e) {
+    const { newReview } = this.state;
+    this.setState({
+      newReview: {
+        ...newReview,
+        summary: e.target.value,
+      },
+    });
+  }
+
+  modalBody(e) {
+    const { newReview } = this.state;
+    if (newReview.body.length < 50) {
+
+    }
+    this.setState({
+      newReview: {
+        ...newReview,
+        body: e.target.value,
+      },
+    });
+  }
+
   trackWordCount(e) {
     const { bodyWordCount } = this.state;
     const newWordCount = e.target.value.length;
@@ -138,9 +173,117 @@ class AddReview extends React.Component {
     });
   }
 
+  // // Get real URL for photos
+  // getPhotoURL() {
+  // }
+
+  modalNickname(e) {
+    const { newReview } = this.state;
+    this.setState({
+      newReview: {
+        ...newReview,
+        name: e.target.value,
+      },
+    });
+  }
+
+  modalEmail(e) {
+    const { newReview, emailError } = this.state;
+    this.setState({
+      newReview: {
+        ...newReview,
+        email: e.target.value,
+      },
+    });
+  }
+
   submitReview(e) {
+    const {
+      newReview,
+      ratingError,
+      recommendError,
+      characteristicsError,
+      bodyError,
+      nicknameError,
+      emailError,
+    } = this.state;
+    const { ratingData, closeModal } = this.props;
+    // check if all mandatory fields are filled in
     e.preventDefault();
-    console.log('we\'ll submit the review now');
+    if (newReview.rating === 0) {
+      this.setState({
+        ratingError: true,
+      });
+      return;
+    }
+    if (newReview.rating > 0) {
+      this.setState({
+        ratingError: false,
+      });
+    }
+    if (newReview.recommend === '') {
+      this.setState({
+        recommendError: true,
+      });
+      return;
+    }
+    if (newReview.recommend !== '') {
+      this.setState({
+        recommendError: false,
+      });
+    }
+    if (Object.entries(newReview.characteristics).length
+      !== Object.entries(ratingData.characteristics).length) {
+      this.setState({
+        characteristicsError: true,
+      });
+      return;
+    } else {
+      this.setState({
+        characteristicsError: false,
+      });
+    }
+    if (newReview.body.length < 50) {
+      this.setState({
+        bodyError: true,
+      });
+      return;
+    }
+    if (newReview.body.length >= 50) {
+      this.setState({
+        bodyError: false,
+      });
+    }
+    if (newReview.name === '') {
+      this.setState({
+        nicknameError: true,
+      });
+      return;
+    }
+    if (newReview.name !== '') {
+      this.setState({
+        nicknameError: false,
+      });
+    }
+    const emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (emailCheck.test(newReview.email)) {
+      this.setState({
+        emailError: !emailError,
+      });
+    } else {
+      this.setState({
+        emailError: true,
+      });
+    }
+
+    $.ajax({
+      url: 'http://localhost:8080/atelier/reviews',
+      type: 'POST',
+      data: JSON.stringify(newReview),
+      contentType: 'application/json',
+      success: () => { },
+    });
+    closeModal();
   }
 
   render() {
@@ -153,6 +296,12 @@ class AddReview extends React.Component {
       trackWordCount,
       photos,
       productName,
+      ratingError,
+      recommendError,
+      characteristicsError,
+      bodyError,
+      nicknameError,
+      emailError,
     } = this.state;
     const { ratingData, closeModal, modalShowing } = this.props;
     const modalToggle = modalShowing ? 'block' : 'none';
@@ -172,15 +321,13 @@ class AddReview extends React.Component {
         <div className="add-review-modal-content">
           <span className="close-modal" onClick={closeModal} onKeyDown={closeModal} role="button" tabIndex="-1">&times;</span>
           <h2>Write Your Review</h2>
-          <h3>
-            About the
-            {productName}
-          </h3>
+          <h3>About the {productName}</h3>
           <form>
             <div className="add-review-form-container">
               {/* Overall Rating */}
               <div className="overall-rating-modal">
                 <h3>Overall Rating</h3>
+                {ratingError ? <p className="error-message-modal">*required field*</p> : ''}
                 <i className="fas fa-star modal-star" id="star-1" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="1 Star Rating" />
                 <i className="fas fa-star modal-star" id="star-2" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="2 Star Rating" />
                 <i className="fas fa-star modal-star" id="star-3" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="3 Star Rating" />
@@ -193,6 +340,7 @@ class AddReview extends React.Component {
               {/* Recommend? */}
               <div className="recommend-radio-modal">
                 <h3>Do you recommend this product?</h3>
+                {recommendError ? <p className="error-message-modal">*required field*</p> : ''}
                 <label>
                   <input type="radio" value="yes" name="recommend" onChange={(e) => { this.recommendRadio(e); }} />
                   Yes
@@ -204,6 +352,8 @@ class AddReview extends React.Component {
               </div>
               {/* Characteristics */}
               <div className="characteristics-modal">
+                <h3>Characteristics</h3>
+                {characteristicsError ? <p className="error-message-modal">*required field*</p> : ''}
                 {Object.entries(ratingData.characteristics).map(([key, value]) => {
                   let charIndex = key;
                   switch (charIndex) {
@@ -252,14 +402,15 @@ class AddReview extends React.Component {
               <div className="review-summary-modal">
                 <label htmlFor="summary">
                   <h3>Review Summary</h3>
-                  <input type="text" className="textbox summary-textbox" name="summary" maxLength="60" placeholder="Example: Best purchase ever!" />
+                  <input type="text" className="textbox summary-textbox" name="summary" maxLength="60" placeholder="Example: Best purchase ever!" onBlur={(e) => { this.modalSummary(e); }} />
                 </label>
               </div>
               {/* Review Body */}
               <div className="review-body-modal">
                 <label htmlFor="body">
                   <h3>Review Body</h3>
-                  <textarea type="text" onChange={(e) => this.trackWordCount(e)} id="body-textbox" name="body" maxLength="1000" placeholder="Why did you like the product or not?" />
+                  {bodyError ? <p className="error-message-modal">*required field*</p> : ''}
+                  <textarea type="text" id="body-textbox" name="body" maxLength="1000" placeholder="Why did you like the product or not?" onChange={(e) => this.trackWordCount(e)} onBlur={(e) => { this.modalBody(e); }} />
                 </label>
                 <span>
                   {bodyWordCountCheck ? 'Minimum reached' : `Minimum required characters left: ${(50 - bodyWordCount)}`}
@@ -282,7 +433,8 @@ class AddReview extends React.Component {
               <div className="nickname-modal">
                 <label htmlFor="nickname">
                   <h3>Your nickname</h3>
-                  <input type="text" className="textbox nickname-textbox" name="nickname" maxLength="60" placeholder="Example: jackson11!" />
+                  {nicknameError ? <p className="error-message-modal">*required field*</p> : ''}
+                  <input type="text" className="textbox nickname-textbox" name="nickname" maxLength="60" placeholder="Example: jackson11!" onBlur={(e) => { this.modalNickname(e); }} />
                 </label>
                 <p><i>For privacy reasons, do not use your full name or email address</i></p>
               </div>
@@ -290,7 +442,8 @@ class AddReview extends React.Component {
               <div className="email-modal">
                 <label htmlFor="email">
                   <h3>Your email</h3>
-                  <input type="text" className="textbox email-textbox" name="email" maxLength="60" placeholder="Example: jackson11@email.com" />
+                  {emailError ? <p className="error-message-modal">*required field*</p> : ''}
+                  <input type="text" className="textbox email-textbox" name="email" maxLength="60" placeholder="Example: jackson11@email.com" onBlur={(e) => { this.modalEmail(e); }} />
                 </label>
                 <p><i>For authentication reasons, you will not be emailed</i></p>
               </div>

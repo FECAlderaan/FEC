@@ -722,4 +722,9 @@ html {
   grid-gap: 10px;
 }
 
+.error-message-modal {
+  margin: 10px 0;
+  color: red;
+}
+
 /* End of Reviews & Ratings Styling */
