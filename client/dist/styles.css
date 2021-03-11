@@ -1,5 +1,5 @@
 /* light mode: #021936, #d1d2cd, #eaeaea, #ddd */
-/* dark mode:  #021936, #d1d2cd, #fff3, #6d7d94 */
+/* dark mode:  #021936, #d1d2cd, #fff3, #6d7d94, rgb(15 50 95) */
 
 body {
   box-sizing: border-box;
@@ -9,6 +9,10 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+body * {
+  font-family: 'Mukta', sans-serif;
 }
 
 /* Header Styling */
@@ -85,10 +89,6 @@ html {
   margin: 80px 10px;
 }
 
-.dark-mode .products {
-  color: #fff;
-}
-
 /* End of Home Page Styling */
 
 /* Product Overview Styling */
@@ -154,12 +154,13 @@ html {
   right: 10px;
 }
 
-#productOverview .carousel .changeImage.next, #productOverview .carousel .changeImage.previous {
+#productOverview .carousel .changeImage.next,
+#productOverview .carousel .changeImage.previous {
   background-color: #d1d2cd;
 }
 
- .dark-mode #productOverview .carousel .changeImage.next,
- .dark-mode #productOverview .carousel .changeImage.previous {
+.dark-mode #productOverview .carousel .changeImage.next,
+.dark-mode #productOverview .carousel .changeImage.previous {
    background-color: #6d7d94;
    color: #021936;
  }

@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import $ from 'jquery';
 
 import Home from './Home';
-import ProductDetails from './ProductDetailsPage';
+import App from './App';
 
 class Routes extends React.Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class Routes extends React.Component {
           <Route
             path="/products/:id"
             render={(props) => (
-              <ProductDetails {...props} cart={cart} darkMode={darkMode} changeTheme={this.changeTheme} getCart={this.getCart} />
+              <App {...props} cart={cart} darkMode={darkMode} changeTheme={this.changeTheme} getCart={this.getCart} />
             )}
           />
         </Switch>

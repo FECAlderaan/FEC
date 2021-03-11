@@ -35,5 +35,5 @@ app.use('/*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Catwalk is listening at http://localhost:${port}`);
+  console.log(`Catwalk is listening at port ${port}`);
 });
