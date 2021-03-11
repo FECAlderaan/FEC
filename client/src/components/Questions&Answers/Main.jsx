@@ -19,10 +19,18 @@ class QuestionAnswer extends React.Component {
   componentDidMount() {
     // Call Atelier API (through proxy server) and get relevant info for for productId
     const { productId } = this.props;
-    const route = 'http://localhost:8080/atelier/qa/questions';
+    const route = '/atelier/qa/questions';
     $.get(route, { product_id: productId })
       .done((result) => {
         this.setState({ product: { productId: result.product_id, questions: result.results } });
+      })
+      .fail((error) => {
+        console.error(error);
+        alert(error);
+      });
+    $.get(`/atelier/products/${productId}`)
+      .done((result) => {
+        this.setState({ productName: result.name });
       })
       .fail((error) => {
         console.error(error);
@@ -37,7 +45,7 @@ class QuestionAnswer extends React.Component {
 
   // Render a modal for submitting a question
   renderQuestionModal() {
-    const { showQuestionModal } = this.state;
+    const { showQuestionModal, productName } = this.state;
     const { productId } = this.props;
     let modal;
     if (showQuestionModal) {
@@ -45,6 +53,7 @@ class QuestionAnswer extends React.Component {
         <QuestionModal
           toggleQuestionModal={this.toggleQuestionModal}
           productId={productId}
+          productName={productName}
         />
       );
     }
@@ -52,11 +61,11 @@ class QuestionAnswer extends React.Component {
   }
 
   render() {
-    const { product } = this.state;
+    const { product, productName } = this.state;
     return (
       <div className="questions-answers">
         <h2>Questions & Answers</h2>
-        <QuestionList product={product} />
+        <QuestionList product={product} productName={productName} />
         <button type="button" onClick={this.toggleQuestionModal}>Ask A Question + </button>
         {this.renderQuestionModal()}
       </div>

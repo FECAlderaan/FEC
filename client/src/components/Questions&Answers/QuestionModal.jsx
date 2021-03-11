@@ -104,11 +104,16 @@ class QuestionModal extends React.Component {
 
   render() {
     const { questionText, questionName, questionEmail } = this.state;
-    const { toggleQuestionModal } = this.props;
+    const { toggleQuestionModal, productName } = this.props;
     return (
       <div className="modal">
         <div className="modal-content">
           <h3>Ask a Question</h3>
+          <p>
+            About the
+            {' '}
+            {productName}
+          </p>
           <form>
             <div>
               <h4>
@@ -138,8 +143,9 @@ class QuestionModal extends React.Component {
                 maxLength="60"
                 value={questionEmail}
                 onChange={this.changeQuestionInfo}
+                placeholder="Example: jack@email.com"
               />
-              <p>For authentication reasons you will be emailed</p>
+              <p>For authentication reasons. You will be emailed</p>
 
             </div>
             <div>
@@ -170,6 +176,7 @@ class QuestionModal extends React.Component {
 
 QuestionModal.propTypes = {
   productId: PropTypes.number.isRequired,
+  productName: PropTypes.string.isRequired,
   toggleQuestionModal: PropTypes.func.isRequired,
 };
 

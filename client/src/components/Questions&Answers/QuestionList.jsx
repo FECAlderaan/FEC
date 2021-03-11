@@ -65,7 +65,7 @@ class QuestionList extends React.Component {
 
   // Filter, Sort, and render question objects
   renderQuestions() {
-    const { product } = this.props;
+    const { product, productName } = this.props;
     const { showAll } = this.state;
     let entries = [];
     // subset of entries to be displayed
@@ -79,7 +79,13 @@ class QuestionList extends React.Component {
       // Reverse the order of the questions so the most helpful is first
       sortedQuestions.reverse();
       entries = sortedQuestions.map(
-        (question) => <QuestionListEntry question={question} key={question.question_id} />,
+        (question) => (
+          <QuestionListEntry
+            question={question}
+            key={question.question_id}
+            productName={productName}
+          />
+        ),
       );
 
       // Handle if there are only 2 answers
@@ -100,7 +106,7 @@ class QuestionList extends React.Component {
     const { searchTerm } = this.state;
     return (
       <>
-        <form>
+        <form className="question-search">
           <input
             value={searchTerm}
             onChange={this.changeState}
@@ -110,9 +116,9 @@ class QuestionList extends React.Component {
             size="128"
           />
         </form>
-        <ul className="question-list">
+        <div className="question-list">
           {this.renderQuestions()}
-        </ul>
+        </div>
       </>
     );
   }
@@ -123,6 +129,7 @@ QuestionList.propTypes = {
     product_id: PropTypes.string,
     questions: PropTypes.instanceOf(Array),
   }).isRequired,
+  productName: PropTypes.string.isRequired,
 };
 
 export default QuestionList;
