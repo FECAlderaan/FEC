@@ -58,10 +58,10 @@ class AnswerList extends React.Component {
     // compare length of visible answers to length of total answers to determine button to render
     if (displayed === total && total > 2) {
       // only allow users to collapse answers if total length is greater than 2
-      displayButton = <button type="button" onClick={this.toggleShowAll}>Collapse answers</button>;
+      displayButton = <b className="link" role="button" onClick={this.toggleShowAll}>COLLAPSE</b>;
     } else if (displayed < total) {
       // only allow users to load answers if there are unloaded answers
-      displayButton = <button type="button" onClick={this.toggleShowAll}>See more answers</button>;
+      displayButton = <b className="link" role="button" onClick={this.toggleShowAll}>SEE MORE ANSWERS</b>;
     }
     return displayButton;
   }
