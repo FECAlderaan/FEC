@@ -6,7 +6,6 @@ const ProductBreakdown = ({ ratingData }) => {
   const fiveRatings = ['A size too wide', 'Too wide', 'Perfect', 'Perfect', 'Runs long', 'Runs long'];
   return (
     <div className="product-breakdown-main">
-      <h2>Product Breakdown</h2>
       {Object.entries(ratingData.characteristics).map(([key, value]) => {
         let oneRatingLabel;
         let fiveRatingLabel;
@@ -33,7 +32,7 @@ const ProductBreakdown = ({ ratingData }) => {
         }
         return (
           <div key={value.id} className="characteristic-bar">
-            <div>{key}</div>
+            <div className="characteristic-title">{key}</div>
             <div className="product-breakdown-bar">
               <div className="icon-container">
                 <i className="fas fa-sort-down" id="marker-icon" style={{ left: `${(Number(value.value) * 17.6)}%` }} />

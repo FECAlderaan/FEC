@@ -52,11 +52,11 @@ const starBars = function starBars(stars, object) {
   return Math.round(((stars / count) * 100) * 100) / 100;
 };
 
-const RatingBreakdown = ({ ratingData, filterReviews }) => {
+const RatingBreakdown = ({ ratingData, getFilters }) => {
   const x = 0;
   return (
     <div className="rating-breakdown">
-      <h2>Rating Breakdown</h2>
+      <h2 className="reviews-section-header">Rating Breakdown</h2>
       <div className="rating-average">
         <h1 id="average-number">{ratingAverage(ratingData.ratings)}</h1>
         <div className="stars-outer">
@@ -76,16 +76,8 @@ const RatingBreakdown = ({ ratingData, filterReviews }) => {
       </div>
 
       <div className="rating-stars">
-
-        <div
-          className="rating-bar-section"
-          onClick={(e) => { filterReviews(e); }}
-          onKeyDown={filterReviews}
-          role="option"
-          tabIndex="-1"
-          aria-selected="false"
-          index="5"
-        >
+        {/* 5 star bar */}
+        <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="5">
           <h4 className="star-header">5 stars</h4>
           <div className="rating-bar-outer" index="5">
             <div
@@ -96,40 +88,42 @@ const RatingBreakdown = ({ ratingData, filterReviews }) => {
           </div>
           <h4 className="individual-total-ratings">{ratingData.ratings[5] ? ratingData.ratings[5] : 0}</h4>
         </div>
-        <div className="rating-bar-section" onClick={(e) => { filterReviews(e); }} onKeyDown={filterReviews} role="option" tabIndex="-1" aria-selected="false" index="4">
+        {/* 4 star bar */}
+        <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="4">
           <h4 className="star-header">4 stars</h4>
           <div className="rating-bar-outer" index="4">
             <div className="rating-bar-inner" id="four-star-bar" style={{ width: `${starBars(ratingData.ratings[4], ratingData.ratings)}%` }} />
           </div>
           <h4 className="individual-total-ratings">{ratingData.ratings[4] ? ratingData.ratings[4] : 0}</h4>
         </div>
-        <div className="rating-bar-section" onClick={(e) => { filterReviews(e); }} onKeyDown={filterReviews} role="option" tabIndex="-1" aria-selected="false" index="3">
+        {/* 3 star bar */}
+        <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="3">
           <h4 className="star-header">3 stars</h4>
           <div className="rating-bar-outer" index="3">
             <div className="rating-bar-inner" id="three-star-bar" style={{ width: `${starBars(ratingData.ratings[3], ratingData.ratings)}%` }} />
           </div>
           <h4 className="individual-total-ratings">{ratingData.ratings[3] ? ratingData.ratings[3] : 0}</h4>
         </div>
-        <div className="rating-bar-section" onClick={(e) => { filterReviews(e); }} onKeyDown={filterReviews} role="option" tabIndex="-1" aria-selected="false" index="2">
+        {/* 2 star bar */}
+        <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="2">
           <h4 className="star-header">2 stars</h4>
           <div className="rating-bar-outer" index="2">
             <div className="rating-bar-inner" id="two-star-bar" style={{ width: `${starBars(ratingData.ratings[2], ratingData.ratings)}%` }} />
           </div>
           <h4 className="individual-total-ratings">{ratingData.ratings[2] ? ratingData.ratings[2] : 0}</h4>
         </div>
-        <div className="rating-bar-section" onClick={(e) => { filterReviews(e); }} onKeyDown={filterReviews} role="option" tabIndex="-1" aria-selected="false" index="1">
+        {/* 1 star bar */}
+        <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="1">
           <h4 className="star-header">1 stars</h4>
           <div className="rating-bar-outer" index="1">
             <div className="rating-bar-inner" id="one-star-bar" style={{ width: `${starBars(ratingData.ratings[1], ratingData.ratings)}%` }} />
           </div>
           <h4 className="individual-total-ratings">{ratingData.ratings[1] ? ratingData.ratings[1] : 0}</h4>
         </div>
-
       </div>
 
       <div className="rating-percent">
         {`${getRecommended(ratingData.recommended)}% of reviews recommend this product`}
-
       </div>
 
       <ProductBreakdown ratingData={ratingData} />
@@ -139,12 +133,12 @@ const RatingBreakdown = ({ ratingData, filterReviews }) => {
 
 RatingBreakdown.propTypes = {
   ratingData: PropTypes.shape(),
-  filterReviews: PropTypes.func,
+  getFilters: PropTypes.func,
 };
 
 RatingBreakdown.defaultProps = {
   ratingData: {},
-  filterReviews: [],
+  getFilters: [],
 };
 
 export default RatingBreakdown;
