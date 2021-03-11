@@ -161,7 +161,6 @@ class Main extends React.Component {
   }
 
   moreReviews() {
-    console.log('it hit');
     const { productReviews, displayedReviewsCount } = this.state;
     // if there are more reviews that can be shown, show them up until
     // all are shown
@@ -174,6 +173,8 @@ class Main extends React.Component {
         displayedReviewsCount: displayedReviewsCount + 2,
       });
     }
+    const reviewsList = $('.reviews-list');
+    reviewsList.css({ 'max-height': '800px', 'overflow-x': 'hidden', 'overflow-y': 'auto' });
   }
 
   render() {

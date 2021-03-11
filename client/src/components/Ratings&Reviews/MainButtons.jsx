@@ -33,10 +33,11 @@ class MainButtons extends React.Component {
 
   render() {
     const { modalShowing } = this.state;
-    const { ratingData, productId, moreReviews } = this.props;
+    const { ratingData, productId, moreReviews, productReviews, displayedReviewsCount } = this.props;
+    const reviewsCheck = (productReviews.results.length === displayedReviewsCount);
     return (
       <div className="reviews-buttons">
-        {false ? '' : <button type="button" onClick={moreReviews}>MORE REVIEWS</button>}
+        {reviewsCheck ? '' : <button type="button" onClick={moreReviews}>MORE REVIEWS</button>}
         <button type="button" onClick={this.addReviewModal}>ADD A REVIEW +</button>
         <AddReview
           ratingData={ratingData}

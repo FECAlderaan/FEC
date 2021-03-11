@@ -10,23 +10,15 @@ class ReviewsList extends React.Component {
 
     this.state = {
       displayedReviews: [],
+      scrollableReviews: false,
     };
   }
 
-  componentDidMount() {
-
-  }
-
-  showTwoReviews() {
-    const { productReviews, displayedReviewsCount } = this.props;
-
-    this.setState({
-
-    });
-  }
-
   render() {
-    const { ratingData, productId, getFilteredReviews, productReviews, ratingFilters, displayedReviewsCount, moreReviews } = this.props;
+    const {
+      // eslint-disable-next-line max-len
+      ratingData, productId, getFilteredReviews, productReviews, ratingFilters, displayedReviewsCount, moreReviews,
+    } = this.props;
     const { displayedReviews } = this.state;
     const reviews = [];
     for (let i = 0; i < displayedReviewsCount; i += 1) {
@@ -54,7 +46,7 @@ class ReviewsList extends React.Component {
             )) : ''}
         </div>
         {/* buttons */}
-        <MainButtons ratingData={ratingData} productId={productId} moreReviews={moreReviews} />
+        <MainButtons ratingData={ratingData} productId={productId} moreReviews={moreReviews} displayedReviewsCount={displayedReviewsCount} productReviews={productReviews} />
       </div>
     );
   }
@@ -67,12 +59,14 @@ ReviewsList.propTypes = {
   productId: PropTypes.number.isRequired,
   getFilteredReviews: PropTypes.func,
   displayedReviewsCount: PropTypes.number.isRequired,
+  moreReviews: PropTypes.func,
 };
 
 ReviewsList.defaultProps = {
   productReviews: {},
   ratingData: {},
   getFilteredReviews: () => { },
+  moreReviews: () => { },
 };
 
 export default ReviewsList;
