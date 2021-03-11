@@ -67,15 +67,6 @@ class Routes extends React.Component {
   }
 }
 
-// const Routes = () => (
-//   <Router>
-//     <Switch>
-//       <Route path="/" exact component={Home} />
-//       <Route path="/products/:id" component={ProductDetails} />
-//     </Switch>
-//   </Router>
-// );
-
 ReactDOM.render(
   <Routes />,
   document.getElementById('root'),
