@@ -9,17 +9,14 @@ class ReviewsList extends React.Component {
     super(props);
 
     this.state = {
-      displayedReviews: [],
-      scrollableReviews: false,
     };
   }
 
   render() {
     const {
       // eslint-disable-next-line max-len
-      ratingData, productId, getFilteredReviews, productReviews, ratingFilters, displayedReviewsCount, moreReviews,
+      ratingData, productId, getFilteredReviews, productReviews, ratingFilters, displayedReviewsCount, moreReviews, displayedReviews, filterCheck,
     } = this.props;
-    const { displayedReviews } = this.state;
     const reviews = [];
     for (let i = 0; i < displayedReviewsCount; i += 1) {
       reviews.push(productReviews.results[i]);
@@ -46,6 +43,7 @@ class ReviewsList extends React.Component {
             )) : ''}
         </div>
         {/* buttons */}
+        {/* eslint-disable-next-line max-len */}
         <MainButtons ratingData={ratingData} productId={productId} moreReviews={moreReviews} displayedReviewsCount={displayedReviewsCount} productReviews={productReviews} />
       </div>
     );

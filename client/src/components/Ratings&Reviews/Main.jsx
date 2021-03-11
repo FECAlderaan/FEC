@@ -17,7 +17,9 @@ class Main extends React.Component {
       ratingData: { ratings: [], recommended: {}, characteristics: {} },
       ratingFilters: [],
       productReviews: { results: [] },
+      displayedReviews: [],
       displayedReviewsCount: 2,
+      filterCheck: false,
     };
   }
 
@@ -96,10 +98,10 @@ class Main extends React.Component {
 
   // Gets the filtering option from clicks on Rating Breakdown bars
   getFilters(e) {
-    const { ratingFilters } = this.state;
+    const { ratingFilters, filterCheck } = this.state;
     // if the clicked element doesn't have the 'index' attribute, get it from its parent
     if (e.target.getAttribute('index') === null) {
-      const filter = e.target.parentNode.getAttribute('index');
+      const filter = Number(e.target.parentNode.getAttribute('index'));
       // check if ratingFilters array already has the star filter, return nothing if so
       if (ratingFilters.includes(filter)) {
         const newFilters = [];
@@ -110,6 +112,7 @@ class Main extends React.Component {
         });
         this.setState({
           ratingFilters: newFilters,
+          filterCheck: true,
         });
         return;
       }
@@ -117,9 +120,10 @@ class Main extends React.Component {
       const newFilters = ratingFilters.concat(filter);
       this.setState({
         ratingFilters: newFilters,
+        filterCheck: true,
       });
     } else {
-      const filter = e.target.getAttribute('index');
+      const filter = Number(e.target.getAttribute('index'));
       if (ratingFilters.includes(filter)) {
         const newFilters = [];
         ratingFilters.forEach((value) => {
@@ -129,34 +133,37 @@ class Main extends React.Component {
         });
         this.setState({
           ratingFilters: newFilters,
+          filterCheck: true,
         });
         return;
       }
       const newFilters = ratingFilters.concat(filter);
       this.setState({
         ratingFilters: newFilters,
+        filterCheck: true,
       });
     }
-    this.filterReviewsList();
+    // this.filterReviewsList();
   }
 
   // Update state of displayed reviews to show only the specific
   // filtered reviews
   filterReviewsList() {
-    const { displayedReviewsCount, ratingFilters, productReviews } = this.state;
+    const { displayedReviews, ratingFilters, productReviews } = this.state;
     console.log('ratingFilters', ratingFilters);
     const reviews = [];
-    for (let i = 0; i < productReviews.results.length; i += 1) {
-      if (ratingFilters.includes(productReviews.results[i].rating)) {
-        reviews.push(productReviews.results[i]);
+    productReviews.results.forEach((result) => {
+      for (let i = 0; i < ratingFilters.length; i += 1) {
+        if (ratingFilters.includes(result.rating)) {
+          reviews.push(result);
+          break;
+        }
       }
-    }
+    });
+
     console.log('reviews', reviews);
     this.setState({
-      productReviews: {
-        ...productReviews,
-        results: reviews,
-      },
+      displayedReviews: reviews,
     });
   }
 
@@ -178,7 +185,7 @@ class Main extends React.Component {
   }
 
   render() {
-    const { ratingData, ratingFilters, productReviews, displayedReviewsCount } = this.state;
+    const { ratingData, ratingFilters, productReviews, displayedReviewsCount, displayedReviews, filterCheck } = this.state;
     const { productId } = this.props;
     return (
       <div>
@@ -192,7 +199,9 @@ class Main extends React.Component {
             ratingFilters={ratingFilters}
             productId={productId}
             productReviews={productReviews}
+            filterCheck={filterCheck}
             getFilteredReviews={this.getFilteredReviews}
+            displayedReviews={displayedReviews}
             displayedReviewsCount={displayedReviewsCount}
             moreReviews={this.moreReviews}
           />

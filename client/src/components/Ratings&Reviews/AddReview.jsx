@@ -327,6 +327,7 @@ class AddReview extends React.Component {
               {/* Overall Rating */}
               <div className="overall-rating-modal">
                 <h3>Overall Rating</h3>
+                <p>Click your rating</p>
                 {ratingError ? <p className="error-message-modal">*required field*</p> : ''}
                 <i className="fas fa-star modal-star" id="star-1" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="1 Star Rating" />
                 <i className="fas fa-star modal-star" id="star-2" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="2 Star Rating" />

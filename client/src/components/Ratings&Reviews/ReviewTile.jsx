@@ -52,7 +52,7 @@ const formatDate = function (date) {
   return formattedDate;
 };
 
-const ratingStarWidth= function(rating) {
+const ratingStarWidth = function (rating) {
   return rating * 20;
 };
 
@@ -86,7 +86,13 @@ const ReviewTile = ({ review }) => {
 
         {review.response ? (
           <div className="rev-info review-response">
-            {review.response ? `Response from seller: ${review.response}` : ''}
+            {review.response
+              ? (
+                <div className="review-response-container">
+                  <span>Response from seller: </span>
+                  <div>{review.response}</div>
+                </div>
+              ) : ''}
           </div>
         ) : ''}
         <div className="rev-info review-summary">
