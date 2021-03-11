@@ -4,11 +4,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 import QuestionList from './QuestionList';
+import QuestionModal from './QuestionModal';
 
 class QuestionAnswer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showQuestionModal: false,
+    };
+    this.toggleQuestionModal = this.toggleQuestionModal.bind(this);
+    this.renderQuestionModal = this.renderQuestionModal.bind(this);
   }
 
   componentDidMount() {
@@ -25,17 +30,35 @@ class QuestionAnswer extends React.Component {
       });
   }
 
+  toggleQuestionModal() {
+    const { showQuestionModal } = this.state;
+    this.setState({ showQuestionModal: !showQuestionModal });
+  }
+
+  // Render a modal for submitting a question
+  renderQuestionModal() {
+    const { showQuestionModal } = this.state;
+    const { productId } = this.props;
+    let modal;
+    if (showQuestionModal) {
+      modal = (
+        <QuestionModal
+          toggleQuestionModal={this.toggleQuestionModal}
+          productId={productId}
+        />
+      );
+    }
+    return modal;
+  }
+
   render() {
     const { product } = this.state;
     return (
-      <div>
+      <div className="questions-answers">
         <h2>Questions & Answers</h2>
-        <form>
-          <input type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." size="128" />
-        </form>
         <QuestionList product={product} />
-        <button type="button">More Answered Questions</button>
-        <button type="button">Ask A Question + </button>
+        <button type="button" onClick={this.toggleQuestionModal}>Ask A Question + </button>
+        {this.renderQuestionModal()}
       </div>
     );
   }
