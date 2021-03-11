@@ -10,17 +10,7 @@ import RatingsReviews from './components/Ratings&Reviews/Main';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cart: [],
-      darkMode: false,
-    };
-    this.getCart = this.getCart.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.changeTheme = this.changeTheme.bind(this);
-  }
-
-  componentDidMount() {
-    this.getCart();
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -42,35 +32,16 @@ class App extends React.Component {
     });
   }
 
-  getCart() {
-    $.ajax({
-      type: 'GET',
-      url: '/atelier/cart',
-      success: (data) => {
-        this.setState({ cart: data });
-      },
-    });
-  }
-
-  changeTheme() {
-    const { darkMode } = this.state;
-    this.setState({ darkMode: !darkMode });
-    if (!darkMode) {
-      document.body.style.backgroundColor = '#021936';
-    } else {
-      document.body.style.backgroundColor = '#d1d2cd';
-    }
-  }
-
   render() {
-    const { match } = this.props;
+    const {
+      match, cart, darkMode, getCart, changeTheme,
+    } = this.props;
     const productId = Number(match.params.id);
-    const { cart, darkMode } = this.state;
     return (
       <>
-        <Header cart={cart} changeTheme={this.changeTheme} darkMode={darkMode} />
+        <Header cart={cart} changeTheme={changeTheme} darkMode={darkMode} />
         <div className={darkMode ? 'dark-mode' : ''}>
-          <ProductDetails productId={productId} getCart={this.getCart} onClick={this.onClick} />
+          <ProductDetails productId={productId} getCart={getCart} onClick={this.onClick} />
           <QuestionAnswer productId={productId} onClick={this.onClick} />
           <RatingsReviews productId={productId} onClick={this.onClick} />
         </div>
@@ -81,6 +52,10 @@ class App extends React.Component {
 
 App.propTypes = {
   match: PropTypes.instanceOf(Object).isRequired,
+  cart: PropTypes.instanceOf(Array).isRequired,
+  darkMode: PropTypes.bool.isRequired,
+  getCart: PropTypes.func.isRequired,
+  changeTheme: PropTypes.func.isRequired,
 };
 
 export default App;

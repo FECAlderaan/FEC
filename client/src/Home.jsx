@@ -1,6 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Header from './Header';
 
 class Home extends React.Component {
   constructor(props) {
@@ -25,16 +27,20 @@ class Home extends React.Component {
   }
 
   render() {
+    const { cart, darkMode, changeTheme } = this.props;
     const { products } = this.state;
     return (
       <div>
-        <div id="header">
-          <span>Catwalk</span>
-        </div>
+        <Header cart={cart} changeTheme={changeTheme} darkMode={darkMode} />
         <div className="products">
           {products.map((product) => (
             <div key={product.id}>
-              <Link to={`/products/${product.id}`}>{product.name}</Link>
+              <Link
+                to={`/products/${product.id}`}
+                style={darkMode ? { color: '#d1d2cd' } : {}}
+              >
+                {product.name}
+              </Link>
             </div>
           ))}
         </div>
@@ -42,5 +48,11 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  cart: PropTypes.instanceOf(Array).isRequired,
+  darkMode: PropTypes.bool.isRequired,
+  changeTheme: PropTypes.func.isRequired,
+};
 
 export default Home;
