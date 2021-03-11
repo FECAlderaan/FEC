@@ -27,7 +27,7 @@ class StyleSelector extends React.Component {
     const { productId } = this.props;
     $.ajax({
       type: 'GET',
-      url: `http://localhost:8080/atelier/products/${productId}/styles`,
+      url: `/atelier/products/${productId}/styles`,
       success: (data) => {
         this.setState({ styles: data.results });
       },

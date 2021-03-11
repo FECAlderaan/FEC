@@ -1,11 +1,18 @@
+/* light mode: #021936, #d1d2cd, #eaeaea, #ddd */
+/* dark mode:  #021936, #d1d2cd, #fff3, #6d7d94, rgb(15 50 95) */
+
 body {
   box-sizing: border-box;
   margin: 0;
-  /* overflow: scroll; */
+  background-color: #d1d2cd;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+body * {
+  font-family: 'Mukta', sans-serif;
 }
 
 /* Header Styling */
@@ -17,12 +24,17 @@ html {
   width: 100%;
   height: 60px;
   font-size: 40px;
-  background-color: rgb(56, 82, 110);
-  color: #fff;
   font-style: italic;
   display: flex;
   align-items: center;
-  border-bottom: 5px solid #bbb;
+  color: #d1d2cd;
+  background-image: linear-gradient(to top, #021936, #373b4a);
+  border-bottom: 5px solid #eaeaea;
+}
+
+#header.dark-mode {
+  background-image: linear-gradient(to bottom, #021936, #36475f);
+  border-bottom: 5px solid #6d7d94;
 }
 
 #header span {
@@ -30,32 +42,37 @@ html {
   margin-top: 10px;
 }
 
-#header #home,
-#header #cart {
+#header #dark-mode-button,
+#header #cart,
+#header #home {
   position: fixed;
   right: 5%;
   font-size: 30px;
-  background-color: rgb(56, 82, 110);
+  background-color: rgba(0, 0, 0, 0);
   border: 0;
   cursor: pointer;
   margin-top: 10px;
-  color: #fff;
+  color: #d1d2cd;
 }
 
-#header #home {
-  right: calc(5% + 60px);
+#header #dark-mode-button {
+  right: calc(5% + 120px);
 }
 
 #header #cart {
+  right: calc(5% + 60px);
+}
+
+#header #home {
   right: 5%;
 }
 
 #header #cart .count {
   position: fixed;
   font-size: 12px;
-  right: calc(5% + 14px);
+  right: calc(5% + 74px);
   top: 14px;
-  color: rgb(56, 82, 110);
+  color: #021936;
   font-weight: bold;
 }
 
@@ -90,14 +107,26 @@ html {
   margin: 90px 20px 50px 20px;
 }
 
+#productOverview * {
+  color: #021936;
+}
+
+.dark-mode #productOverview * {
+  color: #d1d2cd;
+}
+
 #productOverview .carousel {
   grid-area: carousel;
   display: flex;
   justify-content: center;
   position: relative;
   align-content: center;
-  background-color: #ddd;
+  background-color: #eaeaea;
   height: 100%;
+}
+
+.dark-mode #productOverview .carousel {
+  background-color: #fff3;
 }
 
 #productOverview .carousel .changeImage {
@@ -124,6 +153,17 @@ html {
 #productOverview .carousel .changeImage.next {
   right: 10px;
 }
+
+#productOverview .carousel .changeImage.next,
+#productOverview .carousel .changeImage.previous {
+  background-color: #d1d2cd;
+}
+
+.dark-mode #productOverview .carousel .changeImage.next,
+.dark-mode #productOverview .carousel .changeImage.previous {
+   background-color: #6d7d94;
+   color: #021936;
+ }
 
 #productOverview .carousel .expandImage {
   position: absolute;
@@ -245,6 +285,10 @@ html {
   position: relative;
 }
 
+.dark-mode #productOverview .thumbnails {
+  background-color: #6d7d94;
+}
+
 #productOverview .thumbnails .images {
   position: absolute;
   top: 20px;
@@ -262,9 +306,13 @@ html {
   border: 2px solid #ddd;
 }
 
+.dark-mode #productOverview .thumbnail {
+  border: 2px solid #6d7d94;
+}
+
 #productOverview .thumbnail.selected {
   opacity: 1;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #021936;
 }
 
 #productOverview .changeThumbnails.previous,
@@ -282,6 +330,12 @@ html {
   line-height: 10px;
   font-size: 15px;
   cursor: pointer;
+}
+
+.dark-mode #productOverview .changeThumbnails.previous,
+.dark-mode #productOverview .changeThumbnails.next {
+  background-color: #6d7d94;
+  color: #021936;
 }
 
 #productOverview .changeThumbnails.previous {
@@ -361,16 +415,21 @@ html {
   object-fit: cover;
   border-radius: 50%;
   margin: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #6d7d94;
   padding: 2px;
   opacity: 0.7;
   cursor: pointer;
 }
 
 #productOverview .style-selector .selected-thumbnail {
-  box-shadow: 0 0 10px black;
-  border: 1px solid black;
+  box-shadow: 0 0 10px #021936;
+  border: 1px solid #021936;
   opacity: 1;
+}
+
+.dark-mode #productOverview .style-selector .selected-thumbnail {
+  box-shadow: 0 0 10px #6d7d94;
+  border: 1px solid #6d7d94;
 }
 
 #productOverview .style-selector .checkmark {
@@ -419,6 +478,17 @@ html {
   font-size: 15px;
 }
 
+.dark-mode #productOverview .size-selector,
+.dark-mode #productOverview .quantity-selector {
+  background-color: #6d7d94;
+  color: #021936
+}
+
+.dark-mode .add-to-cart button {
+  background-color: #fff3;
+  border: 0;
+}
+
 .size-selector {
   grid-area: size-dropdown;
   width: 150px;
@@ -465,7 +535,11 @@ html {
   grid-area: features;
   margin: 20px;
   padding: 20px;
-  border-left: 2px solid #000;
+  border-left: 2px solid #021936;
+}
+
+.dark-mode #productOverview .features {
+  border-left: 2px solid #6d7d94;
 }
 
 /* End of Product Overview Styling */
