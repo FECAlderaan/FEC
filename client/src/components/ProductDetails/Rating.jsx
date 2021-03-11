@@ -19,7 +19,7 @@ class Rating extends React.Component {
     const { ratings } = this.state;
     $.ajax({
       type: 'GET',
-      url: `http://localhost:8080/atelier/reviews/?product_id=${productId}&count=1000&page=${pageNum}`,
+      url: `/atelier/reviews/?product_id=${productId}&count=1000&page=${pageNum}`,
       success: (data) => {
         this.setState({ ratings: ratings.concat(data.results.map((review) => review.rating)) });
         if (data.results.length === 1000) {

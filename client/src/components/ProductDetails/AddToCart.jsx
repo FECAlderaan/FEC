@@ -41,7 +41,7 @@ class AddToCart extends React.Component {
         }
         $.ajax({
           type: 'POST',
-          url: 'http://localhost:8080/atelier/cart',
+          url: '/atelier/cart',
           data: JSON.stringify({ sku_id: skuID }),
           contentType: 'application/json',
           success: successCB,

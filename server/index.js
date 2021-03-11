@@ -2,6 +2,7 @@
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const dotenv = require('dotenv');
+const path = require('path');
 
 const app = express();
 const port = 8080;
@@ -9,6 +10,8 @@ app.use(express.json());
 
 const API_SERVICE_URL = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/';
 dotenv.config();
+
+app.use(express.static('client/dist'));
 
 app.use('/atelier', createProxyMiddleware({
   target: API_SERVICE_URL,
@@ -27,9 +30,10 @@ app.use('/atelier', createProxyMiddleware({
   },
 }));
 
-app.use(express.static('client/dist'));
-app.use('/*', express.static('client/dist'));
+app.use('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+});
 
 app.listen(port, () => {
-  console.log(`Catwalk is listening at http://localhost:${port}`);
+  console.log(`Catwalk is listening at port ${port}`);
 });
