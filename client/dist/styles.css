@@ -169,6 +169,7 @@ body * {
   position: absolute;
   top: 15px;
   right: 15px;
+  cursor: pointer;
 }
 
 #productOverview .changeImage:hover {
@@ -330,6 +331,7 @@ body * {
   line-height: 10px;
   font-size: 15px;
   cursor: pointer;
+  transform: rotate(90deg);
 }
 
 .dark-mode #productOverview .changeThumbnails.previous,
@@ -377,6 +379,7 @@ body * {
 
 #productOverview .info .name {
   font-size: 36px;
+  line-height: 36px;
   margin-bottom: 12px;
 }
 
@@ -387,7 +390,11 @@ body * {
 
 #productOverview .price,
 #productOverview .style-name {
-  margin: 12px 5px;
+  margin: 0 5px;
+}
+
+#productOverview .style-name {
+  margin-bottom: 12px;
 }
 
 #productOverview .sale-price {
@@ -476,12 +483,13 @@ body * {
   line-height: 40px;
   margin: 5px;
   font-size: 15px;
+  font-family: 'Mukta', sans-serif;
 }
 
 .dark-mode #productOverview .size-selector,
 .dark-mode #productOverview .quantity-selector {
   background-color: #6d7d94;
-  color: #021936
+  color: #021936;
 }
 
 .dark-mode .add-to-cart button {
@@ -492,13 +500,13 @@ body * {
 .size-selector {
   grid-area: size-dropdown;
   width: 150px;
-  padding: 10px;
+  padding-left: 10px;
 }
 
 .quantity-selector {
   grid-area: quantity-dropdown;
   width: 90px;
-  padding: 10px;
+  padding-left: 10px;
 }
 
 .add-to-cart button {
@@ -510,7 +518,12 @@ body * {
 #productOverview .share {
   grid-area: share;
   display: flex;
+  align-items: end;
   margin: auto;
+}
+
+.fb-share-button span {
+  vertical-align: top !important;
 }
 
 .fb-share-button,
