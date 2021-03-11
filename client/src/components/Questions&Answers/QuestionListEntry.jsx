@@ -40,7 +40,7 @@ class QuestionListEntry extends React.Component {
   markHelpful() {
     const { question: { question_id: id } } = this.props;
     const { markedHelpful, helpfulness } = this.state;
-    const route = `http://localhost:8080/atelier/qa/questions/${id}/helpful`;
+    const route = `/atelier/qa/questions/${id}/helpful`;
     if (!markedHelpful) {
       $.ajax({
         url: route,
@@ -55,7 +55,7 @@ class QuestionListEntry extends React.Component {
   // Render a button that can only be clicked once for marking a helpful answer
   renderHelpfulButton() {
     const { markedHelpful } = this.state;
-    let helpfulButton = <button type="button" onClick={this.markHelpful}>Yes</button>;
+    let helpfulButton = <span className="link" role="button" onClick={this.markHelpful}>Yes</span>;
     if (markedHelpful) {
       helpfulButton = <span>Yes</span>;
     }
@@ -84,24 +84,22 @@ class QuestionListEntry extends React.Component {
   render() {
     const { helpfulness } = this.state;
     const { question: { question_body: questionBody } } = this.props;
-
     return (
-      <div className="question-list-entry">
-        <div className="question">
-          <h3>Q: </h3>
-          <p>{questionBody}</p>
-          <div className="question-data">
-            <p>
-              Helpful?
-              {this.renderHelpfulButton()}
-              (
-              {helpfulness}
-              )
-            </p>
-            <button type="button" onClick={this.toggleAnswerModal}>Add Answer</button>
-          </div>
+      <div className="list-entry">
+        <span className="question">
+          <h3 className="question-head">Q: </h3>
+          <h4 className="question-head">{questionBody}</h4>
+          <span className="question-data">
+            {'Helpful? '}
+            {this.renderHelpfulButton()}
+            {' ('}
+            {helpfulness}
+            )
+            <span className="seperator"> | </span>
+            <span className="link" role="button" onClick={this.toggleAnswerModal}>Add Answer</span>
+          </span>
           {this.renderAnswerModal()}
-        </div>
+        </span>
         <AnswerList answers={this.parseAnswers()} />
       </div>
     );

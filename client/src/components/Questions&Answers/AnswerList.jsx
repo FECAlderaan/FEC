@@ -90,8 +90,12 @@ class AnswerList extends React.Component {
   render() {
     return (
       <div className="answer-list">
-        <h3>A: </h3>
-        {this.renderAnswers()}
+        <span>
+          <h3 className="answer-head">A: </h3>
+          <div>
+            {this.renderAnswers()}
+          </div>
+        </span>
       </div>
     );
   }

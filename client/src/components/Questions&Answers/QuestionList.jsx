@@ -106,7 +106,7 @@ class QuestionList extends React.Component {
     const { searchTerm } = this.state;
     return (
       <>
-        <form>
+        <form className="question-search">
           <input
             value={searchTerm}
             onChange={this.changeState}
@@ -116,9 +116,9 @@ class QuestionList extends React.Component {
             size="128"
           />
         </form>
-        <ul className="question-list">
+        <div className="question-list">
           {this.renderQuestions()}
-        </ul>
+        </div>
       </>
     );
   }

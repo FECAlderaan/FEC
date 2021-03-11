@@ -66,7 +66,7 @@ class AnswerListEntry extends React.Component {
   // Render a button that can only be clicked once for marking a helpful answer
   renderHelpfulButton() {
     const { markedHelpful } = this.state;
-    let helpfulButton = <button type="button" onClick={this.markHelpful}>Yes</button>;
+    let helpfulButton = <span class="link" role="button" onClick={this.markHelpful}>Yes</span>;
     if (markedHelpful) {
       helpfulButton = <span>Yes</span>;
     }
@@ -76,7 +76,7 @@ class AnswerListEntry extends React.Component {
   // Render a button that can only be clicked once for reporting answers
   renderReportButton() {
     const { reported } = this.state;
-    let reportButton = <button type="button" onClick={this.reportAnswer}>Report</button>;
+    let reportButton = <span className="link" role="button" onClick={this.reportAnswer}>Report</span>;
     if (reported) {
       reportButton = <span>Reported!</span>;
     }
@@ -87,22 +87,24 @@ class AnswerListEntry extends React.Component {
     const { helpfulness } = this.state;
     const { answer: { body, date, answerer_name: answererName } } = this.props;
     return (
-      <div className="answer-entry">
+      <div className="answer-entry list-entry">
         <p>{body}</p>
         <div className="answer-entry-data">
-          <p>
+          <span>
             {'by '}
             {checkIfSeller(answererName)}
             {', '}
             {formatDate(date)}
-          </p>
-          <p>
-            Helpful?
+            <span className="seperator"> | </span>
+          </span>
+          <span>
+            {'Helpful? '}
             {this.renderHelpfulButton()}
-            (
+            {' ('}
             {helpfulness}
             )
-          </p>
+            <span className="seperator"> | </span>
+          </span>
           {this.renderReportButton()}
         </div>
       </div>
