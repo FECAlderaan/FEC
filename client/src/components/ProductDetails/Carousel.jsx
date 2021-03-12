@@ -136,9 +136,9 @@ class Carousel extends React.Component {
         {/* thumbnails for default view - have to be outside of "carousel" div for styling */}
         <div className="thumbnails">
           {/* button to see previous thumbnail */}
-          <button type="button" className="changeThumbnails previous" style={firstThumbnailIndexShown ? {} : { display: 'none' }} onClick={this.previousThumbnail} onKeyDown={this.previousThumbnail}>˄</button>
+          <button type="button" className="changeThumbnails previous" style={firstThumbnailIndexShown ? {} : { display: 'none' }} onClick={this.previousThumbnail} onKeyDown={this.previousThumbnail}>{'<'}</button>
           {/* button to see next thumbnail */}
-          <button type="button" className="changeThumbnails next" style={firstThumbnailIndexShown >= images.length - 5 ? { display: 'none' } : {}} onClick={this.nextThumbnail} onKeyDown={this.nextThumbnail}>˅</button>
+          <button type="button" className="changeThumbnails next" style={firstThumbnailIndexShown >= images.length - 5 ? { display: 'none' } : {}} onClick={this.nextThumbnail} onKeyDown={this.nextThumbnail}>{'>'}</button>
           {/* thumbnails */}
           <div className="images">
             {images.map((photo, index) => (

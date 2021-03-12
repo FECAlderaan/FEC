@@ -89,7 +89,7 @@ class AddToCart extends React.Component {
             disabled={sizeSelected === 'none'}
             onChange={this.quantitySelectorOnChange}
           >
-            <option value="none" disabled hidden> Qty: - </option>
+            <option value="none" disabled hidden> QTY: - </option>
             {new Array(Math.min(skus[sizeSelected] || 0, 15)).fill(0).map((e, index) => <option key={index + 1} value={index + 1}>{index + 1}</option>)}
           </select>
         </div>
