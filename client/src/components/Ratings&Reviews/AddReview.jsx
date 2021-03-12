@@ -236,7 +236,7 @@ class AddReview extends React.Component {
         characteristicsError: true,
       });
       return;
-    // eslint-disable-next-line no-else-return
+      // eslint-disable-next-line no-else-return
     } else {
       this.setState({
         characteristicsError: false,
@@ -325,129 +325,133 @@ class AddReview extends React.Component {
           <h2>About the {productName}</h2>
           <form>
             <div className="add-review-form-container">
-              {/* Overall Rating */}
-              <div className="overall-rating-modal">
-                <h3>Overall Rating</h3>
-                <p>Click your rating</p>
-                {ratingError ? <p className="error-message-modal">*required field*</p> : ''}
-                <i className="fas fa-star modal-star" id="star-1" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="1 Star Rating" />
-                <i className="fas fa-star modal-star" id="star-2" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="2 Star Rating" />
-                <i className="fas fa-star modal-star" id="star-3" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="3 Star Rating" />
-                <i className="fas fa-star modal-star" id="star-4" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="4 Star Rating" />
-                <i className="fas fa-star modal-star" id="star-5" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="5 Star Rating" />
-                <span>
-                  {overallStarChosen === 0 ? '' : ` ${overallStarChosen} star = ${scores[overallStarChosen - 1]}`}
-                </span>
+              <div className="modal-left">
+                {/* Overall Rating */}
+                <div className="overall-rating-modal">
+                  <h3>Overall Rating</h3>
+                  <p>Click your rating</p>
+                  {ratingError ? <p className="error-message-modal">*required field*</p> : ''}
+                  <i className="fas fa-star modal-star" id="star-1" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="1 Star Rating" />
+                  <i className="fas fa-star modal-star" id="star-2" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="2 Star Rating" />
+                  <i className="fas fa-star modal-star" id="star-3" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="3 Star Rating" />
+                  <i className="fas fa-star modal-star" id="star-4" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="4 Star Rating" />
+                  <i className="fas fa-star modal-star" id="star-5" onClick={(e) => { this.chooseStarRating(e); }} onKeyDown={chooseStarRating} role="button" tabIndex="-1" aria-label="5 Star Rating" />
+                  <span>
+                    {overallStarChosen === 0 ? '' : ` ${overallStarChosen} star = ${scores[overallStarChosen - 1]}`}
+                  </span>
+                </div>
+                {/* What's your nickname? */}
+                <div className="nickname-modal">
+                  <label htmlFor="nickname">
+                    <h3>Your nickname</h3>
+                    {nicknameError ? <p className="error-message-modal">*required field*</p> : ''}
+                    <input type="text" className="textbox nickname-textbox" name="nickname" maxLength="60" placeholder="Example: jackson11!" onBlur={(e) => { this.modalNickname(e); }} />
+                  </label>
+                  <p><i>For privacy reasons, do not use your full name or email address</i></p>
+                </div>
+                {/* Your email */}
+                <div className="email-modal">
+                  <label htmlFor="email">
+                    <h3>Your email</h3>
+                    {emailError ? <p className="error-message-modal">*required field*</p> : ''}
+                    <input type="text" className="textbox email-textbox" name="email" maxLength="60" placeholder="Example: jackson11@email.com" onBlur={(e) => { this.modalEmail(e); }} />
+                  </label>
+                  <p><i>For authentication reasons, you will not be emailed</i></p>
+                </div>
+                {/* Review Summary */}
+                <div className="review-summary-modal">
+                  <label htmlFor="summary">
+                    <h3>Review Summary</h3>
+                    <input type="text" className="textbox summary-textbox" name="summary" maxLength="60" placeholder="Example: Best purchase ever!" onBlur={(e) => { this.modalSummary(e); }} />
+                  </label>
+                </div>
+                {/* Review Body */}
+                <div className="review-body-modal">
+                  <label htmlFor="body">
+                    <h3>Review Body</h3>
+                    {bodyError ? <p className="error-message-modal">*required field*</p> : ''}
+                    <textarea type="text" id="body-textbox" name="body" maxLength="1000" placeholder="Why did you like the product or not?" onChange={(e) => this.trackWordCount(e)} onBlur={(e) => { this.modalBody(e); }} />
+                  </label>
+                  <span>
+                    {bodyWordCountCheck ? 'Minimum reached' : `Minimum required characters left: ${(50 - bodyWordCount)}`}
+                  </span>
+                </div>
               </div>
-              {/* Recommend? */}
-              <div className="recommend-radio-modal">
-                <h3>Do you recommend this product?</h3>
-                {recommendError ? <p className="error-message-modal">*required field*</p> : ''}
-                <label>
-                  <input type="radio" value="yes" name="recommend" onChange={(e) => { this.recommendRadio(e); }} />
-                  Yes
-                </label>
-                <label>
-                  <input type="radio" value="no" name="recommend" onChange={(e) => { this.recommendRadio(e); }} />
-                  No
-                </label>
-              </div>
-              {/* Characteristics */}
-              <div className="characteristics-modal">
-                <h3>Characteristics</h3>
-                {characteristicsError ? <p className="error-message-modal">*required field*</p> : ''}
-                {Object.entries(ratingData.characteristics).map(([key, value]) => {
-                  let charIndex = key;
-                  switch (charIndex) {
-                    case 'Size':
-                      charIndex = 0;
-                      break;
-                    case 'Width':
-                      charIndex = 1;
-                      break;
-                    case 'Comfort':
-                      charIndex = 2;
-                      break;
-                    case 'Quality':
-                      charIndex = 3;
-                      break;
-                    case 'Length':
-                      charIndex = 4;
-                      break;
-                    case 'Fit':
-                      charIndex = 5;
-                      break;
-                    default:
-                      charIndex = '';
-                  }
-                  const productCharacteristics = characteristicsArray[charIndex];
-                  let counter = 0;
-                  return (
-                    <div key={value.id} className="characteristic-modal">
-                      <h4 id="char-title">{key}</h4>
-                      <div className="titles">
-                        {productCharacteristics.map((description) => {
-                          counter += 1;
-                          return (
-                            <label key={description} htmlFor={description} className="single-radio">
-                              <input type="radio" value={counter} name={value.id} onChange={(e) => { this.chooseCharacteristics(e, value.id); }} />
-                              {description}
-                            </label>
-                          );
-                        })}
+              <div className="modal-right">
+                {/* Characteristics */}
+                <div className="characteristics-modal">
+                  <h3>Characteristics</h3>
+                  {characteristicsError ? <p className="error-message-modal">*required field*</p> : ''}
+                  {Object.entries(ratingData.characteristics).map(([key, value]) => {
+                    let charIndex = key;
+                    switch (charIndex) {
+                      case 'Size':
+                        charIndex = 0;
+                        break;
+                      case 'Width':
+                        charIndex = 1;
+                        break;
+                      case 'Comfort':
+                        charIndex = 2;
+                        break;
+                      case 'Quality':
+                        charIndex = 3;
+                        break;
+                      case 'Length':
+                        charIndex = 4;
+                        break;
+                      case 'Fit':
+                        charIndex = 5;
+                        break;
+                      default:
+                        charIndex = '';
+                    }
+                    const productCharacteristics = characteristicsArray[charIndex];
+                    let counter = 0;
+                    return (
+                      <div key={value.id} className="characteristic-modal">
+                        <h4 id="char-title">{key}</h4>
+                        <div className="titles">
+                          {productCharacteristics.map((description) => {
+                            counter += 1;
+                            return (
+                              <label key={description} htmlFor={description} className="single-radio">
+                                <input type="radio" value={counter} name={value.id} onChange={(e) => { this.chooseCharacteristics(e, value.id); }} />
+                                {description}
+                              </label>
+                            );
+                          })}
+                        </div>
                       </div>
+                    );
+                  })}
+                </div>
+                {/* Recommend? */}
+                <div className="recommend-radio-modal">
+                  <h3>Do you recommend this product?</h3>
+                  {recommendError ? <p className="error-message-modal">*required field*</p> : ''}
+                  <label>
+                    <input type="radio" value="yes" name="recommend" onChange={(e) => { this.recommendRadio(e); }} />
+                    Yes
+                  </label>
+                  <label>
+                    <input type="radio" value="no" name="recommend" onChange={(e) => { this.recommendRadio(e); }} />
+                    No
+                  </label>
+                </div>
+                {/* Upload Photos */}
+                <div className="upload-photos-modal">
+                  <h3>Select photos to upload</h3>
+                  {photos.length >= 5 ? '' : <input type="file" id="photos-modal" onChange={this.showPhotos} multiple />}
+                  {photos.length > 0 ? (
+                    <div className="photos-container-modal">
+                      {photos.map((photo) => (
+                        <img className="user-photo-modal" src={photo} alt="User Product" key={photo} />
+                      ))}
                     </div>
-                  );
-                })}
-              </div>
-              {/* Review Summary */}
-              <div className="review-summary-modal">
-                <label htmlFor="summary">
-                  <h3>Review Summary</h3>
-                  <input type="text" className="textbox summary-textbox" name="summary" maxLength="60" placeholder="Example: Best purchase ever!" onBlur={(e) => { this.modalSummary(e); }} />
-                </label>
-              </div>
-              {/* Review Body */}
-              <div className="review-body-modal">
-                <label htmlFor="body">
-                  <h3>Review Body</h3>
-                  {bodyError ? <p className="error-message-modal">*required field*</p> : ''}
-                  <textarea type="text" id="body-textbox" name="body" maxLength="1000" placeholder="Why did you like the product or not?" onChange={(e) => this.trackWordCount(e)} onBlur={(e) => { this.modalBody(e); }} />
-                </label>
-                <span>
-                  {bodyWordCountCheck ? 'Minimum reached' : `Minimum required characters left: ${(50 - bodyWordCount)}`}
-                </span>
-              </div>
-              {/* Upload Photos */}
-              <div className="upload-photos-modal">
-                <h3>Select photos to upload</h3>
-                {photos.length >= 5 ? '' : <input type="file" id="photos-modal" onChange={this.showPhotos} multiple />}
-                {photos.length > 0 ? (
-                  <div className="photos-container-modal">
-                    {photos.map((photo) => (
-                      <img className="user-photo-modal" src={photo} alt="User Product" key={photo} />
-                    ))}
-                  </div>
-                ) : ''}
+                  ) : ''}
 
-              </div>
-              {/* What's your nickname? */}
-              <div className="nickname-modal">
-                <label htmlFor="nickname">
-                  <h3>Your nickname</h3>
-                  {nicknameError ? <p className="error-message-modal">*required field*</p> : ''}
-                  <input type="text" className="textbox nickname-textbox" name="nickname" maxLength="60" placeholder="Example: jackson11!" onBlur={(e) => { this.modalNickname(e); }} />
-                </label>
-                <p><i>For privacy reasons, do not use your full name or email address</i></p>
-              </div>
-              {/* Your email */}
-              <div className="email-modal">
-                <label htmlFor="email">
-                  <h3>Your email</h3>
-                  {emailError ? <p className="error-message-modal">*required field*</p> : ''}
-                  <input type="text" className="textbox email-textbox" name="email" maxLength="60" placeholder="Example: jackson11@email.com" onBlur={(e) => { this.modalEmail(e); }} />
-                </label>
-                <p><i>For authentication reasons, you will not be emailed</i></p>
+                </div>
               </div>
             </div>
             <button onClick={(e) => { this.submitReview(e); }} type="submit" className="modal-submit-button">Submit</button>

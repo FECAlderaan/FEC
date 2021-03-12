@@ -902,16 +902,31 @@ body * {
   background-color: rgba(0,0,0,0.4);
 }
 
+.add-review-form-container {
+  display: flex;
+}
+.add-review-form-container h3 {
+  margin: 0;
+}
+
 .add-review-modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 45%;
+  width: 75%;
 }
 
 .dark-mode .add-review-modal-content {
   background-color: #d1d2cd;
+}
+
+.overall-rating-modal p {
+  margin: 5px;
+}
+
+.modal-right {
+  margin-left: 100px;
 }
 
 .close-modal {
@@ -947,6 +962,10 @@ body * {
   border-bottom: 2px solid black;
 }
 
+.characteristics-modal {
+  grid-row: span 2;
+}
+
 #char-title {
   margin: 0;
 }
@@ -958,7 +977,7 @@ body * {
 
 .summary-textbox, .nickname-textbox, .email-textbox {
   width: 50%;
-  height: 50px;
+  height: 35px;
   font-size: 1.1em;
 }
 
@@ -968,6 +987,7 @@ body * {
   min-width: 99%;
   height: 60px;
   font-size: 1.1em;
+  resize: vertical;
 }
 
 .user-photo-modal {
