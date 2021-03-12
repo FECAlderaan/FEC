@@ -36,7 +36,7 @@ class AnswerListEntry extends React.Component {
   markHelpful() {
     const { answer: { id } } = this.props;
     const { markedHelpful, helpfulness } = this.state;
-    const route = `http://localhost:8080/atelier/qa/answers/${id}/helpful`;
+    const route = `/atelier/qa/answers/${id}/helpful`;
     if (!markedHelpful) {
       $.ajax({
         url: route,
@@ -52,7 +52,7 @@ class AnswerListEntry extends React.Component {
   reportAnswer() {
     const { answer: { id } } = this.props;
     const { reported } = this.state;
-    const route = `http://localhost:8080/atelier/qa/answers/${id}/report`;
+    const route = `/atelier/qa/answers/${id}/report`;
     if (!reported) {
       $.ajax({
         url: route,

@@ -50,7 +50,7 @@ class AnswerModal extends React.Component {
     const { answerText, answerName, answerEmail } = this.state;
     const { toggleAnswerModal, questionId } = this.props;
 
-    const route = `http://localhost:8080/atelier/qa/questions/${questionId}/answers`;
+    const route = `/atelier/qa/questions/${questionId}/answers`;
     const answerInfo = {
       body: answerText,
       name: answerName,
