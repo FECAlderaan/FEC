@@ -624,7 +624,7 @@ body * {
 }
 
 .questions-answers {
-  padding: 20px;
+  margin: 0 250px;
 }
 
 .question-data {

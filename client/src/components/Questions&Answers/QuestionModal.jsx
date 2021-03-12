@@ -50,7 +50,7 @@ class QuestionModal extends React.Component {
     const { questionText, questionName, questionEmail } = this.state;
     const { toggleQuestionModal, productId } = this.props;
 
-    const route = 'http://localhost:8080/atelier/qa/questions';
+    const route = '/atelier/qa/questions';
     const questionInfo = {
       body: questionText,
       name: questionName,
