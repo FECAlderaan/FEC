@@ -605,6 +605,11 @@ body * {
   padding: 5px 20px;
 }
 
+.dark-mode .review-tile {
+  background-color: rgb(15 50 95);
+  color: #d1d2cd;
+}
+
 .sorting-bar, .reviews-list, .reviews-buttons {
   padding: 0px 10px;
 }
@@ -618,6 +623,10 @@ body * {
   align-items: center;
 }
 
+.dark-mode .sorting-bar {
+  color: #d1d2cd;
+}
+
 .sorted-header {
   font-size: 1.2em;
   margin: 10px 0;
@@ -628,6 +637,14 @@ body * {
   background-color: transparent;
   text-decoration: underline;
   font-size: 1.2em;
+}
+
+#sorting-dropdown:focus {
+  background-color: transparent;
+}
+
+.dark-mode #sorting-dropdown {
+  color: #d1d2cd;
 }
 
 .rev-info {
@@ -652,14 +669,15 @@ body * {
   word-wrap: break-word;
 }
 
-.review-recommend {
-
-}
-
 .review-response {
   border-radius: 2px;
   padding: 5px 7px;
   background-color: #e0e0e0;
+}
+
+.dark-mode .review-response {
+  background-color: #6d7d94;
+  color: #f6f6f6;
 }
 
 .review-response-container {
@@ -728,6 +746,11 @@ body * {
   border: solid #d4d4d4 1px;
 }
 
+.dark-mode .rating-breakdown {
+  background-color: rgb(15 50 95);
+  color: #d1d2cd;
+}
+
 .rating-average {
   display: flex;
   margin-left: 21px;
@@ -764,6 +787,7 @@ body * {
   display: flex;
   align-items: center;
   padding: 10px 0;
+  min-width: 274px;
   justify-content: center;
 }
 
@@ -781,6 +805,10 @@ body * {
 .rating-bar-inner {
   background-color: #7aec7a;
   height: 11px;
+}
+
+.dark-mode .rating-bar-inner {
+  background-color: #efefef;
 }
 
 #five-star-bar { width: 0% }
@@ -820,6 +848,10 @@ body * {
   margin: 8px 0;
 }
 
+.dark-mode .product-breakdown-bar {
+  background-color: rgb(109 125 148);
+}
+
 .labels {
   display: flex;
   position: relative;
@@ -846,10 +878,14 @@ body * {
 }
 
 #marker-icon {
-  font-size: 2.8em;
+  font-size: 3.3em;
   position: absolute;
   bottom: 2px;
   line-height: 0 !important;
+}
+
+.dark-mode #marker-icon {
+  color: #f6f6f6;
 }
 
 /* modal sub section */
@@ -874,16 +910,32 @@ body * {
   width: 45%;
 }
 
+.dark-mode .add-review-modal-content {
+  background-color: #d1d2cd;
+}
+
 .close-modal {
-  color: #aaa;
+  display: flex;
   float: right;
   font-size: 28px;
   font-weight: bold;
+  color: #aaa;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  /* color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold; */
 }
 
 .close-modal:hover,
 .close-modal:focus {
   color: black;
+  border: 1px solid black;
   text-decoration: none;
   cursor: pointer;
 }
