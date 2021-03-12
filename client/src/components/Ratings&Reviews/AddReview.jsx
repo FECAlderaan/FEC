@@ -320,8 +320,8 @@ class AddReview extends React.Component {
       <div className="add-review-modal-main" style={{ display: modalToggle }}>
         <div className="add-review-modal-content">
           <span className="close-modal" onClick={closeModal} onKeyDown={closeModal} role="button" tabIndex="-1">&times;</span>
-          <h2>Write Your Review</h2>
-          <h3>About the {productName}</h3>
+          <h1>Write Your Review</h1>
+          <h2>About the {productName}</h2>
           <form>
             <div className="add-review-form-container">
               {/* Overall Rating */}
@@ -449,7 +449,7 @@ class AddReview extends React.Component {
                 <p><i>For authentication reasons, you will not be emailed</i></p>
               </div>
             </div>
-            <button onClick={(e) => { this.submitReview(e); }} type="submit">Submit</button>
+            <button onClick={(e) => { this.submitReview(e); }} type="submit" className="modal-submit-button" >Submit</button>
           </form>
         </div>
       </div>

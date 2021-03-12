@@ -25,7 +25,7 @@ class ReviewsList extends React.Component {
       <div className="reviews-container">
         {/* sorting */}
         <div className="sorting-bar">
-          <h4>
+          <h4 className="sorted-header">
             {productReviews.results ? `${productReviews.results.length}
             reviews, sorted by` : ''}
           </h4>
