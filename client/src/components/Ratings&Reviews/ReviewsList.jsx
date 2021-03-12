@@ -1,57 +1,21 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewTile from './ReviewTile';
+import MainButtons from './MainButtons';
 
 class ReviewsList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.moreReviews = this.moreReviews.bind(this);
-    const { productReviews } = this.props;
     this.state = {
-      displayedReviews: productReviews,
-      displayedReviewsCount: 2,
     };
   }
 
-  componentDidMount() {
-
-  }
-
-  moreReviews() {
-    const { productReviews } = this.props;
-    const { displayedReviewsCount } = this.state;
-    // if there are more reviews that can be shown, show them up until
-    // all are shown
-    if (displayedReviewsCount + 2 > productReviews.results.length) {
-      this.setState({
-        displayedReviewsCount: productReviews.results.length,
-      });
-    } else {
-      this.setState({
-        displayedReviewsCount: displayedReviewsCount + 2,
-      });
-    }
-  }
-
-  // Update state of displayedReviews to show only the specific
-  // filtered reviews
-  filterReviews() {
-    const { productReviews, ratingFilters } = this.props;
-    const { displayedReviewsCount } = this.state;
-    const reviews = [];
-    for (let i = 0; i < displayedReviewsCount; i += 1) {
-      if (ratingFilters.includes(productReviews.results[i].rating)) {
-        reviews.push(productReviews.results[i]);
-      }
-    }
-    return reviews;
-  }
-
   render() {
-    const { productReviews } = this.props;
-    const { displayedReviews, displayedReviewsCount } = this.state;
-    const reviewsCheck = productReviews.results.length === displayedReviewsCount;
+    const {
+      ratingData, productId, getFilteredReviews, productReviews, displayedReviewsCount, moreReviews,
+    } = this.props;
     const reviews = [];
     for (let i = 0; i < displayedReviewsCount; i += 1) {
       reviews.push(productReviews.results[i]);
@@ -60,35 +24,45 @@ class ReviewsList extends React.Component {
       <div className="reviews-container">
         {/* sorting */}
         <div className="sorting-bar">
-          <h4>248 reviews, sorted by relevance</h4>
+          <h4 className="sorted-header">
+            {productReviews.results ? `${productReviews.results.length}
+            reviews, sorted by` : ''}
+          </h4>
+          <select id="sorting-dropdown" onChange={getFilteredReviews}>
+            <option>Relevant</option>
+            <option>Newest</option>
+            <option>Helpful</option>
+          </select>
         </div>
         {/* reviews list */}
         <div className="reviews-list">
-          {reviews.map((review) => (
-            <ReviewTile review={review} />
-          ))}
+          {reviews[0] !== undefined
+            ? reviews.map((review) => (
+              <ReviewTile key={review.review_id} review={review} />
+            )) : ''}
         </div>
         {/* buttons */}
-        <div className="reviews-buttons">
-          {reviewsCheck ? '' : <button type="button" onClick={this.moreReviews}>MORE REVIEWS</button>}
-          <button type="button">ADD A REVIEW +</button>
-        </div>
+        {/* eslint-disable-next-line max-len */}
+        <MainButtons ratingData={ratingData} productId={productId} moreReviews={moreReviews} displayedReviewsCount={displayedReviewsCount} productReviews={productReviews} />
       </div>
-
     );
   }
 }
 
 ReviewsList.propTypes = {
-  productReviews: PropTypes.shape(),
-  ratingFilters: PropTypes.array,
-  displayedReviews: PropTypes.shape(),
+  ratingData: PropTypes.shape({}),
+  productReviews: PropTypes.shape({}),
+  productId: PropTypes.number.isRequired,
+  getFilteredReviews: PropTypes.func,
+  displayedReviewsCount: PropTypes.number.isRequired,
+  moreReviews: PropTypes.func,
 };
 
 ReviewsList.defaultProps = {
   productReviews: {},
-  ratingFilters: [],
-  displayedReviews: {},
+  ratingData: {},
+  getFilteredReviews: () => { },
+  moreReviews: () => { },
 };
 
 export default ReviewsList;
