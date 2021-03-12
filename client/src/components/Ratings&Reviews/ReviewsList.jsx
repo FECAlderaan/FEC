@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import $ from 'jquery';
 import PropTypes from 'prop-types';
 import ReviewTile from './ReviewTile';
 import MainButtons from './MainButtons';
@@ -14,8 +14,7 @@ class ReviewsList extends React.Component {
 
   render() {
     const {
-      // eslint-disable-next-line max-len
-      ratingData, productId, getFilteredReviews, productReviews, ratingFilters, displayedReviewsCount, moreReviews, displayedReviews, filterCheck,
+      ratingData, productId, getFilteredReviews, productReviews, displayedReviewsCount, moreReviews,
     } = this.props;
     const reviews = [];
     for (let i = 0; i < displayedReviewsCount; i += 1) {
@@ -51,7 +50,6 @@ class ReviewsList extends React.Component {
 }
 
 ReviewsList.propTypes = {
-  ratingFilters: PropTypes.instanceOf(Array).isRequired,
   ratingData: PropTypes.shape({}),
   productReviews: PropTypes.shape({}),
   productId: PropTypes.number.isRequired,

@@ -32,7 +32,7 @@ class Main extends React.Component {
     const { productId } = this.state;
     // GET request for reviews for the specific product
     $.ajax({
-      url: `http://localhost:8080/atelier/reviews/meta?product_id=${productId}`,
+      url: `/atelier/reviews/meta?product_id=${productId}`,
       type: 'GET',
       success: (data) => {
         this.setState({
@@ -60,7 +60,7 @@ class Main extends React.Component {
   getRelevantReviews() {
     const { productId } = this.props;
     $.ajax({
-      url: `http://localhost:8080/atelier/reviews?product_id=${productId}&count=30&sort=relevant`,
+      url: `/atelier/reviews?product_id=${productId}&count=30&sort=relevant`,
       type: 'GET',
       success: (data) => {
         this.setState({
@@ -73,7 +73,7 @@ class Main extends React.Component {
   getNewestReviews() {
     const { productId } = this.props;
     $.ajax({
-      url: `http://localhost:8080/atelier/reviews?product_id=${productId}&count=30&sort=newest`,
+      url: `/atelier/reviews?product_id=${productId}&count=30&sort=newest`,
       type: 'GET',
       success: (data) => {
         this.setState({
@@ -86,7 +86,7 @@ class Main extends React.Component {
   getHelpfulReviews() {
     const { productId } = this.props;
     $.ajax({
-      url: `http://localhost:8080/atelier/reviews?product_id=${productId}&count=30&sort=helpful`,
+      url: `/atelier/reviews?product_id=${productId}&count=30&sort=helpful`,
       type: 'GET',
       success: (data) => {
         this.setState({
@@ -98,7 +98,7 @@ class Main extends React.Component {
 
   // Gets the filtering option from clicks on Rating Breakdown bars
   getFilters(e) {
-    const { ratingFilters, filterCheck } = this.state;
+    const { ratingFilters } = this.state;
     // if the clicked element doesn't have the 'index' attribute, get it from its parent
     if (e.target.getAttribute('index') === null) {
       const filter = Number(e.target.parentNode.getAttribute('index'));
@@ -149,8 +149,7 @@ class Main extends React.Component {
   // Update state of displayed reviews to show only the specific
   // filtered reviews
   filterReviewsList() {
-    const { displayedReviews, ratingFilters, productReviews } = this.state;
-    console.log('ratingFilters', ratingFilters);
+    const { ratingFilters, productReviews } = this.state;
     const reviews = [];
     productReviews.results.forEach((result) => {
       for (let i = 0; i < ratingFilters.length; i += 1) {
@@ -161,7 +160,6 @@ class Main extends React.Component {
       }
     });
 
-    console.log('reviews', reviews);
     this.setState({
       displayedReviews: reviews,
     });
@@ -185,10 +183,14 @@ class Main extends React.Component {
   }
 
   render() {
-    const { ratingData, ratingFilters, productReviews, displayedReviewsCount, displayedReviews, filterCheck } = this.state;
-    const { productId } = this.props;
+    const {
+      // eslint-disable-next-line max-len
+      ratingData, ratingFilters, productReviews, displayedReviewsCount, displayedReviews, filterCheck,
+    } = this.state;
+    const { productId, onClick } = this.props;
     return (
-      <div>
+      // eslint-disable-next-line jsx-a11y/interactive-supports-focus
+      <div role="button" onClick={onClick} onKeyDown={onClick} id="ratings-reviews-main-container">
         <div className="reviews-ratings-main" id="reviews-ratings-main">
           <RatingBreakdown
             ratingData={ratingData}
@@ -213,10 +215,12 @@ class Main extends React.Component {
 
 Main.propTypes = {
   productId: PropTypes.number,
+  onClick: PropTypes.func,
 };
 
 Main.defaultProps = {
   productId: 0,
+  onClick: () => {},
 };
 
 export default Main;

@@ -33,7 +33,10 @@ class MainButtons extends React.Component {
 
   render() {
     const { modalShowing } = this.state;
-    const { ratingData, productId, moreReviews, productReviews, displayedReviewsCount } = this.props;
+    const {
+      ratingData, productId, moreReviews, productReviews, displayedReviewsCount,
+    } = this.props;
+    // eslint-disable-next-line react/prop-types
     const reviewsCheck = (productReviews.results.length === displayedReviewsCount);
     return (
       <div className="reviews-buttons">
@@ -54,12 +57,16 @@ MainButtons.propTypes = {
   ratingData: PropTypes.shape({}),
   productId: PropTypes.number,
   moreReviews: PropTypes.func,
+  productReviews: PropTypes.shape({}),
+  displayedReviewsCount: PropTypes.number,
 };
 
 MainButtons.defaultProps = {
   ratingData: {},
   productId: 0,
   moreReviews: () => {},
+  productReviews: {},
+  displayedReviewsCount: 0,
 };
 
 export default MainButtons;

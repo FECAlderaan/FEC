@@ -9,6 +9,7 @@ const ratingAverage = function (object) {
   let average = 0;
   let count = 0;
   // add up ratings
+  // eslint-disable-next-line no-restricted-syntax
   for (const [key, value] of Object.entries(object)) {
     let ratingCount = Number(value);
     while (ratingCount > 0) {
@@ -52,84 +53,81 @@ const starBars = function starBars(stars, object) {
   return Math.round(((stars / count) * 100) * 100) / 100;
 };
 
-const RatingBreakdown = ({ ratingData, getFilters }) => {
-  const x = 0;
-  return (
-    <div className="rating-breakdown">
-      <h2 className="reviews-section-header">Rating Breakdown</h2>
-      <div className="rating-average">
-        <h1 id="average-number">{ratingAverage(ratingData.ratings)}</h1>
-        <div className="stars-outer">
-          <i className="far fa-star" />
-          <i className="far fa-star" />
-          <i className="far fa-star" />
-          <i className="far fa-star" />
-          <i className="far fa-star" />
-          <div className="stars-inner" style={{ width: `${averagePercent(ratingData.ratings)}%` }}>
-            <i className="fas fa-star" />
-            <i className="fas fa-star" />
-            <i className="fas fa-star" />
-            <i className="fas fa-star" />
-            <i className="fas fa-star" />
-          </div>
+const RatingBreakdown = ({ ratingData, getFilters }) => (
+  <div className="rating-breakdown">
+    <h2 className="reviews-section-header">Rating Breakdown</h2>
+    <div className="rating-average">
+      <h1 id="average-number">{ratingAverage(ratingData.ratings)}</h1>
+      <div className="stars-outer">
+        <i className="far fa-star" />
+        <i className="far fa-star" />
+        <i className="far fa-star" />
+        <i className="far fa-star" />
+        <i className="far fa-star" />
+        <div className="stars-inner" style={{ width: `${averagePercent(ratingData.ratings)}%` }}>
+          <i className="fas fa-star" />
+          <i className="fas fa-star" />
+          <i className="fas fa-star" />
+          <i className="fas fa-star" />
+          <i className="fas fa-star" />
         </div>
       </div>
-
-      <div className="rating-stars">
-        {/* 5 star bar */}
-        <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="5">
-          <h4 className="star-header">5 stars</h4>
-          <div className="rating-bar-outer" index="5">
-            <div
-              className="rating-bar-inner"
-              id="five-star-bar"
-              style={{ width: `${starBars(ratingData.ratings[5], ratingData.ratings)}%` }}
-            />
-          </div>
-          <h4 className="individual-total-ratings">{ratingData.ratings[5] ? ratingData.ratings[5] : 0}</h4>
-        </div>
-        {/* 4 star bar */}
-        <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="4">
-          <h4 className="star-header">4 stars</h4>
-          <div className="rating-bar-outer" index="4">
-            <div className="rating-bar-inner" id="four-star-bar" style={{ width: `${starBars(ratingData.ratings[4], ratingData.ratings)}%` }} />
-          </div>
-          <h4 className="individual-total-ratings">{ratingData.ratings[4] ? ratingData.ratings[4] : 0}</h4>
-        </div>
-        {/* 3 star bar */}
-        <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="3">
-          <h4 className="star-header">3 stars</h4>
-          <div className="rating-bar-outer" index="3">
-            <div className="rating-bar-inner" id="three-star-bar" style={{ width: `${starBars(ratingData.ratings[3], ratingData.ratings)}%` }} />
-          </div>
-          <h4 className="individual-total-ratings">{ratingData.ratings[3] ? ratingData.ratings[3] : 0}</h4>
-        </div>
-        {/* 2 star bar */}
-        <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="2">
-          <h4 className="star-header">2 stars</h4>
-          <div className="rating-bar-outer" index="2">
-            <div className="rating-bar-inner" id="two-star-bar" style={{ width: `${starBars(ratingData.ratings[2], ratingData.ratings)}%` }} />
-          </div>
-          <h4 className="individual-total-ratings">{ratingData.ratings[2] ? ratingData.ratings[2] : 0}</h4>
-        </div>
-        {/* 1 star bar */}
-        <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="1">
-          <h4 className="star-header">1 stars</h4>
-          <div className="rating-bar-outer" index="1">
-            <div className="rating-bar-inner" id="one-star-bar" style={{ width: `${starBars(ratingData.ratings[1], ratingData.ratings)}%` }} />
-          </div>
-          <h4 className="individual-total-ratings">{ratingData.ratings[1] ? ratingData.ratings[1] : 0}</h4>
-        </div>
-      </div>
-
-      <div className="rating-percent">
-        {`${getRecommended(ratingData.recommended)}% of reviews recommend this product`}
-      </div>
-
-      <ProductBreakdown ratingData={ratingData} />
     </div>
-  );
-};
+
+    <div className="rating-stars">
+      {/* 5 star bar */}
+      <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="5">
+        <h4 className="star-header">5 stars</h4>
+        <div className="rating-bar-outer" index="5">
+          <div
+            className="rating-bar-inner"
+            id="five-star-bar"
+            style={{ width: `${starBars(ratingData.ratings[5], ratingData.ratings)}%` }}
+          />
+        </div>
+        <h4 className="individual-total-ratings">{ratingData.ratings[5] ? ratingData.ratings[5] : 0}</h4>
+      </div>
+      {/* 4 star bar */}
+      <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="4">
+        <h4 className="star-header">4 stars</h4>
+        <div className="rating-bar-outer" index="4">
+          <div className="rating-bar-inner" id="four-star-bar" style={{ width: `${starBars(ratingData.ratings[4], ratingData.ratings)}%` }} />
+        </div>
+        <h4 className="individual-total-ratings">{ratingData.ratings[4] ? ratingData.ratings[4] : 0}</h4>
+      </div>
+      {/* 3 star bar */}
+      <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="3">
+        <h4 className="star-header">3 stars</h4>
+        <div className="rating-bar-outer" index="3">
+          <div className="rating-bar-inner" id="three-star-bar" style={{ width: `${starBars(ratingData.ratings[3], ratingData.ratings)}%` }} />
+        </div>
+        <h4 className="individual-total-ratings">{ratingData.ratings[3] ? ratingData.ratings[3] : 0}</h4>
+      </div>
+      {/* 2 star bar */}
+      <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="2">
+        <h4 className="star-header">2 stars</h4>
+        <div className="rating-bar-outer" index="2">
+          <div className="rating-bar-inner" id="two-star-bar" style={{ width: `${starBars(ratingData.ratings[2], ratingData.ratings)}%` }} />
+        </div>
+        <h4 className="individual-total-ratings">{ratingData.ratings[2] ? ratingData.ratings[2] : 0}</h4>
+      </div>
+      {/* 1 star bar */}
+      <div className="rating-bar-section" onClick={(e) => { getFilters(e); }} onKeyDown={getFilters} role="option" tabIndex="-1" aria-selected="false" index="1">
+        <h4 className="star-header">1 stars</h4>
+        <div className="rating-bar-outer" index="1">
+          <div className="rating-bar-inner" id="one-star-bar" style={{ width: `${starBars(ratingData.ratings[1], ratingData.ratings)}%` }} />
+        </div>
+        <h4 className="individual-total-ratings">{ratingData.ratings[1] ? ratingData.ratings[1] : 0}</h4>
+      </div>
+    </div>
+
+    <div className="rating-percent">
+      {`${getRecommended(ratingData.recommended)}% of reviews recommend this product`}
+    </div>
+
+    <ProductBreakdown ratingData={ratingData} />
+  </div>
+);
 
 RatingBreakdown.propTypes = {
   ratingData: PropTypes.shape(),
@@ -138,7 +136,7 @@ RatingBreakdown.propTypes = {
 
 RatingBreakdown.defaultProps = {
   ratingData: {},
-  getFilters: [],
+  getFilters: () => {},
 };
 
 export default RatingBreakdown;

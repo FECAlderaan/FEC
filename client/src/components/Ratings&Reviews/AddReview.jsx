@@ -25,7 +25,7 @@ class AddReview extends React.Component {
       bodyWordCount: 0,
       bodyWordCountCheck: false,
       photos: [],
-      urlPhotos: [],
+      // urlPhotos: [],
       productName: '',
       // error checking
       ratingError: false,
@@ -45,7 +45,7 @@ class AddReview extends React.Component {
   getProductName() {
     const { productId } = this.props;
     $.ajax({
-      url: `http://localhost:8080/atelier/products/${productId}`,
+      url: `/atelier/products/${productId}`,
       type: 'GET',
       success: (data) => {
         this.setState({
@@ -134,9 +134,6 @@ class AddReview extends React.Component {
 
   modalBody(e) {
     const { newReview } = this.state;
-    if (newReview.body.length < 50) {
-
-    }
     this.setState({
       newReview: {
         ...newReview,
@@ -188,7 +185,7 @@ class AddReview extends React.Component {
   }
 
   modalEmail(e) {
-    const { newReview, emailError } = this.state;
+    const { newReview } = this.state;
     this.setState({
       newReview: {
         ...newReview,
@@ -233,11 +230,13 @@ class AddReview extends React.Component {
       });
     }
     if (Object.entries(newReview.characteristics).length
+      // eslint-disable-next-line react/prop-types
       !== Object.entries(ratingData.characteristics).length) {
       this.setState({
         characteristicsError: true,
       });
       return;
+    // eslint-disable-next-line no-else-return
     } else {
       this.setState({
         characteristicsError: false,
@@ -265,6 +264,7 @@ class AddReview extends React.Component {
         nicknameError: false,
       });
     }
+    // eslint-disable-next-line no-useless-escape
     const emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (emailCheck.test(newReview.email)) {
       this.setState({
@@ -277,7 +277,7 @@ class AddReview extends React.Component {
     }
 
     $.ajax({
-      url: 'http://localhost:8080/atelier/reviews',
+      url: '/atelier/reviews',
       type: 'POST',
       data: JSON.stringify(newReview),
       contentType: 'application/json',
@@ -321,6 +321,7 @@ class AddReview extends React.Component {
         <div className="add-review-modal-content">
           <span className="close-modal" onClick={closeModal} onKeyDown={closeModal} role="button" tabIndex="-1">&times;</span>
           <h1>Write Your Review</h1>
+          {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
           <h2>About the {productName}</h2>
           <form>
             <div className="add-review-form-container">
@@ -449,7 +450,7 @@ class AddReview extends React.Component {
                 <p><i>For authentication reasons, you will not be emailed</i></p>
               </div>
             </div>
-            <button onClick={(e) => { this.submitReview(e); }} type="submit" className="modal-submit-button" >Submit</button>
+            <button onClick={(e) => { this.submitReview(e); }} type="submit" className="modal-submit-button">Submit</button>
           </form>
         </div>
       </div>
