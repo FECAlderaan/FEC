@@ -24,7 +24,6 @@ body * {
   width: 100%;
   height: 60px;
   font-size: 40px;
-  font-style: italic;
   display: flex;
   align-items: center;
   color: #d1d2cd;
@@ -40,6 +39,8 @@ body * {
 #header span {
   margin-left: 15px;
   margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
 }
 
 #header #dark-mode-button,
@@ -74,6 +75,7 @@ body * {
   top: 14px;
   color: #021936;
   font-weight: bold;
+  letter-spacing: normal;
 }
 
 #header #cart .cart-dropdown {
@@ -314,6 +316,10 @@ body * {
 #productOverview .thumbnail.selected {
   opacity: 1;
   border-bottom: 2px solid #021936;
+}
+
+.dark-mode #productOverview .thumbnail.selected {
+  border-bottom: 2px solid #d1d2cd;
 }
 
 #productOverview .changeThumbnails.previous,
