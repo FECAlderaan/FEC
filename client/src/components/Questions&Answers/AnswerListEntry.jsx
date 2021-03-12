@@ -66,7 +66,7 @@ class AnswerListEntry extends React.Component {
   // Render a button that can only be clicked once for marking a helpful answer
   renderHelpfulButton() {
     const { markedHelpful } = this.state;
-    let helpfulButton = <span class="link" role="button" onClick={this.markHelpful}>Yes</span>;
+    let helpfulButton = <span className="link" role="button" onClick={this.markHelpful}>Yes</span>;
     if (markedHelpful) {
       helpfulButton = <span>Yes</span>;
     }
