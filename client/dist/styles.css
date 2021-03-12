@@ -608,6 +608,27 @@ body * {
   border: 1px solid #d1d2cd;
 }
 
+.dark-mode .modal-content input{
+  background-color: #6d7d94;
+  color: #d1d2cd;
+  border: 1px solid #d1d2cd;
+}
+.dark-mode .modal-content textarea{
+  background-color: #6d7d94;
+  color: #d1d2cd;
+  border: 1px solid #d1d2cd;
+}
+.dark-mode .modal-content input::placeholder{
+  color: #d1d2cd;
+}
+.dark-mode .modal-content textarea::placeholder{
+  color: #d1d2cd;
+}
+.dark-mode .modal-content {
+  background-color: rgb(15 50 95);
+}
+
+
 .dark-mode .questions-answers * {
   color: #d1d2cd;
 }
