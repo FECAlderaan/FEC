@@ -5,21 +5,22 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "npx webpack -w",
+    "dev": "npx webpack -w",
+    "build": "npx webpack",
     "start": "nodemon ./server/index.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/handelc22/FEC.git"
+    "url": "git+https://github.com/abachant/FEC.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/handelc22/FEC/issues"
+    "url": "https://github.com/abachant/FEC/issues"
   },
-  "homepage": "https://github.com/handelc22/FEC",
+  "homepage": "https://github.com/abachant/FEC",
   "dependencies": {
     "@babel/cli": "^7.13.0",
     "@babel/core": "^7.13.1",
