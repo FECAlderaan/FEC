@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "dev": "npx webpack -w",
-    "build": "npx webpack",
+    "build": "npx webpack && npm run start",
     "start": "nodemon ./server/index.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
